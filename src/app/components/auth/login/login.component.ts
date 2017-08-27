@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 
+import { AuthService } from "../../../services/auth/auth.service";
+
 @Component({
   selector: 'ic-login',
   templateUrl: './login.component.html',
@@ -8,9 +10,11 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authService:AuthService) { }
 
   loginForm: FormGroup;
+  error: false;
+  errors: string[];
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -26,7 +30,15 @@ export class LoginComponent implements OnInit {
     return this.loginForm.get('password');
   }
   onSubmit() {
-    console.log(this.loginForm);
+    let username = this.loginForm.value.username;
+    let password = this.loginForm.value.password;    
+    this.authService.authenticate(username, password).subscribe((response: any) => {
+      console.log(response);
+      if(response.error){
+        this.error = response.error;
+        this.errors = response.msg;
+      }
+    });
   }
 
 }

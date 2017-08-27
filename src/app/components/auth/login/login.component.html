@@ -1,6 +1,7 @@
 <div class="ui grid">
-    <div class="four wide column computer only"></div>
-    <div class="eight wide column computer only">
+    <div class="four wide column"></div>
+    <div class="eight wide column">
+      <ic-message *ngIf="error" title="Sorry!" type="negative" [messages]="errors"></ic-message>
       <div class="ui raised segment">
         <h1 class="text-center"><i class="fa fa-user"></i> Login</h1>
         <form [formGroup] = "loginForm" class="ui form" (ngSubmit)="onSubmit()">
