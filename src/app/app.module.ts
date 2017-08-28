@@ -8,10 +8,13 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { routing } from '../routes/app.routes';
 import { LoginComponent } from './components/auth/login/login.component';
+import { MessageComponent } from './components/shared/message/message.component';
+
 
 import { AuthService } from "./services/auth/auth.service";
 import { AppService } from "./services/app/app.service";
-import { MessageComponent } from './components/shared/message/message.component';
+import { JwtHelper } from "angular2-jwt";
+import { AuthGuard } from "./guards/auth/auth.guard";
 
 @NgModule({
   declarations: [
@@ -30,7 +33,9 @@ import { MessageComponent } from './components/shared/message/message.component'
   ],
   providers: [   
     AuthService, 
-    AppService
+    AppService,
+    JwtHelper,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

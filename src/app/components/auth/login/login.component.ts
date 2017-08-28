@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
 
 import { AuthService } from "../../../services/auth/auth.service";
 
@@ -10,7 +11,7 @@ import { AuthService } from "../../../services/auth/auth.service";
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService:AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   loginForm: FormGroup;
   error: false;
@@ -37,6 +38,10 @@ export class LoginComponent implements OnInit {
       if(response.error){
         this.error = response.error;
         this.errors = response.msg;
+      }
+      else{
+        // Create session for the user
+        this.authService.createSession(response);
       }
     });
   }
