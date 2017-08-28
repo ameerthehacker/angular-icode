@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
 
 import { AuthService } from "../../services/auth/auth.service";
 
@@ -8,7 +9,7 @@ import { AuthService } from "../../services/auth/auth.service";
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -16,6 +17,7 @@ export class NavbarComponent implements OnInit {
   onLogoutClick($event) {
     $event.preventDefault();
     this.authService.destroySession();
+    this.router.navigate(['/auth/login']);
   }
 
 }

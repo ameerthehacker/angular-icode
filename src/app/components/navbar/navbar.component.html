@@ -2,6 +2,7 @@
   <a [routerLink]="['/']" class="item">ICode</a>
   <div class="right menu">
     <a *ngIf="!authService.isLoggedIn()" [routerLink]="['/auth/login']" class="item">Login</a>
+    <a *ngIf="authService.isLoggedIn()" [routerLink]="['/challenges']" class="item">Challenges</a>         
     <a *ngIf="authService.isLoggedIn()" (click)="onLogoutClick($event)" href="#" class="item">Logout</a>    
   </div>
 </div>

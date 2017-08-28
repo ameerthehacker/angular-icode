@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   error: false;
   errors: string[];
+  btnLoginText: string = "Login";
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -32,7 +33,8 @@ export class LoginComponent implements OnInit {
   }
   onSubmit() {
     let username = this.loginForm.value.username;
-    let password = this.loginForm.value.password;    
+    let password = this.loginForm.value.password; 
+    this.btnLoginText = "Checking...";
     this.authService.authenticate(username, password).subscribe((response: any) => {
       console.log(response);
       if(response.error){
@@ -41,8 +43,10 @@ export class LoginComponent implements OnInit {
       }
       else{
         // Create session for the user
+        this.router.navigate(['/']);
         this.authService.createSession(response);
       }
+      this.btnLoginText = "Login";    
     });
   }
 
