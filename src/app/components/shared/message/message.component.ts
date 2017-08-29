@@ -8,6 +8,7 @@ export class MessageComponent implements OnInit {
 
   @Input() title:string = ""; 
   @Input() type:string = "";  
+  @Input() class:string = "";    
   @Input() dismissible:boolean = false;
   @Input() messages: string[] | string;
 

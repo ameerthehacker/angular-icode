@@ -14,9 +14,12 @@ import { ChallengeComponent } from './components/challenges/challenge/challenge.
 
 import { AuthService } from "./services/auth/auth.service";
 import { AppService } from "./services/app/app.service";
+import { FlashMessageService } from "./services/flash-message/flash-message.service";
 import { JwtHelper } from "angular2-jwt";
 import { AuthGuard } from "./guards/auth/auth.guard";
 import { ChallengesListComponent } from './components/challenges/challenges-list/challenges-list.component';
+import { ChallengesFormComponent } from './components/challenges/challenges-form/challenges-form.component';
+import { FlashMessageComponent } from './components/shared/flash-message/flash-message.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,9 @@ import { ChallengesListComponent } from './components/challenges/challenges-list
     MessageComponent,
     ChallengesComponent,
     ChallengeComponent,
-    ChallengesListComponent
+    ChallengesListComponent,
+    ChallengesFormComponent,
+    FlashMessageComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +45,8 @@ import { ChallengesListComponent } from './components/challenges/challenges-list
     AuthService, 
     AppService,
     JwtHelper,
-    AuthGuard
+    AuthGuard,
+    FlashMessageService
   ],
   bootstrap: [AppComponent]
 })

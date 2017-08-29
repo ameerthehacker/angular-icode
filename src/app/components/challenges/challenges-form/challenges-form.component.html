@@ -1,0 +1,66 @@
+<div class="ui grid">
+  <div class="two wide column"></div>
+  <div class="twelve wide column">
+    <form class="ui form" [formGroup]="challengesForm">
+      <div class="field">
+        <label for="title">Title</label>
+        <input id="title" formControlName="title" type="text" placeholder="Title of the challenge">
+        <div class="error-field" *ngIf="!title.valid && title.touched">
+          title is required
+        </div>
+      </div>
+      <div class="field">
+        <label for="problemStatement">Problem Statement</label>
+        <textarea id="problemStatement" formControlName="problemStatement" placeholder="Problem to be solved" rows="3"></textarea>
+        <div class="error-field" *ngIf="!problemStatement.valid && problemStatement.touched">
+          problem statement is required
+        </div>
+      </div>
+      <div class="field">
+        <label for="inputFormat">Input Format</label>
+        <textarea id="inputFormat" formControlName="inputFormat" placeholder="The format of input" rows="3"></textarea>
+        <div class="error-field" *ngIf="!inputFormat.valid && inputFormat.touched">
+          input format is required
+        </div>
+      </div>
+      <div class="field">
+        <label for="outputFormat">Output Format</label>
+        <textarea id="outputFormat" formControlName="outputFormat" placeholder="The format of output" rows="3"></textarea>
+        <div class="error-field" *ngIf="!outputFormat.valid && outputFormat.touched">
+           output format is required
+        </div>
+      </div>
+      <div class="field">
+        <label for="inputFormat">Constraints</label>
+        <textarea id="inputFormat" formControlName="constraints" placeholder="The format of input" rows="3"></textarea>
+        <div class="error-field" *ngIf="!constraints.valid && constraints.touched">
+          constraints is required
+        </div>
+      </div>
+      <div class="field">
+        <label for="sampleInput">Sample Input</label>
+        <textarea id="sampleInput" formControlName="sampleInput" placeholder="Example input" rows="3"></textarea>
+        <div class="error-field" *ngIf="!sampleInput.valid && sampleInput.touched">
+          sample input is required
+        </div>
+      </div>
+      <div class="field">
+        <label for="sampleOutput">Sample Output</label>
+        <textarea id="sampleOutput" formControlName="sampleOutput" placeholder="Example ouput" rows="3"></textarea>
+        <div class="error-field" *ngIf="!sampleOutput.valid && sampleOutput.touched">
+          sample output is required
+        </div>
+      </div>
+      <div class="field">
+        <label for="explanation">Explanation</label>
+        <textarea id="explanation" formControlName="explanation" placeholder="Explanation for the example" rows="3"></textarea>
+        <div class="error-field" *ngIf="!explanation.valid && explanation.touched">
+          explanation is required
+        </div>
+      </div>
+      <div class="field">
+        <button (click)="onSubmitClick()" class="ui button positive" [disabled]="!challengesForm.valid">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>

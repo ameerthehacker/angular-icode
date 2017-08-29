@@ -6,13 +6,13 @@
         <h1 class="text-center"><i class="fa fa-user"></i> Login</h1>
         <form [formGroup] = "loginForm" class="ui form" (ngSubmit)="onSubmit()">
           <div class="field">
-            <input type="text" formControlName="username" name="username" autofocus="true" placeholder="Username">
+            <input type="text" formControlName="username" autofocus="true" placeholder="Username">
             <div class="error-field" *ngIf="!username.valid && username.touched">
               username is required
             </div>
           </div>
           <div class="field">
-            <input type="password" formControlName="password" name="password" placeholder="Passoword">
+            <input type="password" formControlName="password" placeholder="Passoword">
             <div class="error-field" *ngIf="!password.valid && password.touched">
               password is required
             </div>

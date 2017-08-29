@@ -9,19 +9,19 @@ $fa-font-path: "../node_modules/font-awesome/fonts" !default;
 @import "../node_modules/font-awesome/scss/font-awesome.scss";
 
 
-body{
+body {
     margin-top: 80px;
 }
 
-.text-center{
+.text-center {
     text-align: center;
 }
 
-input[type=text].ng-invalid.ng-touched, input[type=password].ng-invalid.ng-touched{
+input[type=text].ng-invalid.ng-touched, input[type=password].ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
     border: 1px solid #f00 !important;
 }
 
-.error-field{
+.error-field {
     font-size: small;
     color: #f00;
 }

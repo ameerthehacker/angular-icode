@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 
 import { AuthService } from "../../../services/auth/auth.service";
+import { FlashMessageService } from "../../../services/flash-message/flash-message.service";
 
 @Component({
   selector: 'ic-login',
@@ -11,7 +12,7 @@ import { AuthService } from "../../../services/auth/auth.service";
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private flashMessageService: FlashMessageService) { }
 
   loginForm: FormGroup;
   error: false;
@@ -44,6 +45,7 @@ export class LoginComponent implements OnInit {
       else{
         // Create session for the user
         this.router.navigate(['/']);
+        this.flashMessageService.addFlashMessage(['You are logged in!']);
         this.authService.createSession(response);
       }
       this.btnLoginText = "Login";    
