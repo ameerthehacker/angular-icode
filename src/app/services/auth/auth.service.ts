@@ -2,23 +2,22 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers } from "@angular/http";
 import { JwtHelper } from "angular2-jwt";
 import { Router } from "@angular/router";
-import { Observable,  } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Rx';
 import 'rxjs/Rx';
 
 import { AppService } from "../app/app.service";
 import { FlashMessageService } from "../flash-message/flash-message.service";
+import { ShowProgressService } from "../show-progress/show-progress.service";
 
 
 @Injectable()
 export class AuthService {
 
-  constructor(private http: Http, private app: AppService, private jwtHelper: JwtHelper, private router: Router, private flashMessageService: FlashMessageService) { }
+  constructor(private http: Http, private app: AppService, private jwtHelper: JwtHelper, private router: Router, private flashMessageService: FlashMessageService, private showProgressService: ShowProgressService) { }
 
-  get(uri: string): Observable<any> {
-    let headers = new Headers();
-    headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    return this.http.get(this.app.getUrl(uri), { headers: headers })
-    .map((response: Response) => response.json())
+  private interceptRequest(observable: Observable<any>): Observable<any> {
+    // Make the return data as json and catch error if any
+    observable.map((response: Response) => response.json())
     .catch((err: any) => {
       console.log(err);
       if(err.status == 401) {
@@ -27,20 +26,28 @@ export class AuthService {
       }
       return Observable.throw(err);
     });
+    // Show load progress
+    this.showProgressService.showProgress("Processing...");
+    // Add event to the observable to hide load progress
+    observable.subscribe(null, null, () => {
+      this.showProgressService.hideProgress();
+    });
+    // return the modifies observable
+    return observable;
+  }
+  get(uri: string): Observable<any> {
+    let headers = new Headers();    
+    // Set authorization headers
+    headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    let observable: Observable<any> = this.http.get(this.app.getUrl(uri), { headers: headers });
+    return this.interceptRequest(observable);
   }
   post(uri: string, body: Object): Observable<any> {
-    let headers = new Headers();
+    let headers = new Headers();    
+    // Set authorization headers
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    return this.http.post(this.app.getUrl(uri), body, { headers: headers })
-    .map((response: Response) => response.json())
-    .catch((err: any) => {
-      console.log(err);
-      if(err.status == 401) {
-        this.flashMessageService.addFlashMessage(['Please login again!'], 'negative');        
-        this.router.navigate(['/auth/login']);
-      }
-      return Observable.throw(err);
-    });
+    let observable: Observable<any> = this.http.post(this.app.getUrl(uri), body, { headers: headers });
+    return this.interceptRequest(observable);
   }
   authenticate(username: string, password: string) {
     let body = { username: username, password: password };

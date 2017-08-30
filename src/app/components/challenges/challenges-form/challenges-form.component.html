@@ -59,7 +59,7 @@
         </div>
       </div>
       <div class="field">
-        <button (click)="onSubmitClick()" class="ui button positive" [disabled]="!challengesForm.valid">Submit</button>
+        <input type="submit" [value]="btnSubmitText" (click)="onSubmitClick()" class="ui button positive" [disabled]="!challengesForm.valid"/>
       </div>
     </form>
   </div>

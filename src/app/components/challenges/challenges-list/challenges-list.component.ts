@@ -10,5 +10,6 @@ export class ChallengesListComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    this.authService.get('challenges').subscribe();
   }
 }

@@ -14,6 +14,7 @@ import { FlashMessageService } from "../../../services/flash-message/flash-messa
 export class ChallengesFormComponent implements OnInit {
 
   challengesForm: FormGroup;
+  btnSubmitText: string = "Submit";
 
   constructor(private authService: AuthService, private flashMessageService: FlashMessageService, private router: Router) { }
 
@@ -41,6 +42,7 @@ export class ChallengesFormComponent implements OnInit {
     challenge.sampleOutput = this.sampleOutput.value;
     challenge.explanation = this.explanation.value;
 
+    this.btnSubmitText = "Saving...";
     this.authService.post('challenges/create', challenge).subscribe((response: any) => {
       if(!response.error){
         this.flashMessageService.addFlashMessage(['The challenge was created!']);
