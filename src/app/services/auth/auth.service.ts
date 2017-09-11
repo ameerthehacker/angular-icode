@@ -33,7 +33,7 @@ export class AuthService {
       this.showProgressService.hideProgress();
     });
     // return the modifies observable
-    return observable;
+    return observable.map((response: Response) => response.json());
   }
   get(uri: string): Observable<any> {
     let headers = new Headers();    

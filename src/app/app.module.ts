@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { CodemirrorModule } from "ng2-codemirror";
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -22,6 +23,8 @@ import { ChallengesListComponent } from './components/challenges/challenges-list
 import { ChallengesFormComponent } from './components/challenges/challenges-form/challenges-form.component';
 import { FlashMessageComponent } from './components/shared/flash-message/flash-message.component';
 import { ProgressComponent } from './components/shared/progress/progress.component';
+import { ChallengeSubmissionComponent } from './components/challenges/challenge-submission/challenge-submission.component';
+import { CodeEditorComponent } from './components/code-editor/code-editor.component';
 
 @NgModule({
   declarations: [
@@ -35,14 +38,17 @@ import { ProgressComponent } from './components/shared/progress/progress.compone
     ChallengesListComponent,
     ChallengesFormComponent,
     FlashMessageComponent,
-    ProgressComponent
+    ProgressComponent,
+    ChallengeSubmissionComponent,
+    CodeEditorComponent
   ],
   imports: [
     BrowserModule,
     routing,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule
+    HttpModule,
+    CodemirrorModule
   ],
   providers: [   
     AuthService, 

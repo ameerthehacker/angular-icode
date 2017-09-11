@@ -25,3 +25,23 @@ input[type=text].ng-invalid.ng-touched, input[type=password].ng-invalid.ng-touch
     font-size: small;
     color: #f00;
 }
+.no-padding {
+    padding: 0px !important;
+}
+.pull-left {
+    float: left;
+}
+.pull-right {
+    float: right;
+}
+.clearfix:after {
+    display: block;
+    content: "";
+    clear: both;
+}
+select.form-control {
+    padding: 10px;
+    border-radius: 5px;
+    border: 0px;
+    background: #fff;
+}

@@ -19,11 +19,14 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "ic",
       "styles": [
+        "../node_modules/codemirror/lib/codemirror.css",                   
         "styles.scss"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",
         "../node_modules/semantic-ui-sass/js/transition.js",        
+        "../node_modules/semantic-ui-sass/js/dropdown.js",                
+        "../node_modules/codemirror/lib/codemirror.js",    
         "scripts.js"
       ],
       "environmentSource": "environments/environment.ts",

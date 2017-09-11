@@ -1,0 +1,15 @@
+<div class="ui segments">
+  <div class="ui secondary segment clearfix">
+    <div class="pull-left">
+      <h1>Current Buffer</h1>
+    </div>
+    <select (change)="onLanguageChange($event)" class="pull-right form-control">
+      <option value="text/x-csrc">C</option>
+      <option value="text/x-c++src">C++</option>
+      <option value="text/x-python">Python</option>      
+    </select>
+  </div>
+  <div class="ui segment no-padding">
+    <codemirror [config]="configs"></codemirror>
+  </div>
+</div>

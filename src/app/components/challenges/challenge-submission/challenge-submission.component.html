@@ -1,0 +1,27 @@
+<div *ngIf="challenge">
+    <div class="ui grid">
+        <div class="row">
+            <div class="column sixteen wide">
+                <h1>Problem Statement</h1>
+                <p>{{ challenge.problemStatement }}</p>
+                <h1>Input Format</h1>
+                <p>{{ challenge.inputFormat }}</p>
+                <h1>Output Format</h1>
+                <p>{{ challenge.outputFormat }}</p>
+                <h1>Constraints</h1>
+                <p>{{ challenge.constraints }}</p>
+                <h1>Sample Input</h1>
+                <p>{{ challenge.sampleInput }}</p>
+                <h1>Sample Output</h1>
+                <p>{{ challenge.sampleOutput }}</p>
+                <h1>Explanation</h1>
+                <p>{{ challenge.explanation }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column sixteen wide">
+                <ic-code-editor></ic-code-editor>
+            </div>
+        </div>
+    </div>
+</div>
