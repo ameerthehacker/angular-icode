@@ -1,1 +1,7 @@
-<ic-challenge *ngFor="let challenge of challenges" [challenge]="challenge"></ic-challenge>
+<div class="ui grid">
+    <div class="row" *ngFor="let challenge of challenges">
+        <div class="column sixteen wide">
+            <ic-challenge  [challenge]="challenge"></ic-challenge>
+        </div>
+    </div>
+</div>
