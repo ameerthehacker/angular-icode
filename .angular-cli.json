@@ -26,7 +26,9 @@
         "../node_modules/jquery/dist/jquery.min.js",
         "../node_modules/semantic-ui-sass/js/transition.js",        
         "../node_modules/semantic-ui-sass/js/dropdown.js",                
-        "../node_modules/codemirror/lib/codemirror.js",    
+        "../node_modules/codemirror/lib/codemirror.js", 
+        "../node_modules/codemirror/mode/python/python.js", 
+        "../node_modules/codemirror/mode/clike/clike.js",                    
         "scripts.js"
       ],
       "environmentSource": "environments/environment.ts",
