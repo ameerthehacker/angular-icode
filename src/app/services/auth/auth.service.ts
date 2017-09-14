@@ -15,39 +15,39 @@ export class AuthService {
 
   constructor(private http: Http, private app: AppService, private jwtHelper: JwtHelper, private router: Router, private flashMessageService: FlashMessageService, private showProgressService: ShowProgressService) { }
 
-  private interceptRequest(observable: Observable<any>): Observable<any> {
+  private interceptRequest(observable: Observable<any>, callback): Observable<any> {
+    // Show load progress
+    this.showProgressService.showProgress("Processing...");
     // Make the return data as json and catch error if any
     observable.map((response: Response) => response.json())
     .catch((err: any) => {
-      console.log(err);
       if(err.status == 401) {
         this.flashMessageService.addFlashMessage(['Please login again!'], 'negative');
         this.router.navigate(['/auth/login']);
       }
       return Observable.throw(err);
-    });
-    // Show load progress
-    this.showProgressService.showProgress("Processing...");
-    // Add event to the observable to hide load progress
-    observable.subscribe(null, null, () => {
+    })
+    .subscribe(callback, null, () => {
       this.showProgressService.hideProgress();
     });
     // return the modifies observable
-    return observable.map((response: Response) => response.json());
+    return observable;
   }
-  get(uri: string): Observable<any> {
+  get(uri: string, callback): Observable<any> {
     let headers = new Headers();    
     // Set authorization headers
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    headers.append('Content-Type', 'application/json');    
     let observable: Observable<any> = this.http.get(this.app.getUrl(uri), { headers: headers });
-    return this.interceptRequest(observable);
+    return this.interceptRequest(observable, callback);
   }
-  post(uri: string, body: Object): Observable<any> {
+  post(uri: string, body: Object, callback): Observable<any> {
     let headers = new Headers();    
     // Set authorization headers
     headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    headers.append('Content-Type', 'application/json');    
     let observable: Observable<any> = this.http.post(this.app.getUrl(uri), body, { headers: headers });
-    return this.interceptRequest(observable);
+    return this.interceptRequest(observable, callback);
   }
   authenticate(username: string, password: string) {
     let body = { username: username, password: password };

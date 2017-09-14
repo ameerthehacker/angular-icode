@@ -19,7 +19,7 @@ export class ChallengeSubmissionComponent implements OnInit {
   ngOnInit() {
     // Get the actual challenge data
     this.actiavtedRoute.params.subscribe((params) => {
-      this.authService.get('challenges/' + params['slug']).subscribe((response: any) => {
+      this.authService.get('challenges/' + params['slug'], (response: any) => {
         if(!response.error) {
           this.challenge = response.msg;       
         }

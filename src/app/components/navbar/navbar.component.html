@@ -1,8 +1,8 @@
-<div class="ui fixed inverted massive menu">
-  <a [routerLink]="['/']" class="item">ICode</a>
+<div class="ui fixed massive menu">
+  <a [routerLink]="['/']" class="item"><i class="fa fa-cubes"></i>&nbsp; I&#123;Code&#125;</a>
   <div class="right menu">
     <a *ngIf="!authService.isLoggedIn()" [routerLink]="['/auth/login']" class="item">Login</a>
-    <a *ngIf="authService.isLoggedIn()" [routerLink]="['/challenges']" class="item">Challenges</a>         
+    <a *ngIf="authService.isLoggedIn()" [routerLink]="['/challenges']" class="item"><i class="fa fa-paper-plane-o"></i> &nbsp; Challenges</a>         
     <a *ngIf="authService.isLoggedIn()" (click)="onLogoutClick($event)" href="#" class="item">Logout</a>    
   </div>
 </div>

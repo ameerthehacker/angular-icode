@@ -8,7 +8,8 @@ export class Challenge {
     sampleInput: string;
     sampleOutput: string;
     explanation: string;
-    slug: string
+    slug: string;
+    testCases: Array<Object>;
 
     constructor() {}
 }

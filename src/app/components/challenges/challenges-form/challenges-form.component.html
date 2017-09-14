@@ -59,7 +59,30 @@
         </div>
       </div>
       <div class="field">
-        <input type="submit" [value]="btnSubmitText" (click)="onSubmitClick()" class="ui button positive" [disabled]="!challengesForm.valid"/>
+        <label>Test Cases</label>
+      </div>
+      <div class="field" formArrayName="testCases" *ngFor="let testCase of challengesForm.get('testCases').controls; let i = index">
+        <div [formGroupName]="i">
+            <div class="field">
+                <label for="input-{{ i + 1 }}">Input {{ i + 1 }}</label>
+                <textarea id="input-{{ i + 1 }}" rows="3" formControlName="input" placeholder="Input to the program"></textarea>
+                <div class="error-field" *ngIf="!input(i).valid && input(i).touched">
+                  input {{ i + 1 }} is required
+                </div>
+                <label for="output-{{ i + 1 }}">Output {{ i + 1 }}</label>
+                <textarea id="output-{{ i + 1 }}" rows="3" formControlName="output" placeholder="Output for the program"></textarea>
+                <div class="error-field" *ngIf="!output(i).valid && output(i).touched">
+                  output {{ i + 1 }} is required
+                </div>
+                <button (click)="onBtnRemoveTestCaseClick(i)" [disabled]="challengesForm.get('testCases').controls.length == 1" class="ui tiny button negative margin-10"><i class="fa fa-trash"></i></button> 
+            </div>
+        </div>
+      </div>
+      <div class="field">
+        <button class="ui tiny primary button" (click)="onBtnAddTestCaseClick()"><i class="fa fa-plus"></i> Add Test Case</button>
+      </div>
+      <div class="field">
+        <input type="submit" [value]="btnSubmitText" [disabled]="isFormSubmitting" (click)="onSubmitClick()" class="ui button positive" [disabled]="!challengesForm.valid"/>
       </div>
     </form>
   </div>

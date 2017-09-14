@@ -13,7 +13,7 @@ export class ChallengesListComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.authService.get('challenges').subscribe((response: any) => {
+    this.authService.get('challenges', (response: any) => {
       if(!response.error) {
         this.challenges = response.msg;
       }

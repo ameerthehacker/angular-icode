@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { FormGroup, FormControl, FormArray, Validators } from "@angular/forms";
 import { Challenge } from "../../../models/challenge";
 import { Router } from "@angular/router";
 
@@ -15,6 +15,7 @@ export class ChallengesFormComponent implements OnInit {
 
   challengesForm: FormGroup;
   btnSubmitText: string = "Submit";
+  isFormSubmitting: boolean = false;
 
   constructor(private authService: AuthService, private flashMessageService: FlashMessageService, private router: Router) { }
 
@@ -27,10 +28,20 @@ export class ChallengesFormComponent implements OnInit {
       'constraints': new FormControl('', Validators.required),      
       'sampleInput': new FormControl('', Validators.required),
       'sampleOutput': new FormControl('', Validators.required),
-      'explanation': new FormControl('', Validators.required)
+      'explanation': new FormControl('', Validators.required),
+      'testCases': new FormArray([
+        this.initTestCaseForm()
+      ])
     });
+    
   }
-
+  private initTestCaseForm() {
+    let testCaseForm = new FormGroup({
+        'input': new FormControl('', Validators.required),
+        'output': new FormControl('', Validators.required)
+      });
+    return testCaseForm;
+  }
   onSubmitClick() {
     let challenge: Challenge = new Challenge();
     challenge.title = this.title.value;
@@ -41,14 +52,31 @@ export class ChallengesFormComponent implements OnInit {
     challenge.sampleInput = this.sampleInput.value;
     challenge.sampleOutput = this.sampleOutput.value;
     challenge.explanation = this.explanation.value;
+    challenge.testCases = [];
+    (<FormArray>this.challengesForm.get('testCases')).controls.forEach((control) => {
+      let testCase = {
+        'input': control.get('input').value,
+        'output': control.get('output').value
+      }
+      challenge.testCases.push(testCase);
+    });
 
     this.btnSubmitText = "Saving...";
-    this.authService.post('challenges/create', challenge).subscribe((response: any) => {
+    this.isFormSubmitting = true;
+    this.authService.post('challenges/create', challenge, (response: any) => {
       if(!response.error){
         this.flashMessageService.addFlashMessage(['The challenge was created!']);
         this.router.navigate(['/challenges']);
       }
+      this.isFormSubmitting = false;
     });
+  }
+  onBtnAddTestCaseClick() {
+    let newTestCaseForm = this.initTestCaseForm();
+    (<FormArray>this.challengesForm.get('testCases')).push(newTestCaseForm);
+  }
+  onBtnRemoveTestCaseClick(i: number) {
+    (<FormArray>this.challengesForm.get('testCases')).removeAt(i);
   }
   get title() {
     return this.challengesForm.get('title');
@@ -73,5 +101,11 @@ export class ChallengesFormComponent implements OnInit {
   }
   get explanation() {
     return this.challengesForm.get('explanation');
+  }
+  input(i) {
+    return (<FormArray>this.challengesForm.get('testCases')).controls[i].get('input');
+  }
+  output(i) {
+    return (<FormArray>this.challengesForm.get('testCases')).controls[i].get('output');
   }
 }
