@@ -22,4 +22,13 @@ export class ChallengesListComponent implements OnInit {
       }
     });
   }
+
+  onChallengeDelete(slug) {
+    this.challenges.forEach((challenge, index) => {
+      if(challenge.slug == slug) {
+        this.challenges.splice(index, 1);
+        return;
+      }
+    });
+  }
 }

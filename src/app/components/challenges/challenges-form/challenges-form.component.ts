@@ -63,7 +63,7 @@ export class ChallengesFormComponent implements OnInit {
 
     this.btnSubmitText = "Saving...";
     this.isFormSubmitting = true;
-    this.authService.post('challenges/create', challenge, (response: any) => {
+    this.authService.post('challenges', challenge, (response: any) => {
       if(!response.error){
         this.flashMessageService.addFlashMessage(['The challenge was created!']);
         this.router.navigate(['/challenges']);

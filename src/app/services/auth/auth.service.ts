@@ -15,6 +15,13 @@ export class AuthService {
 
   constructor(private http: Http, private app: AppService, private jwtHelper: JwtHelper, private router: Router, private flashMessageService: FlashMessageService, private showProgressService: ShowProgressService) { }
 
+  private initHeaders() {
+    let headers = new Headers();    
+    // Set authorization headers
+    headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+    headers.append('Content-Type', 'application/json');    
+    return headers;
+  }
   private interceptRequest(observable: Observable<any>, callback): Observable<any> {
     // Show load progress
     this.showProgressService.showProgress("Processing...");
@@ -34,19 +41,16 @@ export class AuthService {
     return observable;
   }
   get(uri: string, callback): Observable<any> {
-    let headers = new Headers();    
-    // Set authorization headers
-    headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    headers.append('Content-Type', 'application/json');    
-    let observable: Observable<any> = this.http.get(this.app.getUrl(uri), { headers: headers });
+    
+    let observable: Observable<any> = this.http.get(this.app.getUrl(uri), { headers: this.initHeaders() });
     return this.interceptRequest(observable, callback);
   }
   post(uri: string, body: Object, callback): Observable<any> {
-    let headers = new Headers();    
-    // Set authorization headers
-    headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    headers.append('Content-Type', 'application/json');    
-    let observable: Observable<any> = this.http.post(this.app.getUrl(uri), body, { headers: headers });
+    let observable: Observable<any> = this.http.post(this.app.getUrl(uri), body, { headers: this.initHeaders() });
+    return this.interceptRequest(observable, callback);
+  }
+  delete(uri: string, callback): Observable<any> {
+    let observable: Observable<any> = this.http.delete(this.app.getUrl(uri), { headers: this.initHeaders() });
     return this.interceptRequest(observable, callback);
   }
   authenticate(username: string, password: string) {
