@@ -22,9 +22,11 @@ export class AuthService {
     headers.append('Content-Type', 'application/json');    
     return headers;
   }
-  private interceptRequest(observable: Observable<any>, callback): Observable<any> {
-    // Show load progress
-    this.showProgressService.showProgress("Processing...");
+  private interceptRequest(observable: Observable<any>, callback, showProgress: Boolean = true): Observable<any> {
+    if(showProgress) {
+      // Show load progress
+      this.showProgressService.showProgress("Processing...");
+    }
     // Make the return data as json and catch error if any
     observable.map((response: Response) => response.json())
     .catch((err: any) => {
@@ -35,23 +37,24 @@ export class AuthService {
       return Observable.throw(err);
     })
     .subscribe(callback, null, () => {
-      this.showProgressService.hideProgress();
+      if(showProgress) {
+        this.showProgressService.hideProgress();      
+      }
     });
     // return the modifies observable
     return observable;
   }
-  get(uri: string, callback): Observable<any> {
-    
+  get(uri: string, callback, showProgress: Boolean = true): Observable<any> {
     let observable: Observable<any> = this.http.get(this.app.getUrl(uri), { headers: this.initHeaders() });
-    return this.interceptRequest(observable, callback);
+    return this.interceptRequest(observable, callback, showProgress);
   }
-  post(uri: string, body: Object, callback): Observable<any> {
+  post(uri: string, body: Object, callback, showProgress: Boolean = true): Observable<any> {
     let observable: Observable<any> = this.http.post(this.app.getUrl(uri), body, { headers: this.initHeaders() });
-    return this.interceptRequest(observable, callback);
+    return this.interceptRequest(observable, callback, showProgress);
   }
-  delete(uri: string, callback): Observable<any> {
+  delete(uri: string, callback, showProgress: Boolean = true): Observable<any> {
     let observable: Observable<any> = this.http.delete(this.app.getUrl(uri), { headers: this.initHeaders() });
-    return this.interceptRequest(observable, callback);
+    return this.interceptRequest(observable, callback, showProgress);
   }
   authenticate(username: string, password: string) {
     let body = { username: username, password: password };

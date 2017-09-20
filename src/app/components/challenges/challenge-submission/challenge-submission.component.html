@@ -11,16 +11,37 @@
                 <h1>Constraints</h1>
                 <p>{{ challenge.constraints }}</p>
                 <h1>Sample Input</h1>
-                <p>{{ challenge.sampleInput }}</p>
+                <p class="line-break">{{ challenge.sampleInput }}</p>
                 <h1>Sample Output</h1>
-                <p>{{ challenge.sampleOutput }}</p>
+                <p class="line-break">{{ challenge.sampleOutput }}</p>
                 <h1>Explanation</h1>
                 <p>{{ challenge.explanation }}</p>
             </div>
         </div>
         <div class="row">
             <div class="column sixteen wide">
-                <ic-code-editor></ic-code-editor>
+                <ic-code-editor (onLanguageChanged)="onLanguageChanged($event)" [canSubmitCode]="true" (onEditorLoaded)="onEditorLoaded($event)" (onCodeCompiled)="onCodeCompiled($event)"></ic-code-editor>
+            </div>
+        </div>
+        <div class="row" *ngIf="compileMessage">
+            <div class="column sixteen wide">
+                <h4>Compile Message</h4>
+                <div class="gray-box red-text">
+                    <p>{{ compileMessage }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="sampleTestCase">
+            <div class="column sixteen wide">
+                <h4><i [class]="sampleTestCase.passed ? 'fa fa-check': 'fa fa-times'"></i> &nbsp; Sample Testcase</h4>
+                <div class="gray-box">
+                    <h4>Input:</h4>
+                    <p class="line-break">{{ sampleTestCase.input }}</p>
+                    <h4>Expected output: </h4>
+                    <p class="line-break">{{ sampleTestCase.expectedOutput }}</p>
+                    <h4>Your output: </h4>
+                    <p class="line-break">{{ sampleTestCase.output }}</p>
+                </div>
             </div>
         </div>
     </div>

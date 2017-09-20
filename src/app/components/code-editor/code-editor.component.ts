@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+
+import { AuthService } from "../../services/auth/auth.service";
 
 declare var CodeMirror: any;
 
@@ -9,24 +11,79 @@ declare var CodeMirror: any;
 })
 export class CodeEditorComponent implements OnInit {
   
-  constructor() { }
+  @Output()
+  onCodeCompiled: EventEmitter<any> = new EventEmitter<any>();
+  @Output()
+  onCodeSubmited: EventEmitter<any> = new EventEmitter<any>();
+  @Output()
+  onLanguageChanged: EventEmitter<any> = new EventEmitter<any>();
+  @Output()
+  onEditorLoaded: EventEmitter<any> = new EventEmitter<any>();
+  @Input()
+  canSubmitCode: boolean;
+  @Input()
+  isLoading:boolean = true;
+  @Input()
+  btnCompileText = "Compile & Test"
+  codeEditor:any = false;
+  compilers: Array<any>;
+  compiler:any;
+  isSubmitting: boolean = false;
+
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    this.initCodeEditor('text/x-csrc');
+    this.authService.get('compilers', (response: any) => {
+      if(!response.error) {
+        this.compilers = response.msg;
+        this.onEditorLoaded.emit(this.compilers[0]); 
+      }
+      else {
+        // TODO: show internal error message
+      }         
+    }, false);
   }
 
-  private initCodeEditor(mode) {
+  initCodeEditor(compiler: any, code: string) {
     let codeEditor = document.getElementById('code-editor');
-    CodeMirror.fromTextArea(codeEditor, {
-        mode: mode,
+    if(!this.codeEditor) {
+      this.codeEditor = CodeMirror.fromTextArea(codeEditor, {
+        mode: compiler.mode,
         lineNumbers: true
-    });
+      });
+    }
+    else{
+      this.codeEditor.setOption('mode', compiler.mode);
+    }
+    this.compiler = compiler;
+    this.codeEditor.setOption('value', code);    
   }
-
+  setLoadingStatus(status: boolean) {
+    this.isLoading = status;
+  }
+  setCode(code: string) {
+    this.codeEditor.setOption('value', code);
+  }
   onLanguageChange(evt) {
     let target = evt.target;
-    let option = target.options[target.selectedIndex];
-    this.initCodeEditor(option.value);    
+    this.onLanguageChanged.emit(this.compilers[target.selectedIndex]);
+  }
+  setIsSubmitting(status: boolean) {
+    this.isSubmitting = status;
+  }
+  onBtnCompileClick() {
+    let result = {
+      compiler: this.compiler,
+      code: this.codeEditor.getValue()
+    };
+    this.onCodeCompiled.emit(result);
+  }
+  onBtnSubmitClick() {
+    let result = {
+      compiler: this.compiler,
+      code: this.codeEditor.getValue()
+    };
+    this.onCodeSubmited.emit(result);
   }
 
 }

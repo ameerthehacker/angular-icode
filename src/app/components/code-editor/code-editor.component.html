@@ -3,16 +3,16 @@
     <div class="pull-left">
       <h1>Current Buffer</h1>
     </div>
-    <select (change)="onLanguageChange($event)" class="pull-right form-control">
-      <option value="text/x-csrc">C</option>
-      <option value="text/x-c++src">C++</option>
-      <option value="text/x-python">Python</option>      
+    <select *ngIf="!isLoading" (change)="onLanguageChange($event)" class="pull-right form-control">
+      <option *ngFor="let compiler of compilers" [value]="compiler.mode">{{ compiler.language }}</option>     
     </select>
   </div>
   <div class="ui segment no-padding">
-    <textarea id="code-editor"></textarea>
+    <div *ngIf="isLoading" class="ui active text loader">Loading Editor</div>
+    <textarea style="width: 100%; resize: none; border: 0px; height:100%" rows="5" id="code-editor"></textarea>
   </div>
   <div class="ui secondary segment">
-    <button class="ui positive button">Compile &amp; Test</button>
+    <button (click)="onBtnCompileClick()" [disabled]="isLoading ||isSubmitting" class="ui positive button">{{ isSubmitting ? 'Compiling...' : btnCompileText }}</button>
+    <button *ngIf="canSubmitCode" (click)="onBtnSubmitClick()" [disabled]="isLoading || isSubmitting" class="ui primary button">Submit Code</button>
   </div>
 </div>
