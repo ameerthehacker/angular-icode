@@ -43,10 +43,10 @@ export class ChallengeSubmissionComponent implements OnInit {
       }
       this.compileMessage = this.sampleTestCase = false;
       this.codeEditorComponent.setIsSubmitting(true);
-      this.authService.post('challenges/' + params['slug'] + '/submissions', body, (response) => {
+      this.authService.post('challenges/' + params.slug + '/submissions', body, (response) => {
         if(response.error) {
           if(!response.compiled) {
-            this.compileMessage = response.msg[0];
+            this.compileMessage = response.msg;
           }
         }
         else {
@@ -54,7 +54,7 @@ export class ChallengeSubmissionComponent implements OnInit {
             this.sampleTestCase = {
               passed: response.sampleTestCasePassed,
               input: this.challenge.sampleInput,
-              output: response.msg[0],
+              output: response.msg,
               expectedOutput: this.challenge.sampleOutput
             }
         }
