@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { CodemirrorModule } from "ng2-codemirror";
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -48,10 +47,9 @@ import { CodeEditorComponent } from './components/code-editor/code-editor.compon
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    CodemirrorModule
   ],
-  providers: [   
-    AuthService, 
+  providers: [
+    AuthService,
     AppService,
     JwtHelper,
     AuthGuard,
