@@ -9,7 +9,6 @@ import { AppService } from "../app/app.service";
 import { FlashMessageService } from "../flash-message/flash-message.service";
 import { ShowProgressService } from "../show-progress/show-progress.service";
 
-
 @Injectable()
 export class AuthService {
 
@@ -81,6 +80,24 @@ export class AuthService {
       else {
         return true;
       }
+    }
+    else {
+      return false;
+    }
+  }
+  getCurrentUser()  {
+    if(this.isLoggedIn()) {
+      let user = localStorage.getItem('user');
+      return JSON.parse(user);
+    }
+    else {
+      return false;
+    }
+  }
+  getCurrentUserId() {
+    if(this.isLoggedIn()) {
+      let user = localStorage.getItem('user');
+      return JSON.parse(user).id;
     }
     else {
       return false;

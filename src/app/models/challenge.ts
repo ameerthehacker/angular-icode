@@ -9,6 +9,7 @@ export class Challenge {
     sampleOutput: string;
     explanation: string;
     slug: string;
+    userId: string;
     testCases: Array<Object>;
 
     constructor() {}

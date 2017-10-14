@@ -14,10 +14,17 @@ export class ChallengeComponent implements OnInit {
   challenge: Challenge;
   @Output('delete')
   challengeDeleted: EventEmitter<string> = new EventEmitter<string>();
+  userIsOwner: boolean;
 
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
+    if(this.challenge.userId == this.authService.getCurrentUserId()) {
+      this.userIsOwner = true;
+    }
+    else {
+      this.userIsOwner = false;
+    }
   }
   onBtnDeleteChallengeClick(evt) {
     evt.preventDefault();

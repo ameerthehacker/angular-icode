@@ -7,6 +7,6 @@
     </div>
     <div class="extra content">
         <a [routerLink] = "['/challenges', challenge.slug]" class="ui button positive">Solve Challenge</a>
-        <a href="#" class="pull-right" (click)="onBtnDeleteChallengeClick($event)"><i class="fa fa-trash"></i> Delete</a>     
+        <a href="#" class="pull-right" *ngIf="userIsOwner" (click)="onBtnDeleteChallengeClick($event)"><i class="fa fa-trash"></i> Delete</a>     
     </div>
 </div>
