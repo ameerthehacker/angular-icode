@@ -73,7 +73,7 @@ export class ChallengeSubmissionComponent implements OnInit {
           this.codeEditorComponent.initCodeEditor(compiler, compiler.boilerplate);          
         }
         this.codeEditorComponent.isLoading = false;
-      })
+      }, false);
     });
   }
   onEditorLoaded(compiler) {

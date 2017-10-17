@@ -24,6 +24,7 @@ import { FlashMessageComponent } from './components/shared/flash-message/flash-m
 import { ProgressComponent } from './components/shared/progress/progress.component';
 import { ChallengeSubmissionComponent } from './components/challenges/challenge-submission/challenge-submission.component';
 import { CodeEditorComponent } from './components/code-editor/code-editor.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { CodeEditorComponent } from './components/code-editor/code-editor.compon
     FlashMessageComponent,
     ProgressComponent,
     ChallengeSubmissionComponent,
-    CodeEditorComponent
+    CodeEditorComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,

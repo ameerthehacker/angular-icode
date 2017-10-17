@@ -37,7 +37,6 @@ export class LoginComponent implements OnInit {
     let password = this.loginForm.value.password; 
     this.btnLoginText = "Checking...";
     this.authService.authenticate(username, password).subscribe((response: any) => {
-      console.log(response);
       if(response.error){
         this.error = response.error;
         this.errors = response.msg;

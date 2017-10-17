@@ -1,4 +1,5 @@
 <div class="ui fixed massive menu">
+  <a href="#" *ngIf="authService.isLoggedIn()" (click)="onBtnMenuClick($event)" class="item"><i class="sidebar icon"></i></a>        
   <a [routerLink]="['/']" class="item"><i class="fa fa-cubes"></i>&nbsp; I&#123;Code&#125;</a>
   <div class="right menu">
     <a *ngIf="!authService.isLoggedIn()" [routerLink]="['/auth/login']" class="item">Login</a>
