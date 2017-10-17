@@ -25,6 +25,11 @@ import { ProgressComponent } from './components/shared/progress/progress.compone
 import { ChallengeSubmissionComponent } from './components/challenges/challenge-submission/challenge-submission.component';
 import { CodeEditorComponent } from './components/code-editor/code-editor.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { GroupsComponent } from './components/groups/groups.component';
+import { GroupComponent } from './components/groups/group/group.component';
+import { GroupListComponent } from './components/groups/group-list/group-list.component';
+import { GroupFormComponent } from './components/groups/group-form/group-form.component';
+import { GroupProfileComponent } from './components/groups/group-profile/group-profile.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +46,12 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     ProgressComponent,
     ChallengeSubmissionComponent,
     CodeEditorComponent,
-    SidebarComponent
+    SidebarComponent,
+    GroupsComponent,
+    GroupComponent,
+    GroupListComponent,
+    GroupFormComponent,
+    GroupProfileComponent
   ],
   imports: [
     BrowserModule,
