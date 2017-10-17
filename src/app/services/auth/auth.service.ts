@@ -51,6 +51,10 @@ export class AuthService {
     let observable: Observable<any> = this.http.post(this.app.getUrl(uri), body, { headers: this.initHeaders() });
     return this.interceptRequest(observable, callback, showProgress);
   }
+  put(uri: string, body: Object, callback, showProgress: Boolean = true): Observable<any> {
+    let observable: Observable<any> = this.http.put(this.app.getUrl(uri), body, { headers: this.initHeaders() });
+    return this.interceptRequest(observable, callback, showProgress);
+  }
   delete(uri: string, callback, showProgress: Boolean = true): Observable<any> {
     let observable: Observable<any> = this.http.delete(this.app.getUrl(uri), { headers: this.initHeaders() });
     return this.interceptRequest(observable, callback, showProgress);

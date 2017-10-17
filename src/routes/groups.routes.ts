@@ -6,5 +6,6 @@ import { GroupFormComponent } from "../app/components/groups/group-form/group-fo
 export const GROUPS_ROUTE: Routes = [
     { path: '', component: GroupListComponent },
     { path: 'new', component: GroupFormComponent },    
-    { path: ':slug', component: GroupProfileComponent }
+    { path: ':slug', component: GroupProfileComponent },
+    { path: ':slug/edit', component: GroupFormComponent }
 ];

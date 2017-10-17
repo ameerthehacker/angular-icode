@@ -7,6 +7,9 @@
   </div>
   <div class="extra content">
     <a [routerLink]="['/groups', group.slug]" class="ui button positive">View Group</a>
-    <a href="#" *ngIf="isOwner" class="pull-right" (click)="onBtnDeleteClick($event)"><i class="fa fa-trash"></i> Delete</a>
+    <div class="pull-right">
+      <a [routerLink]="['/groups', group.slug, 'edit']" *ngIf="isOwner" ><i class="fa fa-pencil"></i> Edit</a>
+    <a href="#" *ngIf="isOwner" (click)="onBtnDeleteClick($event)"><i class="fa fa-trash"></i> Delete</a>
+    </div>
   </div>
 </div>

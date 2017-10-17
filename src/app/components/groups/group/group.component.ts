@@ -30,7 +30,16 @@ export class GroupComponent implements OnInit {
 
   onBtnDeleteClick(evt) {
     evt.preventDefault();
-    this.groupDeleted.emit(this.group.slug);
+    if(confirm('Are you sure to delete this group?')) {
+      this.authService.delete(`groups/${this.group.slug}`, (response) => {
+        if(!response.error) {
+          this.groupDeleted.emit(this.group.slug);    
+        }
+        else {
+          // TODO: Handle internal error
+        }
+      });
+    }
   }
 
 }

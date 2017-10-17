@@ -1,7 +1,7 @@
 <div class="ui grid">
   <div class="two wide column"></div>
   <div class="twelve wide column">
-    <form class="ui form" [formGroup]="groupsForm">
+    <form class="ui {{ isFormLoading ? 'loading': '' }} form" [formGroup]="groupsForm">
       <div class="field">
         <label for="name">Name</label>
         <input type="text" formControlName="name" placeholder="Name of the group">

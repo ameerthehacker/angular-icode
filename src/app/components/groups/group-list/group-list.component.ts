@@ -28,17 +28,10 @@ export class GroupListComponent implements OnInit {
   }
 
   onGroupDeleted(slug: string) {
-    this.authService.delete(`groups/${slug}`, (response) => {
-      if(!response.error) {
-        this.groups.forEach((group, index) => {
-          if(group.slug == slug) {
-            this.groups.splice(index, 1);
-            return;
-          }
-        });
-      }
-      else {
-        // TODO: Handle internal error
+    this.groups.forEach((group, index) => {
+      if(group.slug == slug) {
+        this.groups.splice(index, 1);
+        return;
       }
     });
   }
