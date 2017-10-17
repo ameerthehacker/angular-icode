@@ -1,1 +1,7 @@
-<ic-group *ngFor="let group of groups" [group]="group"></ic-group>
+<div class="ui grid">
+    <div class="row"  *ngFor="let group of groups">
+        <div class="column sixteen wide">
+            <ic-group (delete)="onGroupDeleted($event)" [group]="group"></ic-group>
+        </div>
+    </div>
+</div>

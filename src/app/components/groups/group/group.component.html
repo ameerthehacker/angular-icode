@@ -1,8 +1,12 @@
-<a [routerLink]="['/groups', group.slug]" class="ui card fluid">
+<div class="ui card fluid">
   <div class="content">
     <div class="header">{{ group.name }}</div>
     <div class="description">
       {{ group.description }}
     </div>
   </div>
-</a>
+  <div class="extra content">
+    <a [routerLink]="['/groups', group.slug]" class="ui button positive">View Group</a>
+    <a href="#" *ngIf="isOwner" class="pull-right" (click)="onBtnDeleteClick($event)"><i class="fa fa-trash"></i> Delete</a>
+  </div>
+</div>
