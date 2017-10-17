@@ -28,6 +28,7 @@ export class CodeEditorComponent implements OnInit {
   codeEditor:any = false;
   compilers: Array<any>;
   compiler:any;
+  languagesLoaded: boolean = false;
   isSubmitting: boolean = false;
 
   constructor(private authService: AuthService) { }
@@ -36,6 +37,7 @@ export class CodeEditorComponent implements OnInit {
     this.authService.get('compilers', (response: any) => {
       if(!response.error) {
         this.compilers = response.msg;
+        this.languagesLoaded = true;        
         this.onEditorLoaded.emit(this.compilers[0]); 
       }
       else {
@@ -66,6 +68,7 @@ export class CodeEditorComponent implements OnInit {
   }
   onLanguageChange(evt) {
     let target = evt.target;
+    this.compiler = this.compilers[target.selectedIndex];
     this.onLanguageChanged.emit(this.compilers[target.selectedIndex]);
   }
   setIsSubmitting(status: boolean) {

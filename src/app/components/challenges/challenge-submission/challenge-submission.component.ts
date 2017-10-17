@@ -19,11 +19,11 @@ export class ChallengeSubmissionComponent implements OnInit {
   @ViewChild(CodeEditorComponent)
   codeEditorComponent: CodeEditorComponent;
 
-  constructor(private actiavtedRoute: ActivatedRoute, private authService: AuthService) { }
+  constructor(private activatedRoute: ActivatedRoute, private authService: AuthService) { }
 
   ngOnInit() {
     // Get the actual challenge data
-    this.actiavtedRoute.params.subscribe((params) => {
+    this.activatedRoute.params.subscribe((params) => {
       this.authService.get('challenges/' + params['slug'], (response: any) => {
         if(!response.error) {
           this.challenge = response.msg;       
@@ -36,14 +36,14 @@ export class ChallengeSubmissionComponent implements OnInit {
   }
 
   onCodeCompiled(result) {
-    this.actiavtedRoute.params.subscribe((params) => {
+    this.activatedRoute.params.subscribe((params) => {
       let body = {
         code: result.code,
         langCode: result.compiler.code
       }
       this.compileMessage = this.sampleTestCase = false;
       this.codeEditorComponent.setIsSubmitting(true);
-      this.authService.post('challenges/' + params.slug + '/submissions', body, (response) => {
+      this.authService.post(`challenges/${params.slug}/submissions`, body, (response) => {
         if(response.error) {
           if(!response.compiled) {
             this.compileMessage = response.msg;
@@ -63,9 +63,22 @@ export class ChallengeSubmissionComponent implements OnInit {
     });
   }
   onLanguageChanged(compiler) {
-    this.codeEditorComponent.initCodeEditor(compiler, compiler.boilerplate);
+    this.codeEditorComponent.isLoading = true;
+    this.activatedRoute.params.subscribe((params) => {
+      this.authService.get(`challenges/${params.slug}/submissions/${compiler.code}`, (response) => {
+        if(response.submissionFound) {
+          this.codeEditorComponent.setCode(response.submission.code);
+        }
+        else {
+          this.codeEditorComponent.initCodeEditor(compiler, compiler.boilerplate);          
+        }
+        this.codeEditorComponent.isLoading = false;
+      })
+    });
   }
   onEditorLoaded(compiler) {
+    // Trigger this event to load the submission for first listed language
+    this.onLanguageChanged(compiler);
     this.codeEditorComponent.initCodeEditor(compiler, compiler.boilerplate);
     this.codeEditorComponent.setLoadingStatus(false);
   }

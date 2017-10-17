@@ -27,7 +27,7 @@
             <div class="column sixteen wide">
                 <h4>Compile Message</h4>
                 <div class="gray-box red-text">
-                    <p>{{ compileMessage }}</p>
+                    <pre>{{ compileMessage }}</pre>
                 </div>
             </div>
         </div>
@@ -36,11 +36,11 @@
                 <h4><i [class]="sampleTestCase.passed ? 'fa fa-check': 'fa fa-times'"></i> &nbsp; Sample Testcase</h4>
                 <div class="gray-box">
                     <h4>Input:</h4>
-                    <p class="line-break">{{ sampleTestCase.input }}</p>
+                    <pre>{{ sampleTestCase.input }}</pre>
                     <h4>Expected output: </h4>
-                    <p class="line-break">{{ sampleTestCase.expectedOutput }}</p>
+                    <pre>{{ sampleTestCase.expectedOutput }}</pre>
                     <h4>Your output: </h4>
-                    <p class="line-break">{{ sampleTestCase.output }}</p>
+                    <pre>{{ sampleTestCase.output }}</pre>
                 </div>
             </div>
         </div>

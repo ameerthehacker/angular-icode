@@ -9,7 +9,7 @@ export class AppService {
   constructor() { }
 
   public getUrl(uri){
-    return this.server + '/' + uri;
+    return `${this.server}/${uri}`;
   }
 
 }
