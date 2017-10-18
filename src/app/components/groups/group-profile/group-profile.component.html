@@ -1,1 +1,30 @@
-<h1>The list of contests will be displayed :)</h1>
+<div class="ui grid">
+    <div class="row">
+        <div class="sixteen wide column">
+            <div *ngIf="group" class="ui segments">
+                <div class="ui segment padded">
+                    <div class="ui large header">
+                        {{ group.name }}
+                    </div>
+                    <p>{{ group.description }}</p>
+                </div>
+                <div class="ui segments horizontal">
+                    <div class="ui segment">
+                        <a [routerLink]="['/groups', group.slug, 'contests']"><i class="fa fa-gamepad"></i>&nbsp;Contests</a>
+                    </div>
+                    <div class="ui segment">
+                        <a href=""><i class="fa fa-tasks"></i>&nbsp;Assignments</a>
+                    </div>
+                    <div class="ui segment">
+                        <a href=""><i class="fa fa-flask"></i>&nbsp;Lab Works</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="sixteen wide column">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

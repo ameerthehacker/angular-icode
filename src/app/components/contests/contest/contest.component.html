@@ -1,0 +1,32 @@
+<div class="ui grid">
+    <div class="row">
+        <div class="sixteen wide column">
+            <div class="ui card fluid">
+                <div class="content">
+                    <div class="header">
+                        {{ contest.title }}
+                    </div>
+                    <div class="meta">
+                        {{ contest.description }}
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="description">
+                        <p>
+                            <i class="fa fa-calendar"></i> &nbsp;
+                            Open till <b>{{ registrationEndDate  }}</b>    
+                        </p>
+                        <p>
+                            <i class="fa fa-clock-o"></i> &nbsp;
+                            Hacking on <b>{{ contestStartDate }}</b>
+                        </p>
+                    </div>
+                </div>
+                <div class="extra content">
+                    <button class="ui button primary" [disabled]="!canRegister">{{ btnRegisterText }}</button>
+                    <a href="#" class="ui button positive" *ngIf="canParticipate">Participate</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
