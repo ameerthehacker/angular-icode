@@ -6,5 +6,6 @@ import { ChallengeSubmissionComponent } from "../app/components/challenges/chall
 export const CHALLENGES_ROUTE: Routes = [
     { path: '', component: ChallengesListComponent },
     { path: 'new', component: ChallengesFormComponent },
-    { path: ':slug', component: ChallengeSubmissionComponent }    
+    { path: ':slug', component: ChallengeSubmissionComponent },
+    { path: ':slug/edit', component: ChallengesFormComponent }    
 ];

@@ -17,7 +17,6 @@ export class GroupFormComponent implements OnInit {
 
   groupsForm: FormGroup;
   btnSubmitText: string = "Submit";
-  isFormSubmitting: boolean = false;
   isFormLoading: boolean = false;
   group: Group;
   // Flag to check whether the form is for creating new group or updating
@@ -27,7 +26,7 @@ export class GroupFormComponent implements OnInit {
 
   ngOnInit() {
     this.group = new Group();    
-    this.groupsForm = this.constructGroupsForm(this.group);    
+    this.groupsForm = this.initGroupsForm(this.group);    
 
     this.activatedRoute.params.subscribe((params) => {
       const groupSlug = params.slug;
@@ -36,7 +35,7 @@ export class GroupFormComponent implements OnInit {
         this.authService.get(`groups/${groupSlug}`, (response) => {
           if(!response.error) {
             this.group = response.msg;
-            this.groupsForm = this.constructGroupsForm(this.group);
+            this.groupsForm = this.initGroupsForm(this.group);
             this.isFormLoading = false;
             this.isEditForm = true;
           }
@@ -45,14 +44,13 @@ export class GroupFormComponent implements OnInit {
     });
   }
 
-  private constructGroupsForm(group: Group): FormGroup {
+  private initGroupsForm(group: Group): FormGroup {
     return new FormGroup({
       'name': new FormControl(group.name, Validators.required),
       'description': new FormControl(group.description, Validators.required)
     });
   }
   private setFormProcessingStatus(status: boolean) {
-    this.isFormSubmitting = status;
     this.isFormLoading = status;  
     if(status) {
       this.btnSubmitText = 'Saving...';    

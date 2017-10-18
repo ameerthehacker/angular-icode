@@ -1,7 +1,7 @@
 <div class="ui grid">
   <div class="two wide column"></div>
   <div class="twelve wide column">
-    <form class="ui form" [formGroup]="challengesForm">
+    <form class="ui {{ isFormLoading ? 'loading': '' }} form" [formGroup]="challengesForm">
       <div class="field">
         <label for="title">Title</label>
         <input id="title" formControlName="title" type="text" placeholder="Title of the challenge">
@@ -82,7 +82,7 @@
         <button class="ui tiny primary button" (click)="onBtnAddTestCaseClick()"><i class="fa fa-plus"></i> Add Test Case</button>
       </div>
       <div class="field">
-        <input type="submit" [value]="btnSubmitText" [disabled]="isFormSubmitting" (click)="onSubmitClick()" class="ui button positive" [disabled]="!challengesForm.valid"/>
+        <input type="submit" [value]="btnSubmitText" (click)="onSubmitClick()" class="ui button positive" [disabled]="!challengesForm.valid"/>
       </div>
     </form>
   </div>

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray, Validators } from "@angular/forms";
-import { Challenge } from "../../../models/challenge";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 
 import { AuthService } from "../../../services/auth/auth.service";
 import { FlashMessageService } from "../../../services/flash-message/flash-message.service";
+
+import { Challenge } from "../../../models/challenge";
 
 @Component({
   selector: 'ic-challenges-form',
@@ -15,32 +16,75 @@ export class ChallengesFormComponent implements OnInit {
 
   challengesForm: FormGroup;
   btnSubmitText: string = "Submit";
-  isFormSubmitting: boolean = false;
+  isFormLoading: boolean = false;
+  challenge: Challenge;
+  // Flag to indicate whether form is used for creating challenge or for updating
+  isEditForm: boolean = false;
 
-  constructor(private authService: AuthService, private flashMessageService: FlashMessageService, private router: Router) { }
+  constructor(private authService: AuthService, private flashMessageService: FlashMessageService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.challengesForm = new FormGroup({
-      'title': new FormControl('', Validators.required),
-      'problemStatement': new FormControl('', Validators.required),
-      'inputFormat': new FormControl('', Validators.required),
-      'outputFormat': new FormControl('', Validators.required),
-      'constraints': new FormControl('', Validators.required),      
-      'sampleInput': new FormControl('', Validators.required),
-      'sampleOutput': new FormControl('', Validators.required),
-      'explanation': new FormControl('', Validators.required),
-      'testCases': new FormArray([
-        this.initTestCaseForm()
-      ])
-    });
+    this.challenge = new Challenge();
+    this.challenge.testCases = [];
+    this.challengesForm = this.initChallengesForm(this.challenge);
     
+    this.activatedRoute.params.subscribe((params) => {
+      let challengeSlug = params.slug;
+      if(challengeSlug) {
+        this.isEditForm = true;
+        this.authService.get(`challenges/${challengeSlug}`, (response) => {
+          if(!response.error) {
+            this.challenge = response.msg;
+            this.challengesForm = this.initChallengesForm(this.challenge);
+          }
+          else {
+            // TODO: Handle internal error
+          }
+        }, false);
+      }
+    });
   }
-  private initTestCaseForm() {
-    let testCaseForm = new FormGroup({
-        'input': new FormControl('', Validators.required),
-        'output': new FormControl('', Validators.required)
-      });
-    return testCaseForm;
+  
+  private setFormProcessingStatus(status: boolean) {
+    this.isFormLoading = status;
+    if(status) {
+      this.btnSubmitText = 'Saving...';
+    }
+    else {
+      this.btnSubmitText = 'Submit';      
+    }
+  }
+  private initChallengesForm(challenge: Challenge): FormGroup {
+    return new FormGroup({
+      'title': new FormControl(challenge.title, Validators.required),
+      'problemStatement': new FormControl(challenge.problemStatement, Validators.required),
+      'inputFormat': new FormControl(challenge.inputFormat, Validators.required),
+      'outputFormat': new FormControl(challenge.outputFormat, Validators.required),
+      'constraints': new FormControl(challenge.constraints, Validators.required),      
+      'sampleInput': new FormControl(challenge.sampleInput, Validators.required),
+      'sampleOutput': new FormControl(challenge.sampleOutput, Validators.required),
+      'explanation': new FormControl(challenge.explanation, Validators.required),
+      'testCases': new FormArray(this.initTestCasesForm(this.challenge.testCases))
+    });
+  }
+  private initTestCaseForm(testCase): FormGroup {
+    return new FormGroup({
+      'input': new FormControl(testCase.input, Validators.required),
+      'output': new FormControl(testCase.output, Validators.required)
+    }); 
+  }
+  private initTestCasesForm(testCases): FormGroup[] {
+    let testCasesForm: FormGroup[] = [];
+    if(testCases.length == 0) {
+      let newTestCase = { input: '', output: '' };
+      let newTestCaseForm = this.initTestCaseForm(newTestCase);
+      testCasesForm.push(newTestCaseForm);
+    }
+    testCases.forEach((testCase) => {
+      let testCaseForm = this.initTestCaseForm(testCase);
+      testCasesForm.push(testCaseForm);
+    });
+    return testCasesForm;
   }
   onSubmitClick() {
     let challenge: Challenge = new Challenge();
@@ -54,25 +98,38 @@ export class ChallengesFormComponent implements OnInit {
     challenge.explanation = this.explanation.value;
     challenge.testCases = [];
     (<FormArray>this.challengesForm.get('testCases')).controls.forEach((control) => {
-      let testCase = {
+      let newTestCase = {
         'input': control.get('input').value,
         'output': control.get('output').value
       }
-      challenge.testCases.push(testCase);
+      challenge.testCases.push(newTestCase);
     });
 
-    this.btnSubmitText = "Saving...";
-    this.isFormSubmitting = true;
-    this.authService.post('challenges', challenge, (response: any) => {
-      if(!response.error){
-        this.flashMessageService.addFlashMessage(['The challenge was created!']);
-        this.router.navigate(['/challenges']);
-      }
-      this.isFormSubmitting = false;
-    });
+    this.setFormProcessingStatus(true);
+    if(this.isEditForm) {
+      // Update challenge
+      this.authService.put(`challenges/${this.challenge.slug}`, challenge, (response: any) => {
+        if(!response.error){
+          this.flashMessageService.addFlashMessage(['The challenge was updated!']);
+          this.router.navigate(['/challenges']);
+        }
+        this.setFormProcessingStatus(false);    
+      }, false);
+    }
+    else {
+      // Create new challenge
+      this.authService.post('challenges', challenge, (response: any) => {
+        if(!response.error){
+          this.flashMessageService.addFlashMessage(['The challenge was created!']);
+          this.router.navigate(['/challenges']);
+        }
+        this.setFormProcessingStatus(false);    
+      }, false);
+    }
   }
   onBtnAddTestCaseClick() {
-    let newTestCaseForm = this.initTestCaseForm();
+    let newTestCase = { input: '', output: '' };
+    let newTestCaseForm = this.initTestCaseForm(newTestCase);
     (<FormArray>this.challengesForm.get('testCases')).push(newTestCaseForm);
   }
   onBtnRemoveTestCaseClick(i: number) {
