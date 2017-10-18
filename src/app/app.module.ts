@@ -30,6 +30,7 @@ import { GroupComponent } from './components/groups/group/group.component';
 import { GroupListComponent } from './components/groups/group-list/group-list.component';
 import { GroupFormComponent } from './components/groups/group-form/group-form.component';
 import { GroupProfileComponent } from './components/groups/group-profile/group-profile.component';
+import { ListComponent } from './components/list/list.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { GroupProfileComponent } from './components/groups/group-profile/group-p
     GroupComponent,
     GroupListComponent,
     GroupFormComponent,
-    GroupProfileComponent
+    GroupProfileComponent,
+    ListComponent
   ],
   imports: [
     BrowserModule,

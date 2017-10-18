@@ -1,0 +1,32 @@
+<div class="grid">
+  <div class="row">
+    <div class="sixteen wide column">
+      <div class="ui segments">
+        <div class="ui segment">
+          <div class="ui header">Selected {{ title }}</div>
+        </div>
+        <div class="ui segments">
+          <div *ngIf="selectedItems.length == 0" class="ui segment">
+            No {{ title }} selected
+          </div>
+          <div class="ui segment"  *ngFor="let selectedItem of selectedItems; let i = index">
+            {{ selectedItem[objectProperties.title] }}
+            <a href="#" (click)="onBtnDeleteClick($event, i)"  class="pull-right"><i class="fa fa-trash"></i></a>
+          </div>
+        </div>
+        <div class="ui segment">
+            <div class="ui header">Available {{ title }}</div>          
+        </div>
+        <div class="ui segments">
+          <div *ngIf="availableItems.length == 0" class="ui segment">
+              No {{ title }} available to add
+          </div>
+          <div class="ui segment" *ngFor="let availableItem of availableItems; let i = index">
+              {{ availableItem[objectProperties.title] }}
+              <a href="#" (click)="onBtnAddClick($event, i)" class="pull-right"><i class="fa fa-plus"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
