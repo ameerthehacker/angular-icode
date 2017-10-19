@@ -13,6 +13,7 @@ import { Challenge } from "../../../models/challenge";
 export class ChallengeSubmissionComponent implements OnInit {
 
   challenge: Challenge;
+  typeOfSubmission: string = 'practice';
 
   constructor(private activatedRoute: ActivatedRoute, private authService: AuthService) { }
 

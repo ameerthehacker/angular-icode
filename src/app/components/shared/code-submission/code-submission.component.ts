@@ -14,6 +14,10 @@ export class CodeSubmissionComponent implements OnInit {
 
   @Input()
   challenge: Challenge;
+  @Input('type')
+  typeOfSubmission: string;
+  @Input('for')
+  submittedForId: string;
   compileMessage = false;
   sampleTestCase:any = false;
   @ViewChild(CodeEditorComponent)
@@ -27,7 +31,9 @@ export class CodeSubmissionComponent implements OnInit {
   onCodeCompiled(result) {
     let body = {
       code: result.code,
-      langCode: result.compiler.code
+      langCode: result.compiler.code,
+      typeOfSubmission: this.typeOfSubmission,
+      submittedForId: this.submittedForId
     }
     this.compileMessage = this.sampleTestCase = false;
     this.codeEditorComponent.setIsSubmitting(true);
