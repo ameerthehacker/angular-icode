@@ -12,13 +12,19 @@ import { AuthService } from "../../../services/auth/auth.service";
 })
 export class ContestsListComponent implements OnInit {
 
-  contests: Contest[];
+  contests: Contest[] = [];
+  groupSlug: string;
+  isLoadingContests: boolean;
 
   constructor(private authService: AuthService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.activatedRoute.parent.params.subscribe((params) => {
+      this.groupSlug = params.slug;
+    });
     this.activatedRoute.params.subscribe((params) => {
       let groupSlug = params.slug;
+      this.isLoadingContests = true;
       this.authService.get(`groups/${groupSlug}/contests`, (response) => {
         if(!response.error) {
           this.contests = response.msg;
@@ -26,7 +32,15 @@ export class ContestsListComponent implements OnInit {
         else {
           // TODO: show internal server error
         }
+        this.isLoadingContests = false;
       });
+    });
+  }
+  onContestDeleted(slug) {
+    this.contests.forEach((contest, index) => {
+      if(contest.slug == slug) {
+        this.contests.splice(index, 1);
+      }
     });
   }
 

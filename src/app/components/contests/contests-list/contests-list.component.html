@@ -1,1 +1,12 @@
-<ic-contest *ngFor="let contest of contests" [contest]="contest"></ic-contest>
+<div class="ui grid">
+    <div *ngIf="!isLoadingContests" class="row">
+        <div class="sixteen column wide">
+            <a [routerLink]="['/groups', groupSlug, 'contests', 'new']" class="ui button positive"><i class="fa fa-plus"></i> &nbsp; New Contest</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="sixteen column wide">
+            <ic-contest *ngFor="let contest of contests" [contest]="contest" (delete)="onContestDeleted($event)"></ic-contest>
+        </div>
+    </div>
+</div>

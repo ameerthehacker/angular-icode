@@ -4,14 +4,14 @@
     <form class="ui {{ isFormLoading ? 'loading': '' }} form" [formGroup]="groupsForm">
       <div class="field">
         <label for="name">Name</label>
-        <input type="text" formControlName="name" placeholder="Name of the group">
+        <input type="text" id="name" formControlName="name" placeholder="Name of the group">
         <div class="error-field" *ngIf="!name.valid && name.touched">
           Name field is required
         </div>
       </div>      
       <div class="field">
         <label for="description">Description</label>
-        <textarea formControlName="description" placeholder="Something about the group"></textarea>
+        <textarea id="description" formControlName="description" placeholder="Something about the group"></textarea>
         <div class="error-field" *ngIf="!description.valid && description.touched">
             Description field is required
           </div>

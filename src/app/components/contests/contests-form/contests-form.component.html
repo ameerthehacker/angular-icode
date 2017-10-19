@@ -1,0 +1,54 @@
+<div class="ui grid">
+  <div class="row">
+    <div class="sixteen column wide">
+      <h3 class="text-center"><i class="fa fa-gamepad"></i> &nbsp; New Contest</h3>        
+    </div>
+  </div>
+  <div class="row">
+    <div class="two wide column"></div>      
+    <div class="twelve wide column">
+      <form [formGroup]="contestsForm" class="ui {{ isFormLoading ? 'loading': '' }} form">
+        <div class="field">
+          <label for="title">Title</label>
+          <input id="title" type="text" formControlName="title" placeholder="Title of the contest">
+          <div class="error-field" *ngIf="!title.valid && title.touched">Title field is required</div>
+        </div>
+        <div class="field">
+          <label for="description">Description</label>
+          <textarea id="description" placeholder="Something about the contest" formControlName="description"></textarea>
+          <div class="error-field" *ngIf="!description.valid && description.touched">Description field is required</div>
+        </div>
+        <div class="two fields">
+          <div class="field">
+            <label for="registrationStartDate">Registration start date</label>
+            <input type="text" id="registrationStartDate" formControlName="registrationStartDate" placeholder="DD/MM/YYYY">
+            <div class="error-field" *ngIf="!registrationStartDate.valid && registrationStartDate.touched">Invalid date</div>
+          </div>
+          <div class="field">
+            <label for="registrationEndDate">Registraton end date</label>
+            <input type="text" id="registrationEndDate" formControlName="registrationEndDate" placeholder="eg. 19/10/2017">
+            <div class="error-field" *ngIf="!registrationEndDate.valid && registrationEndDate.touched">Invalid date</div>
+          </div>
+        </div>
+        <div class="two fields">
+          <div class="field">
+            <label for="contestStartDate">Contest start date</label>
+            <input type="text" id="contestStartDate" formControlName="contestStartDate" placeholder="eg. 19/10/2017 4:30 p.m.">
+            <div class="error-field" *ngIf="!contestStartDate.valid && contestStartDate.touched">Invalid date</div>
+          </div>
+          <div class="field">
+            <label for="duration">Contest duration</label>
+            <input type="text" id="duration" formControlName="duration" placeholder="Time in hours">
+            <div class="error-field" *ngIf="!duration.valid && duration.touched">Duration is invalid</div>
+          </div>
+        </div>
+        <div class="field">
+          <ic-list title="challenges" [list]="availableChallenges" [selected]="selectedChallenges" [properties]="{ title: 'title' }"></ic-list>
+        </div>
+        <div class="field">
+          <button (click)="onBtnSubmitClick()" [disabled]="!contestsForm.valid" type="submit" class="ui button positive">{{ btnSubmitText }}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

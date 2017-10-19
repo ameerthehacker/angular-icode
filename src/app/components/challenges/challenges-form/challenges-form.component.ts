@@ -32,10 +32,12 @@ export class ChallengesFormComponent implements OnInit {
       let challengeSlug = params.slug;
       if(challengeSlug) {
         this.isEditForm = true;
+        this.isFormLoading = true;
         this.authService.get(`challenges/${challengeSlug}`, (response) => {
           if(!response.error) {
             this.challenge = response.msg;
             this.challengesForm = this.initChallengesForm(this.challenge);
+            this.isFormLoading = false;
           }
           else {
             // TODO: Handle internal error

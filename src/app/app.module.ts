@@ -33,6 +33,7 @@ import { GroupProfileComponent } from './components/groups/group-profile/group-p
 import { ListComponent } from './components/list/list.component';
 import { ContestsListComponent } from './components/contests/contests-list/contests-list.component';
 import { ContestComponent } from './components/contests/contest/contest.component';
+import { ContestsFormComponent } from './components/contests/contests-form/contests-form.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { ContestComponent } from './components/contests/contest/contest.componen
     GroupProfileComponent,
     ListComponent,
     ContestsListComponent,
-    ContestComponent
+    ContestComponent,
+    ContestsFormComponent
   ],
   imports: [
     BrowserModule,

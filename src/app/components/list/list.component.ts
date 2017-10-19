@@ -13,6 +13,7 @@ export class ListComponent implements OnInit {
   availableItems: Array<any>;
   @Input('properties')
   objectProperties: Object;
+  @Input('selected')  
   selectedItems: Array<any> = [];
 
   constructor() { }

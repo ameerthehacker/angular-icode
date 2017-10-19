@@ -27,7 +27,7 @@ export class NavbarComponent implements OnInit {
     evt.preventDefault();
     $('.ui.sidebar').sidebar('setting', {
       dimPage: false,
-      transition: 'uncover'
+      transition: 'overlay'
     }).sidebar('toggle');
     $('.pusher').css({ 'padding-top': '40px' });
   }
