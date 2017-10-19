@@ -35,10 +35,15 @@ export class NavbarComponent implements OnInit {
     this.toggleSidebar();
   }
   private toggleSidebar() {
-    this.sideBarVisible = !this.sideBarVisible;
     $('.ui.sidebar').sidebar('setting', {
       dimPage: false,
-      transition: 'overlay'
+      transition: 'overlay',
+      onShow: () => {
+        this.sideBarVisible = true;
+      },
+      onHide: () => {
+        this.sideBarVisible = false;
+      }
     }).sidebar('toggle');
     $('.pusher').css({ 'padding-top': '40px' });
   }
