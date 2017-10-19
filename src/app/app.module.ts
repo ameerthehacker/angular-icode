@@ -35,6 +35,8 @@ import { ContestsListComponent } from './components/contests/contests-list/conte
 import { ContestComponent } from './components/contests/contest/contest.component';
 import { ContestsFormComponent } from './components/contests/contests-form/contests-form.component';
 import { CodeSubmissionComponent } from "../app/components/shared/code-submission/code-submission.component";
+import { CodeGroupSubmissionComponent } from './components/shared/code-group-submission/code-group-submission.component';
+import { ContestSubmissionComponent } from './components/contests/contest-submission/contest-submission.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +63,9 @@ import { CodeSubmissionComponent } from "../app/components/shared/code-submissio
     ContestsListComponent,
     ContestComponent,
     ContestsFormComponent,
-    CodeSubmissionComponent
+    CodeSubmissionComponent,
+    CodeGroupSubmissionComponent,
+    ContestSubmissionComponent
   ],
   imports: [
     BrowserModule,

@@ -4,7 +4,7 @@ import { Router, NavigationStart } from "@angular/router";
 import { AuthService } from "../../services/auth/auth.service";
 import { FlashMessageService } from "../../services/flash-message/flash-message.service";
 
-declare var $:any;
+declare var $: any;
 
 @Component({
   selector: 'ic-navbar',

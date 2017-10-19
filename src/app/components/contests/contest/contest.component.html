@@ -24,7 +24,7 @@
                 </div>
                 <div class="extra content">
                     <button class="ui button primary" [disabled]="!canRegister">{{ btnRegisterText }}</button>
-                    <a href="#" class="ui button positive" *ngIf="canParticipate">Participate</a>
+                    <a [routerLink]="['/groups', groupSlug, 'contests', contest.slug, 'submission']" class="ui button positive" *ngIf="canParticipate">Participate</a>
                     <div class="pull-right" *ngIf="isOwner">
                         <a [routerLink]="['/groups', groupSlug, 'contests', contest.slug, 'edit']"><i class="fa fa-pencil"></i> Edit</a>
                         <a href="#" (click)="onBtnDeleteClick($event)"><i class="fa fa-trash"></i> Delete</a>

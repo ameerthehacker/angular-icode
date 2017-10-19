@@ -1,0 +1,27 @@
+<div class="ui top attached tabular menu">
+  <div class="item active" data-tab="challenges">
+    Challenges
+  </div>
+  <div class="item" data-tab="submissions">
+    Submissions
+  </div>
+  <div class="item" data-tab="leaderboard">
+    Leaderboard
+  </div>
+</div>
+<div class="ui bottom attached active tab padded segment" data-tab="challenges">
+  <div class="ui segments">
+    <div class="ui segment" *ngFor="let challenge of challenges; let i = index">
+      <h3>{{ challenge.title }}</h3>
+      <p>{{ challenge.problemStatement }}</p>
+      <button (click)="onBtnSolveClick(i)" class="ui button primary">Solve</button>
+    </div>
+  </div>
+</div>
+<div class="ui bottom attached tab segment" data-tab="submissions">
+  <ic-code-submission [challenge]="selectedChallenge" [type]  ="typeOfSubmission" [for]="submissionForId"></ic-code-submission>    
+</div>
+<div class="ui bottom attached tab segment" data-tab="leaderboard">
+</div>
+
+
