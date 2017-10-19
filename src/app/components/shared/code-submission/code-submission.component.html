@@ -44,5 +44,35 @@
                 </div>
             </div>
         </div>
+        <div class="row" *ngIf="sampleTestCase.passed">
+            <div class="column sixteen wide">
+                <table class="ui celled table">
+                    <thead>
+                        <tr class="center aligned">
+                            <th>#</th>
+                            <th>Result</th>
+                            <th>Time Taken</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="center aligned" *ngFor="let testCaseResult of testCaseResults; let i = index">
+                            <td>Test Case {{ i + 1 }}</td>
+                            <td>
+                                <i class="fa fa-spin fa-refresh" *ngIf="!testCaseResult"></i>
+                                <i class="fa fa-check-circle green-text" *ngIf="testCaseResult &&testCaseResult.testCasePassed"></i>
+                                <i class="fa fa-times-circle red-text" *ngIf="testCaseResult &&   !testCaseResult.testCasePassed && !testCaseResult.timeout"></i>
+                                <i *ngIf="testCaseResult &&   testCaseResult.timeout" class="fa fa-clock-o red-text"></i>
+                            </td>  
+                            <td *ngIf="!testCaseResult">
+                                <i class="fa fa-spin fa-refresh"></i>
+                            </td>                          
+                            <td *ngIf="testCaseResult">
+                                {{ testCaseResult.timeTaken }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>

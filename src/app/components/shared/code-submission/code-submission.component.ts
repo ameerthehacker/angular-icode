@@ -5,6 +5,8 @@ import { CodeEditorComponent } from "../../code-editor/code-editor.component";
 
 import { AuthService } from "../../../services/auth/auth.service";
 
+import * as uniqid from "uniqid";
+
 @Component({
   selector: 'ic-code-submission',
   templateUrl: './code-submission.component.html',
@@ -22,6 +24,8 @@ export class CodeSubmissionComponent implements OnInit {
   sampleTestCase:any = false;
   @ViewChild(CodeEditorComponent)
   codeEditorComponent: CodeEditorComponent;
+  testCaseResults: Object[] = [];
+  sampleTestCasePassed: boolean;
 
   constructor(private authService: AuthService) { }
 
@@ -29,29 +33,48 @@ export class CodeSubmissionComponent implements OnInit {
   }
 
   onCodeCompiled(result) {
+    const uid = uniqid();
+    // Initialize the testcases with false status
+    this.testCaseResults = new Array(this.challenge.testCases.length);
+    for(let i = 0; i < this.testCaseResults.length; i++) {
+      this.testCaseResults[i] = false;
+    }
     let body = {
       code: result.code,
       langCode: result.compiler.code,
       typeOfSubmission: this.typeOfSubmission,
-      submittedForId: this.submittedForId
+      submittedForId: this.submittedForId,
+      uid: uid
     }
+    // Listen for events
+    const socket = this.authService.getSocketObservable(uid).subscribe((data) => {
+      if(data.type == 'sampleTestCase') {
+        let result = data.result;
+        if(result.error) {
+          if(!result.compiled) {
+            this.compileMessage = result.msg;
+          }
+          socket.unsubscribe();
+        }
+        else {
+            this.compileMessage = false;                        
+            this.sampleTestCase = {
+              passed: result.sampleTestCasePassed,
+              input: this.challenge.sampleInput,
+              output: result.msg,
+              expectedOutput: this.challenge.sampleOutput
+            }
+        }
+      }
+      else if(data.type == 'testCase') {
+        this.testCaseResults[data.index] = data.result;
+      }
+    });
+
     this.compileMessage = this.sampleTestCase = false;
     this.codeEditorComponent.setIsSubmitting(true);
     this.authService.post(`challenges/${this.challenge.slug}/submissions`, body, (response) => {
-      if(response.error) {
-        if(!response.compiled) {
-          this.compileMessage = response.msg;
-        }
-      }
-      else {
-          this.compileMessage = false;                        
-          this.sampleTestCase = {
-            passed: response.sampleTestCasePassed,
-            input: this.challenge.sampleInput,
-            output: response.msg,
-            expectedOutput: this.challenge.sampleOutput
-          }
-      }
+      socket.unsubscribe();
       this.codeEditorComponent.setIsSubmitting(false);      
     }, false);
   }

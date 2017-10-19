@@ -8,7 +8,7 @@ export class AppService {
 
   constructor() { }
 
-  public getUrl(uri){
+  public getUrl(uri = ''){
     return `${this.server}/${uri}`;
   }
 

@@ -4,6 +4,7 @@ import { JwtHelper } from "angular2-jwt";
 import { Router } from "@angular/router";
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/Rx';
+import * as io from 'socket.io-client';
 
 import { AppService } from "../app/app.service";
 import { FlashMessageService } from "../flash-message/flash-message.service";
@@ -11,6 +12,8 @@ import { ShowProgressService } from "../show-progress/show-progress.service";
 
 @Injectable()
 export class AuthService {
+
+  socket: any;
 
   constructor(private http: Http, private app: AppService, private jwtHelper: JwtHelper, private router: Router, private flashMessageService: FlashMessageService, private showProgressService: ShowProgressService) { }
 
@@ -106,6 +109,19 @@ export class AuthService {
     else {
       return false;
     }
+  }
+  getSocketObservable(uid: string): Observable<any> {
+    let obeservable = new Observable((observer) => {
+      this.socket = io(this.app.getUrl());
+      this.socket.on(uid, (data) => {
+        observer.next(data);
+
+        return () => {
+          this.socket.disconnect();
+        }
+      });
+    });
+    return obeservable;    
   }
 
 }

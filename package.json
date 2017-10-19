@@ -29,6 +29,8 @@
     "jquery": "^3.2.1",
     "rxjs": "^5.1.0",
     "semantic-ui-sass": "^2.2.11",
+    "socket.io-client": "^2.0.3",
+    "uniqid": "^4.1.1",
     "zone.js": "^0.8.4"
   },
   "devDependencies": {
