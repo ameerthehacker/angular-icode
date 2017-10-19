@@ -17,8 +17,8 @@ export class FlashMessageComponent implements OnInit {
 
   ngOnInit() { 
     this.router.events.filter(event => event instanceof NavigationEnd).subscribe(() => {
-      this.flashMessage = this.flashMessageService.getFlashMessage();      
-    })
+      this.flashMessage = this.flashMessageService.getFlashMessage(); 
+    });
   }
 
 }

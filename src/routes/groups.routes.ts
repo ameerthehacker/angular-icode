@@ -8,7 +8,7 @@ import { CONTESTS_ROUTE } from './contests.routes';
 export const GROUPS_ROUTE: Routes = [
     { path: '', component: GroupListComponent },
     { path: 'new', component: GroupFormComponent },    
-    { path: ':slug', component: GroupProfileComponent },
-    { path: ':slug/edit', component: GroupFormComponent },
-    { path: ':slug/contests', component: GroupProfileComponent, children: CONTESTS_ROUTE }
+    { path: ':slug/contests', component: GroupProfileComponent, children: CONTESTS_ROUTE },
+    { path: ':slug', redirectTo: ':slug/contests' },
+    { path: ':slug/edit', component: GroupFormComponent }
 ];
