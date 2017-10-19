@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ListComponent } from "../../list/list.component";
+import { ListComponent } from "../../shared/list/list.component";
 import { ActivatedRoute, Router } from "@angular/router";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import date from 'date-and-time';

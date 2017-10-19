@@ -30,10 +30,11 @@ import { GroupComponent } from './components/groups/group/group.component';
 import { GroupListComponent } from './components/groups/group-list/group-list.component';
 import { GroupFormComponent } from './components/groups/group-form/group-form.component';
 import { GroupProfileComponent } from './components/groups/group-profile/group-profile.component';
-import { ListComponent } from './components/list/list.component';
+import { ListComponent } from './components/shared/list/list.component';
 import { ContestsListComponent } from './components/contests/contests-list/contests-list.component';
 import { ContestComponent } from './components/contests/contest/contest.component';
 import { ContestsFormComponent } from './components/contests/contests-form/contests-form.component';
+import { CodeSubmissionComponent } from "../app/components/shared/code-submission/code-submission.component";
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { ContestsFormComponent } from './components/contests/contests-form/conte
     ListComponent,
     ContestsListComponent,
     ContestComponent,
-    ContestsFormComponent
+    ContestsFormComponent,
+    CodeSubmissionComponent
   ],
   imports: [
     BrowserModule,

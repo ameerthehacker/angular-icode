@@ -1,0 +1,48 @@
+<div *ngIf="challenge">
+    <div class="ui grid">
+        <div class="row">
+            <div class="column sixteen wide">
+                <h1>Problem Statement</h1>
+                <p>{{ challenge.problemStatement }}</p>
+                <h1>Input Format</h1>
+                <p>{{ challenge.inputFormat }}</p>
+                <h1>Output Format</h1>
+                <p>{{ challenge.outputFormat }}</p>
+                <h1>Constraints</h1>
+                <p>{{ challenge.constraints }}</p>
+                <h1>Sample Input</h1>
+                <p class="line-break">{{ challenge.sampleInput }}</p>
+                <h1>Sample Output</h1>
+                <p class="line-break">{{ challenge.sampleOutput }}</p>
+                <h1>Explanation</h1>
+                <p>{{ challenge.explanation }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column sixteen wide">
+                <ic-code-editor (onLanguageChanged)="onLanguageChanged($event)" [canSubmitCode]="true" (onEditorLoaded)="onEditorLoaded($event)" (onCodeCompiled)="onCodeCompiled($event)"></ic-code-editor>
+            </div>
+        </div>
+        <div class="row" *ngIf="compileMessage">
+            <div class="column sixteen wide">
+                <h4>Compile Message</h4>
+                <div class="gray-box red-text">
+                    <pre>{{ compileMessage }}</pre>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="sampleTestCase">
+            <div class="column sixteen wide">
+                <h4><i [class]="sampleTestCase.passed ? 'fa fa-check': 'fa fa-times'"></i> &nbsp; Sample Testcase</h4>
+                <div class="gray-box">
+                    <h4>Input:</h4>
+                    <pre>{{ sampleTestCase.input }}</pre>
+                    <h4>Expected output: </h4>
+                    <pre>{{ sampleTestCase.expectedOutput }}</pre>
+                    <h4>Your output: </h4>
+                    <pre>{{ sampleTestCase.output }}</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
