@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 
 import { Challenge } from "../../../models/challenge";
-import { CodeEditorComponent } from "../../code-editor/code-editor.component";
+import { CodeEditorComponent } from "../../shared/code-editor/code-editor.component";
 
 import { AuthService } from "../../../services/auth/auth.service";
 

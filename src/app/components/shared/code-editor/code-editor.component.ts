@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 
-import { AuthService } from "../../services/auth/auth.service";
+import { AuthService } from "../../../services/auth/auth.service";
 
 declare var CodeMirror: any;
 

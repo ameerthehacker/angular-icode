@@ -23,7 +23,7 @@ import { ChallengesFormComponent } from './components/challenges/challenges-form
 import { FlashMessageComponent } from './components/shared/flash-message/flash-message.component';
 import { ProgressComponent } from './components/shared/progress/progress.component';
 import { ChallengeSubmissionComponent } from './components/challenges/challenge-submission/challenge-submission.component';
-import { CodeEditorComponent } from './components/code-editor/code-editor.component';
+import { CodeEditorComponent } from './components/shared/code-editor/code-editor.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { GroupsComponent } from './components/groups/groups.component';
 import { GroupComponent } from './components/groups/group/group.component';
