@@ -1,0 +1,16 @@
+<div class="ui basic modal">
+  <div class="ui icon header">
+    <i *ngIf="modalContent.icon.length > 0" class="{{ modalContent.icon }} icon"></i>
+    {{ modalContent.title }}
+  </div>
+  <div class="content">
+    <p class="text-center">
+        {{ modalContent.body }}
+    </p>
+  </div>
+  <div class="actions">
+    <div class="ui green ok inverted button">
+      Okay
+    </div>
+  </div>
+</div>

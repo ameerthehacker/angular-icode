@@ -2,6 +2,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { JwtHelper } from "angular2-jwt";
+
+import { AuthGuard } from "./guards/auth/auth.guard";
+
+import { AuthService } from "./services/auth/auth.service";
+import { AppService } from "./services/app/app.service";
+import { FlashMessageService } from "./services/flash-message/flash-message.service";
+import { ShowProgressService } from "./services/show-progress/show-progress.service";
+import { ModalService } from "./services/modal/modal.service";
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -12,12 +21,6 @@ import { MessageComponent } from './components/shared/message/message.component'
 import { ChallengesComponent } from "./components/challenges/challenges.component";
 import { ChallengeComponent } from './components/challenges/challenge/challenge.component';
 
-import { AuthService } from "./services/auth/auth.service";
-import { AppService } from "./services/app/app.service";
-import { FlashMessageService } from "./services/flash-message/flash-message.service";
-import { ShowProgressService } from "./services/show-progress/show-progress.service";
-import { JwtHelper } from "angular2-jwt";
-import { AuthGuard } from "./guards/auth/auth.guard";
 import { ChallengesListComponent } from './components/challenges/challenges-list/challenges-list.component';
 import { ChallengesFormComponent } from './components/challenges/challenges-form/challenges-form.component';
 import { FlashMessageComponent } from './components/shared/flash-message/flash-message.component';
@@ -41,6 +44,7 @@ import { Error404Component } from './components/errors/error404/error404.compone
 import { ErrorsComponent } from './components/errors/errors.component';
 import { Error500Component } from './components/errors/error500/error500.component';
 import { Error403Component } from './components/errors/error403/error403.component';
+import { ModalComponent } from './components/shared/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +77,8 @@ import { Error403Component } from './components/errors/error403/error403.compone
     Error404Component,
     ErrorsComponent,
     Error500Component,
-    Error403Component
+    Error403Component,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -88,7 +93,8 @@ import { Error403Component } from './components/errors/error403/error403.compone
     JwtHelper,
     AuthGuard,
     FlashMessageService,
-    ShowProgressService
+    ShowProgressService,
+    ModalService
   ],
   bootstrap: [AppComponent]
 })
