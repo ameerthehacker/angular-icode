@@ -21,9 +21,6 @@ export class GroupListComponent implements OnInit {
       if(!response.error) {
         this.groups = response.msg;
       }
-      else {
-        // TODO: Handle internal error
-      }
     });
   }
 

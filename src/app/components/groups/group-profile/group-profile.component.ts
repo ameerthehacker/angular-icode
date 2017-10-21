@@ -23,9 +23,6 @@ export class GroupProfileComponent implements OnInit {
         if(!response.error) {
           this.group = response.msg;
         }
-        else {
-          // TODO: Handle internal error
-        }
       });
     });
   }

@@ -24,9 +24,6 @@ export class ChallengeSubmissionComponent implements OnInit {
         if(!response.error) {
           this.challenge = response.msg;
         }
-        else {
-          // TODO: Show internal error
-        }
       });
     });
   }

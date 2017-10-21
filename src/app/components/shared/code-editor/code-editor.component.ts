@@ -39,10 +39,7 @@ export class CodeEditorComponent implements OnInit {
         this.compilers = response.msg;
         this.languagesLoaded = true;        
         this.onEditorLoaded.emit(this.compilers[0]); 
-      }
-      else {
-        // TODO: show internal error message
-      }         
+      }        
     }, false);
   }
 

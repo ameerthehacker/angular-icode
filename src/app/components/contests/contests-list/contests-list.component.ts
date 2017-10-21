@@ -29,9 +29,6 @@ export class ContestsListComponent implements OnInit {
         if(!response.error) {
           this.contests = response.msg;
         }
-        else {
-          // TODO: show internal server error
-        }
         this.isLoadingContests = false;
       });
     });

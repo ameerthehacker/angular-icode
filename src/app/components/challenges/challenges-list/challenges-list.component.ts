@@ -17,9 +17,6 @@ export class ChallengesListComponent implements OnInit {
       if(!response.error) {
         this.challenges = response.msg;
       }
-      else {
-        // TODO: Show internal error message
-      }
     });
   }
 

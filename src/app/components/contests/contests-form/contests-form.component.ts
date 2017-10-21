@@ -88,9 +88,6 @@ export class ContestsFormComponent implements OnInit {
             this.isFormLoading = false;
           }
         }
-        else {
-          // TODO: Show internal error
-        }
       }, false);
     });
   }

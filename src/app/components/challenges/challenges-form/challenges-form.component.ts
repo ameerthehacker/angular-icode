@@ -39,9 +39,6 @@ export class ChallengesFormComponent implements OnInit {
             this.challengesForm = this.initChallengesForm(this.challenge);
             this.isFormLoading = false;
           }
-          else {
-            // TODO: Handle internal error
-          }
         }, false);
       }
     });
