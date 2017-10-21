@@ -5,6 +5,7 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 import { AuthService } from "../../../services/auth/auth.service";
 import { FlashMessageService } from "../../../services/flash-message/flash-message.service";
+import { ModalService } from "../../../services/modal/modal.service";
 
 import { Group } from "../../../models/group";
 
@@ -22,7 +23,7 @@ export class GroupFormComponent implements OnInit {
   // Flag to check whether the form is for creating new group or updating
   isEditForm: boolean = false;
 
-  constructor(private authService: AuthService, private flashMessageService: FlashMessageService, private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private authService: AuthService, private flashMessageService: FlashMessageService, private router: Router, private activatedRoute: ActivatedRoute, private modalService: ModalService) { }
 
   ngOnInit() {
     this.group = new Group();    
@@ -81,7 +82,7 @@ export class GroupFormComponent implements OnInit {
           this.router.navigate(['/']);
         }
         else {
-          // TODO: Handle internal error
+          this.modalService.showModal('OOPS!', 'The group could not be updated');
         }
         this.setFormProcessingStatus(false);    
       });
@@ -95,7 +96,7 @@ export class GroupFormComponent implements OnInit {
           this.router.navigate(['/']);
         }
         else {
-          // TODO: Handle internal error
+          this.modalService.showModal('OOPS!', 'The challenge could not be saved');
         }
         this.setFormProcessingStatus(false);    
       }, false);

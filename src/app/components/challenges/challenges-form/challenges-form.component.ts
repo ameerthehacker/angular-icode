@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 
 import { AuthService } from "../../../services/auth/auth.service";
 import { FlashMessageService } from "../../../services/flash-message/flash-message.service";
+import { ModalService } from "../../../services/modal/modal.service";
 
 import { Challenge } from "../../../models/challenge";
 
@@ -21,7 +22,7 @@ export class ChallengesFormComponent implements OnInit {
   // Flag to indicate whether form is used for creating challenge or for updating
   isEditForm: boolean = false;
 
-  constructor(private authService: AuthService, private flashMessageService: FlashMessageService, private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private authService: AuthService, private flashMessageService: FlashMessageService, private router: Router, private activatedRoute: ActivatedRoute, private modalService: ModalService) { }
 
   ngOnInit() {
     this.challenge = new Challenge();
@@ -112,6 +113,9 @@ export class ChallengesFormComponent implements OnInit {
           this.flashMessageService.addFlashMessage(['The challenge was updated!']);
           this.router.navigate(['/challenges']);
         }
+        else {
+          this.modalService.showModal('OOPS!', 'The challenge could not be updated');
+        }
         this.setFormProcessingStatus(false);    
       }, false);
     }
@@ -121,6 +125,9 @@ export class ChallengesFormComponent implements OnInit {
         if(!response.error){
           this.flashMessageService.addFlashMessage(['The challenge was created!']);
           this.router.navigate(['/challenges']);
+        }
+        else {
+          this.modalService.showModal('OOPS!', 'Sorry! the challenge could not be saved');
         }
         this.setFormProcessingStatus(false);    
       }, false);

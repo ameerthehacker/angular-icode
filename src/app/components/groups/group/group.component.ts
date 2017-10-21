@@ -3,6 +3,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Group } from "../../../models/group";
 
 import { AuthService } from "../../../services/auth/auth.service";
+import { ModalService } from "../../../services/modal/modal.service";
 
 @Component({
   selector: 'ic-group',
@@ -17,7 +18,7 @@ export class GroupComponent implements OnInit {
   @Output('delete')
   groupDeleted: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private modalService: ModalService) { }
 
   ngOnInit() {
     if(this.group.userId == this.authService.getCurrentUserId()) {
@@ -36,7 +37,7 @@ export class GroupComponent implements OnInit {
           this.groupDeleted.emit(this.group.slug);    
         }
         else {
-          // TODO: Handle internal error
+          this.modalService.showModal('OOPS!', 'The group could not be deleted');
         }
       });
     }

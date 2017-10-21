@@ -3,6 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import date from 'date-and-time';
 
 import { AuthService } from "../../../services/auth/auth.service";
+import { ModalService } from "../../../services/modal/modal.service";
 
 import { Contest } from "../../../models/contest";
 
@@ -27,7 +28,7 @@ export class ContestComponent implements OnInit {
   @Output('delete')
   contestDeleted: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private authService: AuthService, private activatedRoute: ActivatedRoute) { }
+  constructor(private authService: AuthService, private activatedRoute: ActivatedRoute, private modalService: ModalService) { }
 
   ngOnInit() {
     // Set the ownership flag
@@ -55,7 +56,7 @@ export class ContestComponent implements OnInit {
           this.contestDeleted.emit(this.contest.slug);
         }
         else {
-          // TODO: Show internal error
+          this.modalService.showModal('OOPS!', 'The contest could not be updated');
         }
       });
     }

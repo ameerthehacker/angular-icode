@@ -35,13 +35,7 @@ export class ContestSubmissionComponent implements OnInit {
           if(!response.error) {
             this.challenges = response.msg;
           }
-          else {
-            // TODO: Show internal error
-          }
         });        
-      }
-      else {
-        // TODO: Show internal error
       }
     });
   }

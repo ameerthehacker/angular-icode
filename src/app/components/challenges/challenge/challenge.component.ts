@@ -3,6 +3,7 @@ import { Challenge } from "../../../models/challenge";
 import { Router } from "@angular/router";
 
 import { AuthService } from "../../../services/auth/auth.service";
+import { ModalService } from "../../../services/modal/modal.service";
 
 @Component({
   selector: 'ic-challenge',
@@ -16,7 +17,7 @@ export class ChallengeComponent implements OnInit {
   challengeDeleted: EventEmitter<string> = new EventEmitter<string>();
   userIsOwner: boolean;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private modalService: ModalService) { }
 
   ngOnInit() {
     if(this.challenge.userId == this.authService.getCurrentUserId()) {
@@ -34,7 +35,7 @@ export class ChallengeComponent implements OnInit {
           this.challengeDeleted.emit(this.challenge.slug);
         }
         else {
-          // TODO: Handle internal errors
+          this.modalService.showModal('OOPS!', 'The challenge could not be deleted');
         }
       });
     }

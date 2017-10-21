@@ -10,6 +10,7 @@ import { Challenge } from "../../../models//challenge";
 
 import { AuthService } from "../../../services/auth/auth.service";
 import { FlashMessageService } from "../../../services/flash-message/flash-message.service";
+import { ModalService } from "../../../services/modal/modal.service";
 
 declare var date;
 
@@ -31,7 +32,7 @@ export class ContestsFormComponent implements OnInit {
   isFormLoading: boolean = false;
   isEditForm: boolean = false;
 
-  constructor(private authService: AuthService, private activatedRoute: ActivatedRoute, private flashMessageServie: FlashMessageService, private router: Router) { }
+  constructor(private authService: AuthService, private activatedRoute: ActivatedRoute, private flashMessageServie: FlashMessageService, private router: Router, private modalService: ModalService) { }
 
   ngOnInit() {
     this.isFormLoading = true;    
@@ -76,9 +77,6 @@ export class ContestsFormComponent implements OnInit {
                 // Initialize the form
                 this.contestsForm = this.initContestsForm(this.contest);
                 this.isFormLoading = false;
-              }
-              else {
-                // TODO: Show internal error
               }
             }, false);
           }
@@ -135,7 +133,7 @@ export class ContestsFormComponent implements OnInit {
           this.router.navigate(['/groups', this.groupSlug, 'contests']);
         }
         else {
-          // TODO: Handle internal error
+          this.modalService.showModal('OOPS!', 'The contest could not be updated');
         }
         this.setFormProcessingStatus(false);            
       });
@@ -147,7 +145,7 @@ export class ContestsFormComponent implements OnInit {
           this.router.navigate(['/groups', this.groupSlug, 'contests']);
         }
         else {
-          // TODO: Handle internal error
+          this.modalService.showModal('OOPS!', 'The contest could not be saved');
         }
         this.setFormProcessingStatus(false);            
       });
