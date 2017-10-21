@@ -36,6 +36,16 @@ export class AuthService {
         this.flashMessageService.addFlashMessage(['Please login again!'], 'negative');
         this.router.navigate(['/auth/login']);
       }
+      if(err.status == 404) {
+        this.router.navigate(['/errors/404']);  
+      }
+      if(err.status == 500) {
+        this.router.navigate(['/errors/500']);          
+      }
+      if(err.status == 403) {
+        this.router.navigate(['/errors/403']);          
+      }
+      this.showProgressService.hideProgress();      
       return Observable.throw(err);
     })
     .subscribe(callback, null, () => {

@@ -37,6 +37,10 @@ import { ContestsFormComponent } from './components/contests/contests-form/conte
 import { CodeSubmissionComponent } from "../app/components/shared/code-submission/code-submission.component";
 import { CodeGroupSubmissionComponent } from './components/shared/code-group-submission/code-group-submission.component';
 import { ContestSubmissionComponent } from './components/contests/contest-submission/contest-submission.component';
+import { Error404Component } from './components/errors/error404/error404.component';
+import { ErrorsComponent } from './components/errors/errors.component';
+import { Error500Component } from './components/errors/error500/error500.component';
+import { Error403Component } from './components/errors/error403/error403.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +69,11 @@ import { ContestSubmissionComponent } from './components/contests/contest-submis
     ContestsFormComponent,
     CodeSubmissionComponent,
     CodeGroupSubmissionComponent,
-    ContestSubmissionComponent
+    ContestSubmissionComponent,
+    Error404Component,
+    ErrorsComponent,
+    Error500Component,
+    Error403Component
   ],
   imports: [
     BrowserModule,

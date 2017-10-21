@@ -6,9 +6,8 @@ import { ContestsFormComponent } from "../app/components/contests/contests-form/
 import { ContestSubmissionComponent } from "../app/components/contests/contest-submission/contest-submission.component";
 
 export const CONTESTS_ROUTE: Routes = [
-    { 'path': '', component: ContestsListComponent },
-    { 'path': 'new', component: ContestsFormComponent },   
-    { 'path': ':contestSlug', component: ContestComponent  },
-    { 'path': ':contestSlug/edit', component: ContestsFormComponent  },
-    { 'path': ':contestSlug/submission', component: ContestSubmissionComponent  },
+    { path: '', component: ContestsListComponent },
+    { path: 'new', component: ContestsFormComponent },   
+    { path: ':contestSlug/edit', component: ContestsFormComponent  },
+    { path: ':contestSlug/submission', component: ContestSubmissionComponent  },
 ];
