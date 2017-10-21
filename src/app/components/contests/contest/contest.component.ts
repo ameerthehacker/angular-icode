@@ -19,7 +19,7 @@ export class ContestComponent implements OnInit {
   @Input()
   contest: Contest;
   canRegister: boolean = true;
-  canParticipate: boolean = true;
+  canParticipate: boolean;
   btnRegisterText: string = 'Register';
   registrationEndDate: Date;
   contestStartDate: string;
@@ -41,12 +41,27 @@ export class ContestComponent implements OnInit {
     // Check if registration is open
     let registrationEndDate = new Date(this.contest.registrationEndDate);
     let contestStartDate = new Date(this.contest.contestStartDate);    
-    if(Date.now() >= registrationEndDate.getTime()) {
-      this.canRegister = false;
-      this.btnRegisterText = 'Registration Closed'
-    }
     this.registrationEndDate = date.format(registrationEndDate, 'D MMM YYYY', true);
     this.contestStartDate = date.format(contestStartDate, 'D MMM YYYY, hh:mm A', true);
+    if(this.contest.userRegistered) {
+      this.setRegistrationStatus(false, 'Registered');
+      if(this.contest.isRunning) {
+        this.canParticipate = true;
+      }
+    }
+    else {
+      if(this.contest.isOpen) {
+        this.setRegistrationStatus(true, 'Register');
+      }
+      else {
+        this.setRegistrationStatus(false, 'Registration Closed');      
+      }
+    }
+  }
+
+  private setRegistrationStatus(status: boolean, text: string) {
+    this.canRegister = status;
+    this.btnRegisterText = text;
   }
   onBtnDeleteClick(evt) {
     evt.preventDefault();
@@ -60,5 +75,15 @@ export class ContestComponent implements OnInit {
         }
       });
     }
+  }
+  onBtnRegisterClick() {
+    this.authService.get(`groups/${this.groupSlug}/contests/${this.contest.slug}/register`, (response) => {
+      if(!response.error) {
+        this.setRegistrationStatus(false, 'Registered');
+      }
+      else {
+        this.modalService.showModal('Sorry!', response.msg);
+      }
+    });
   }
 }

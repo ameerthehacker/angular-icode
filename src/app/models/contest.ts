@@ -10,6 +10,9 @@ export class Contest {
     public userId: string;
     public groupId: string;
     public challenges: string[];
+    public isOpen: boolean;
+    public userRegistered: boolean;
+    public isRunning: boolean;
 
     constructor() {}
 }
