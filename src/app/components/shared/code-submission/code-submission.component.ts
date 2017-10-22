@@ -80,7 +80,7 @@ export class CodeSubmissionComponent implements OnInit {
   }
   onLanguageChanged(compiler) {
     this.codeEditorComponent.isLoading = true;
-    this.authService.get(`challenges/${this.challenge.slug}/submissions/${compiler.code}`, (response) => {
+    this.authService.get(`challenges/${this.challenge.slug}/submissions/${compiler.code}?type=${this.typeOfSubmission}&for=${this.submittedForId}`, (response) => {
       if(response.submissionFound) {
         this.codeEditorComponent.setCode(response.submission.code);
       }
