@@ -6,10 +6,12 @@ import { GroupFormComponent } from "../app/components/groups/group-form/group-fo
 import { CONTESTS_ROUTE } from './contests.routes';
 // Routes for assignment
 import { ASSIGNMENTS_ROUTE } from './assignments.routes';
+import { LAB_WORKS_ROUTE } from './lab-works.routes';
 
 export const GROUPS_ROUTE: Routes = [
     { path: '', component: GroupListComponent },
     { path: 'new', component: GroupFormComponent },
+    { path: ':slug/lab-works', component: GroupProfileComponent, children: LAB_WORKS_ROUTE }, 
     { path: ':slug/assignments', component: GroupProfileComponent, children: ASSIGNMENTS_ROUTE },        
     { path: ':slug/contests', component: GroupProfileComponent, children: CONTESTS_ROUTE },
     { path: ':slug', redirectTo: ':slug/contests' },
