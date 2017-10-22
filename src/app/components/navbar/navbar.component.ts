@@ -3,6 +3,7 @@ import { Router, NavigationStart } from "@angular/router";
 
 import { AuthService } from "../../services/auth/auth.service";
 import { FlashMessageService } from "../../services/flash-message/flash-message.service";
+import { TimerService } from "../../services/timer/timer.service";
 
 declare var $: any;
 
@@ -13,14 +14,21 @@ declare var $: any;
 export class NavbarComponent implements OnInit {
   
   sideBarVisible: boolean = false;
+  timerVisible: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router, private flashMessageService: FlashMessageService) { }
+  constructor(private authService: AuthService, private router: Router, private flashMessageService: FlashMessageService, private timerService: TimerService) { }
 
   ngOnInit() {
     this.router.events.filter(event => event instanceof NavigationStart).subscribe(() => {
       if(this.sideBarVisible) {
         this.toggleSidebar();
       }
+    });
+    this.timerService.timerStarted.subscribe(() => {
+      this.timerVisible = true;
+    });
+    this.timerService.timerEnded.subscribe(() => {
+      this.timerVisible = false;
     });
   }
 

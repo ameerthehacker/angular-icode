@@ -2,6 +2,7 @@
   <a href="#" *ngIf="authService.isLoggedIn()" (click)="onBtnMenuClick($event)" class="item"><i class="sidebar icon"></i></a>        
   <a [routerLink]="['/']" class="item"><i class="fa fa-cubes"></i>&nbsp; I&#123;Code&#125;</a>
   <div class="right menu">
+    <ic-timer *ngIf="authService.isLoggedIn() && timerVisible" class="item"></ic-timer>
     <a *ngIf="!authService.isLoggedIn()" [routerLink]="['/auth/login']" class="item">Login</a>
     <a *ngIf="authService.isLoggedIn()" [routerLink]="['/challenges']" class="item"><i class="fa fa-paper-plane-o"></i> &nbsp; Challenges</a>         
     <a *ngIf="authService.isLoggedIn()" (click)="onLogoutClick($event)" href="#" class="item">Logout</a>    

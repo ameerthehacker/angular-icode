@@ -11,6 +11,7 @@ import { AppService } from "./services/app/app.service";
 import { FlashMessageService } from "./services/flash-message/flash-message.service";
 import { ShowProgressService } from "./services/show-progress/show-progress.service";
 import { ModalService } from "./services/modal/modal.service";
+import { TimerService } from './services/timer/timer.service';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -45,6 +46,7 @@ import { ErrorsComponent } from './components/errors/errors.component';
 import { Error500Component } from './components/errors/error500/error500.component';
 import { Error403Component } from './components/errors/error403/error403.component';
 import { ModalComponent } from './components/shared/modal/modal.component';
+import { TimerComponent } from './components/shared/timer/timer.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +80,8 @@ import { ModalComponent } from './components/shared/modal/modal.component';
     ErrorsComponent,
     Error500Component,
     Error403Component,
-    ModalComponent
+    ModalComponent,
+    TimerComponent
   ],
   imports: [
     BrowserModule,
@@ -94,7 +97,8 @@ import { ModalComponent } from './components/shared/modal/modal.component';
     AuthGuard,
     FlashMessageService,
     ShowProgressService,
-    ModalService
+    ModalService,
+    TimerService
   ],
   bootstrap: [AppComponent]
 })

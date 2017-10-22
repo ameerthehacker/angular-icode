@@ -5,7 +5,7 @@ export class Contest {
     public registrationStartDate: Date;
     public registrationEndDate: Date;
     public contestStartDate: Date;
-    public duration: Number;
+    public duration: number;
     public slug: string;
     public userId: string;
     public groupId: string;
