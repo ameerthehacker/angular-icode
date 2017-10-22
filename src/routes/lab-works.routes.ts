@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 
 import { LabWorksListComponent } from "../app/components/lab-works/lab-works-list/lab-works-list.component";
-import { LabWorkComponent } from "../app/components/lab-works/lab-work/lab-work.component";
 import { LabWorksFormComponent } from "../app/components/lab-works/lab-works-form/lab-works-form.component";
 import { LabWorkSubmissionComponent } from "../app/components/lab-works/lab-work-submission/lab-work-submission.component";
 
