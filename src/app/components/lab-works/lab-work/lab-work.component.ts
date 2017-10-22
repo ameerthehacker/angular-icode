@@ -49,13 +49,13 @@ export class LabWorkComponent implements OnInit {
   
   onBtnDeleteClick(evt) {
     evt.preventDefault();
-    if(confirm('Are you sure to delete this labWork')) {
-      this.authService.delete(`groups/${this.groupSlug}/labWorks/${this.labWork.slug}`, (response) => {
+    if(confirm('Are you sure to delete this lab work')) {
+      this.authService.delete(`groups/${this.groupSlug}/lab-works/${this.labWork.slug}`, (response) => {
         if(!response.error) {
           this.labWorkDeleted.emit(this.labWork.slug);
         }
         else {
-          this.modalService.showModal('OOPS!', 'The labWork could not be updated');
+          this.modalService.showModal('OOPS!', 'The lab work could not be updated');
         }
       });
     }

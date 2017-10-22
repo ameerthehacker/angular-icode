@@ -19,10 +19,10 @@
                     </div>
                 </div>
                 <div class="extra content" *ngIf="canSubmit || isOwner">
-                    <a [routerLink]="['/groups', groupSlug, 'labWorks', labWork.slug, 'submission']" class="ui button positive" *ngIf="canSubmit">Submit</a>
+                    <a [routerLink]="['/groups', groupSlug, 'lab-works', labWork.slug, 'submission']" class="ui button positive" *ngIf="canSubmit">Submit</a>
                     
                     <div class="pull-right" *ngIf="isOwner">
-                        <a [routerLink]="['/groups', groupSlug, 'labWorks', labWork.slug, 'edit']"><i class="fa fa-pencil"></i> Edit</a>
+                        <a [routerLink]="['/groups', groupSlug, 'lab-works', labWork.slug, 'edit']"><i class="fa fa-pencil"></i> Edit</a>
                         <a href="#" (click)="onBtnDeleteClick($event)"><i class="fa fa-trash"></i> Delete</a>
                     </div>
                 </div>

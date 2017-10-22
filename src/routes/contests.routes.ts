@@ -9,5 +9,5 @@ export const CONTESTS_ROUTE: Routes = [
     { path: '', component: ContestsListComponent },
     { path: 'new', component: ContestsFormComponent },   
     { path: ':contestSlug/edit', component: ContestsFormComponent  },
-    { path: ':contestSlug/submission', component: ContestSubmissionComponent  },
+    { path: ':contestSlug/submission', component: ContestSubmissionComponent  }
 ];

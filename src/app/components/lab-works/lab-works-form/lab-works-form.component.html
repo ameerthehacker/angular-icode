@@ -1,0 +1,42 @@
+<div class="ui grid">
+    <div class="row">
+      <div class="sixteen column wide">
+        <h3 class="text-center"><i class="fa fa-flask"></i> &nbsp; New Lab Work</h3>        
+      </div>
+    </div>
+    <div class="row">
+      <div class="two wide column"></div>      
+      <div class="twelve wide column">
+        <form [formGroup]="labWorksForm" class="ui {{ isFormLoading ? 'loading': '' }} form">
+          <div class="field">
+            <label for="title">Title</label>
+            <input id="title" type="text" formControlName="title" placeholder="Title of the lab work">
+            <div class="error-field" *ngIf="!title.valid && title.touched">Title field is required</div>
+          </div>
+          <div class="field">
+            <label for="description">Description</label>
+            <textarea id="description" placeholder="Something about the lab work" formControlName="description"></textarea>
+            <div class="error-field" *ngIf="!description.valid && description.touched">Description field is required</div>
+          </div>
+          <div class="two fields">
+            <div class="field">
+              <label for="submissionStartDate">Submission start date</label>
+              <input type="text" id="submissionStartDate" formControlName="submissionStartDate" placeholder="DD/MM/YYYY">
+              <div class="error-field" *ngIf="!submissionStartDate.valid && submissionStartDate.touched">Invalid date</div>
+            </div>
+            <div class="field">
+              <label for="submissionEndDate">Submission end date</label>
+              <input type="text" id="submissionEndDate" formControlName="submissionEndDate" placeholder="eg. 19/10/2017">
+              <div class="error-field" *ngIf="!submissionEndDate.valid && submissionEndDate.touched">Invalid date</div>
+            </div>
+          </div>
+          <div class="field">
+            <ic-list title="challenges" [list]="availableChallenges" [selected]="selectedChallenges" [properties]="{ title: 'title' }"></ic-list>
+          </div>
+          <div class="field">
+            <button (click)="onBtnSubmitClick()" [disabled]="!labWorksForm.valid" type="submit" class="ui button positive">{{ btnSubmitText }}</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

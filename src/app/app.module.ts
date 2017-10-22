@@ -53,6 +53,8 @@ import { AssignmentsListComponent } from './components/assignments/assignments-l
 import { AssignmentSubmissionComponent } from './components/assignments/assignment-submission/assignment-submission.component';
 import { LabWorksListComponent } from './components/lab-works/lab-works-list/lab-works-list.component';
 import { LabWorkComponent } from './components/lab-works/lab-work/lab-work.component';
+import { LabWorksFormComponent } from './components/lab-works/lab-works-form/lab-works-form.component';
+import { LabWorkSubmissionComponent } from './components/lab-works/lab-work-submission/lab-work-submission.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +95,9 @@ import { LabWorkComponent } from './components/lab-works/lab-work/lab-work.compo
     AssignmentsListComponent,
     AssignmentSubmissionComponent,
     LabWorksListComponent,
-    LabWorkComponent
+    LabWorkComponent,
+    LabWorksFormComponent,
+    LabWorkSubmissionComponent
   ],
   imports: [
     BrowserModule,

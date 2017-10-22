@@ -9,5 +9,5 @@ export const ASSIGNMENTS_ROUTE: Routes = [
     { path: '', component: AssignmentsListComponent },
     { path: 'new', component: AssignmentsFormComponent },   
     { path: ':assignmentSlug/edit', component: AssignmentsFormComponent  },
-    { path: ':assignmentSlug/submission', component: AssignmentSubmissionComponent  },
+    { path: ':assignmentSlug/submission', component: AssignmentSubmissionComponent  }
 ];
