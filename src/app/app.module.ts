@@ -47,6 +47,10 @@ import { Error500Component } from './components/errors/error500/error500.compone
 import { Error403Component } from './components/errors/error403/error403.component';
 import { ModalComponent } from './components/shared/modal/modal.component';
 import { TimerComponent } from './components/shared/timer/timer.component';
+import { AssignmentComponent } from './components/assignments/assignment/assignment.component';
+import { AssignmentsFormComponent } from './components/assignments/assignments-form/assignments-form.component';
+import { AssignmentsListComponent } from './components/assignments/assignments-list/assignments-list.component';
+import { AssignmentSubmissionComponent } from './components/assignments/assignment-submission/assignment-submission.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +85,11 @@ import { TimerComponent } from './components/shared/timer/timer.component';
     Error500Component,
     Error403Component,
     ModalComponent,
-    TimerComponent
+    TimerComponent,
+    AssignmentComponent,
+    AssignmentsFormComponent,
+    AssignmentsListComponent,
+    AssignmentSubmissionComponent
   ],
   imports: [
     BrowserModule,

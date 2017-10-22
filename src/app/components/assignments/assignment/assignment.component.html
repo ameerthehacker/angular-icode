@@ -1,0 +1,32 @@
+<div class="ui grid">
+    <div class="row">
+        <div class="sixteen wide column">
+            <div class="ui card fluid">
+                <div class="content">
+                    <div class="header">
+                        {{ assignment.title }}
+                    </div>
+                    <div class="meta">
+                        {{ assignment.description }}
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="description">
+                        <p>
+                            <i class="fa fa-calendar"></i> &nbsp;
+                            Open till <b>{{ submissionEndDate  }}</b>    
+                        </p>
+                    </div>
+                </div>
+                <div class="extra content" *ngIf="canSubmit || isOwner">
+                    <a [routerLink]="['/groups', groupSlug, 'assignments', assignment.slug, 'submission']" class="ui button positive" *ngIf="canSubmit">Submit</a>
+                    
+                    <div class="pull-right" *ngIf="isOwner">
+                        <a [routerLink]="['/groups', groupSlug, 'assignments', assignment.slug, 'edit']"><i class="fa fa-pencil"></i> Edit</a>
+                        <a href="#" (click)="onBtnDeleteClick($event)"><i class="fa fa-trash"></i> Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
