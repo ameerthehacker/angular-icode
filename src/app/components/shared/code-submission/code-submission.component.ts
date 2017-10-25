@@ -20,6 +20,7 @@ export class CodeSubmissionComponent implements OnInit {
   typeOfSubmission: string;
   @Input('for')
   submittedForId: string;
+  points: any;
   compileMessage = false;
   sampleTestCase:any = false;
   @ViewChild(CodeEditorComponent)
@@ -70,10 +71,10 @@ export class CodeSubmissionComponent implements OnInit {
         this.testCaseResults[data.index] = data.result;
       }
     });
-
     this.compileMessage = this.sampleTestCase = false;
     this.codeEditorComponent.setIsSubmitting(true);
     this.authService.post(`challenges/${this.challenge.slug}/submissions`, body, (response) => {
+      this.points = response.points;    
       socket.unsubscribe();
       this.codeEditorComponent.setIsSubmitting(false);      
     }, false);
@@ -82,6 +83,7 @@ export class CodeSubmissionComponent implements OnInit {
     this.codeEditorComponent.isLoading = true;
     this.authService.get(`challenges/${this.challenge.slug}/submissions/${compiler.code}?type=${this.typeOfSubmission}&for=${this.submittedForId}`, (response) => {
       if(response.submissionFound) {
+        this.points = response.submission.points;
         this.codeEditorComponent.setCode(response.submission.code);
       }
       else {

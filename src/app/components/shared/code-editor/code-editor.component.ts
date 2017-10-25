@@ -25,6 +25,8 @@ export class CodeEditorComponent implements OnInit {
   isLoading:boolean = true;
   @Input()
   btnCompileText = "Compile & Test"
+  @Input()
+  points: any;
   codeEditor:any = false;
   compilers: Array<any>;
   compiler:any;

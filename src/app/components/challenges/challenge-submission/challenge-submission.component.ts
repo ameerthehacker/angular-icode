@@ -14,6 +14,7 @@ export class ChallengeSubmissionComponent implements OnInit {
 
   challenge: Challenge;
   typeOfSubmission: string = 'practice';
+  points: any;
 
   constructor(private activatedRoute: ActivatedRoute, private authService: AuthService) { }
 
