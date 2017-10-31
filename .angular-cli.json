@@ -33,7 +33,8 @@
         "../node_modules/codemirror/lib/codemirror.js", 
         "../node_modules/codemirror/mode/python/python.js", 
         "../node_modules/codemirror/mode/clike/clike.js",   
-        "../node_modules/codemirror/mode/php/php.js",                      
+        "../node_modules/codemirror/mode/php/php.js",  
+        "../node_modules/codemirror/mode/shell/shell.js",
         "scripts.js"
       ],
       "environmentSource": "environments/environment.ts",

@@ -23,6 +23,11 @@
                 <ic-code-editor [points]="points" (onLanguageChanged)="onLanguageChanged($event)" [canSubmitCode]="true" (onEditorLoaded)="onEditorLoaded($event)" (onCodeCompiled)="onCodeCompiled($event)"></ic-code-editor>
             </div>
         </div>
+        <div class="row">
+            <div class="column sixteen wide">
+                <ic-message *ngIf="compileMessage || sampleTestCase" title="Sorry!" type="positive" title="" [messages]="['Compilation completed!']"></ic-message> 
+            </div>
+        </div>
         <div class="row" *ngIf="compileMessage">
             <div class="column sixteen wide">
                 <h4>Compile Message</h4>
