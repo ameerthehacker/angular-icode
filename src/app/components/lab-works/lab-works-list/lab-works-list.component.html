@@ -1,7 +1,7 @@
 <div class="ui grid">
     <div *ngIf="!isLoadingLabWorks" class="row">
         <div class="sixteen column wide">
-            <a [routerLink]="['/groups', groupSlug, 'lab-works', 'new']" class="ui button positive"><i class="fa fa-plus"></i> &nbsp; New Lab Work</a>
+            <a *ngIf="authService.userHasPermission('manage-groups')" [routerLink]="['/groups', groupSlug, 'lab-works', 'new']" class="ui button positive"><i class="fa fa-plus"></i> &nbsp; New Lab Work</a>
         </div>
     </div>
     <div class="row">

@@ -133,5 +133,14 @@ export class AuthService {
     });
     return obeservable;    
   }
-
+  userHasPermission(permissionName: string): boolean {
+    let user = this.getCurrentUser();
+    let permissions = user.permissions;
+    for(let i = 0; i < permissions.length; i++) {
+      if(permissions[i].name == permissionName) {
+        return true;
+      }
+    }
+    return false;
+  }
 }

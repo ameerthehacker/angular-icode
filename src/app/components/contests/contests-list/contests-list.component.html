@@ -1,7 +1,7 @@
 <div class="ui grid">
     <div *ngIf="!isLoadingContests" class="row">
         <div class="sixteen column wide">
-            <a [routerLink]="['/groups', groupSlug, 'contests', 'new']" class="ui button positive"><i class="fa fa-plus"></i> &nbsp; New Contest</a>
+            <a *ngIf="authService.userHasPermission('manage-contests')" [routerLink]="['/groups', groupSlug, 'contests', 'new']" class="ui button positive"><i class="fa fa-plus"></i> &nbsp; New Contest</a>
         </div>
     </div>
     <div class="row">

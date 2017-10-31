@@ -5,13 +5,14 @@
   <div class="item">
     <div class="header">Challenges</div>
     <div class="menu">
+        <a *ngIf="authService.userHasPermission('manage-challenges')" class="item" [routerLink]="['/challenges']">All Challenge</a>  
         <a class="item" [routerLink]="['/challenges/new']">New Challenge</a>
     </div>
   </div>
   <div class="item">
       <div class="header">Groups</div>
       <div class="menu">
-          <a class="item" [routerLink]="['/groups/new']">New Group</a>
+          <a *ngIf="authService.userHasPermission('manage-groups')"  class="item" [routerLink]="['/groups/new']">New Group</a>
           <a class="item" [routerLink]="['/groups']">All Groups</a>
       </div>
     </div>

@@ -1,7 +1,7 @@
 <div class="ui grid">
     <div *ngIf="!isLoadingAssignments" class="row">
         <div class="sixteen column wide">
-            <a [routerLink]="['/groups', groupSlug, 'assignments', 'new']" class="ui button positive"><i class="fa fa-plus"></i> &nbsp; New Assignment</a>
+            <a *ngIf="authService.userHasPermission('manage-assignments')"[routerLink]="['/groups', groupSlug, 'assignments', 'new']" class="ui button positive"><i class="fa fa-plus"></i> &nbsp; New Assignment</a>
         </div>
     </div>
     <div class="row">
