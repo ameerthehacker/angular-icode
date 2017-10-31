@@ -1,8 +1,9 @@
-import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter, AfterViewChecked } from '@angular/core';
 
 import { AuthService } from "../../../services/auth/auth.service";
 
 declare var CodeMirror: any;
+declare var $: any;
 
 @Component({
   selector: 'ic-code-editor',
@@ -43,6 +44,9 @@ export class CodeEditorComponent implements OnInit {
         this.onEditorLoaded.emit(this.compilers[0]); 
       }        
     }, false);
+  }
+  ngAfterViewChecked() {
+    $('select.dropdown').dropdown();
   }
 
   initCodeEditor(compiler: any, code: string) {

@@ -6,7 +6,7 @@
           <div class="pull-left">
             <h1><i class="fa fa-code-fork"></i> &nbsp; Current Buffer &nbsp; <span *ngIf="points">[Points: {{ points }}]</span></h1>
           </div>
-          <select *ngIf="languagesLoaded" [disabled]="isLoading" (change)="onLanguageChange($event)" class="pull-right form-control">
+          <select *ngIf="languagesLoaded" [disabled]="isLoading" (change)="onLanguageChange($event)" class="pull-right dropdown">
             <option *ngFor="let compiler of compilers" [value]="compiler.mode">{{ compiler.language }}</option>     
           </select>
         </div>
