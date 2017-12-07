@@ -9,4 +9,9 @@
             <ic-contest *ngFor="let contest of contests" [contest]="contest" (delete)="onContestDeleted($event)"></ic-contest>
         </div>
     </div>
+    <div class="row">
+        <div class="sixteen column wide">
+            <ic-pagination (select)="loadContests($event)"></ic-pagination>
+        </div>
+    </div>
 </div>

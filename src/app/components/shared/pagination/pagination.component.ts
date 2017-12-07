@@ -33,7 +33,7 @@ export class PaginationComponent implements OnInit {
   paginate(page, perPage, count) {
     this.perPage = perPage;
     this.count = count;
-    this.noPage = Math.floor(this.count / this.perPage);
+    this.noPage = Math.ceil(this.count / this.perPage);
     this.selectPage(page);
   }
   private addPages(i, j = undefined) {
