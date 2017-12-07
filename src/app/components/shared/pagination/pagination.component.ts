@@ -98,12 +98,14 @@ export class PaginationComponent implements OnInit {
     if(this.curPage < this.noPage) {
       this.curPage += 1;
       this.selectPage(this.curPage); 
+      this.pageSelected.emit(this.curPage);    
     }
   }
   prevPage() {
     if(this.curPage > 1) {
       this.curPage -= 1;
       this.selectPage(this.curPage);
+      this.pageSelected.emit(this.curPage);          
     }
   }
   onPageSelect(page) {

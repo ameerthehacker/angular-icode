@@ -1,8 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { 
+  Component, 
+  OnInit, 
+  Input, 
+  ViewChild } from '@angular/core';
 
 import { Group } from "../../../models/group";
 
 import { AuthService } from "../../../services/auth/auth.service";
+import { PaginationComponent } from 'app/components/shared/pagination/pagination.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ic-group-list',
@@ -13,17 +19,26 @@ export class GroupListComponent implements OnInit {
 
   @Input()
   groups: Group[];
+  @ViewChild(PaginationComponent)
+  pagination: PaginationComponent;  
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.authService.get('groups', (response) => {
-      if(!response.error) {
-        this.groups = response.msg;
-      }
+    this.route.queryParams.subscribe((params) => {
+      let page = params.page ? params.page: 1;
+      this.loadGroups(page);
     });
   }
 
+  loadGroups(page) {
+    this.authService.get(`groups?page=${page}`, (response) => {
+      if(!response.error) {
+        this.pagination.paginate(page, response.msg.limit, response.msg.total);
+        this.groups = response.msg.docs;   
+      }
+    });
+  }
   onGroupDeleted(slug: string) {
     this.groups.forEach((group, index) => {
       if(group.slug == slug) {

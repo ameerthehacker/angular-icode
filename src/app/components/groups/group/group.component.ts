@@ -1,4 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { 
+  Component, 
+  OnInit, 
+  Input, 
+  Output, 
+  EventEmitter } from '@angular/core';
+import { PaginationComponent } from '../../shared/pagination/pagination.component';
 
 import { Group } from "../../../models/group";
 

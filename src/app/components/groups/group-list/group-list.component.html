@@ -4,4 +4,9 @@
             <ic-group (delete)="onGroupDeleted($event)" [group]="group"></ic-group>
         </div>
     </div>
+    <div class="row">
+        <div class="sixteen column wide">
+            <ic-pagination (select)="loadGroups($event)"></ic-pagination>
+        </div>
+    </div>
 </div>
