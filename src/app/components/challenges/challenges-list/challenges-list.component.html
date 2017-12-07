@@ -4,4 +4,9 @@
             <ic-challenge (delete)="onChallengeDelete($event)"  [challenge]="challenge"></ic-challenge>
         </div>
     </div>
+    <div class="row">
+        <div class="column sixteen wide">
+            <ic-pagination (select)="loadChallenges($event)"></ic-pagination>
+        </div>
+    </div>
 </div>

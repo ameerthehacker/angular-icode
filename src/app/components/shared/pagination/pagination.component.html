@@ -1,0 +1,11 @@
+<div class="ui pagination menu" *ngIf="perPage < count">
+  <div class="icon item" (click)="prevPage()">
+    <i class="icon left arrow"></i>
+  </div>
+  <div class="item" (click)="onPageSelect(page)" [ngClass]="{ active: page == curPage, disabled: page == '..'  }" *ngFor="let page of pages">
+    {{ page }}
+  </div>
+  <div class="icon item" (click)="nextPage()">
+    <i class="icon right arrow"></i>
+  </div>
+</div>
