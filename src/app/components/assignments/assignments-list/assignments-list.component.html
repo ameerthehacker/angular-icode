@@ -9,4 +9,9 @@
             <ic-assignment *ngFor="let assignment of assignments" [assignment]="assignment" (delete)="onAssignmentDeleted($event)"></ic-assignment>
         </div>
     </div>
+    <div class="row">
+        <div class="sixteen column wide">
+            <ic-pagination (select)="loadAssignments($event)"></ic-pagination>
+        </div>
+    </div>
 </div>
