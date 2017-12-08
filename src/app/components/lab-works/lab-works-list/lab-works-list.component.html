@@ -9,4 +9,9 @@
             <ic-lab-work *ngFor="let labWork of labWorks" [labWork]="labWork" (delete)="onLabWorkDeleted($event)"></ic-lab-work>
         </div>
     </div>
+    <div class="row">
+        <div class="sixteen column wide">
+            <ic-pagination (select)="loadLabWorks($event)"></ic-pagination>
+        </div>
+    </div>
 </div>
