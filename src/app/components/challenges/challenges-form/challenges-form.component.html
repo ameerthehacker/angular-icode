@@ -86,6 +86,28 @@
       <div class="field">
         <button class="ui tiny primary button" (click)="onBtnAddTestCaseClick()"><i class="fa fa-plus"></i> Add Test Case</button>
       </div>
+      <div class="field" formArrayName="boilerplates" *ngFor="let boilerplate of challengesForm.get('boilerplates').controls; let i = index">
+        <div [formGroupName]="i">
+          <div class="field">
+            <label for="">Boilerplate {{ i + 1 }}</label>          
+          </div>
+          <div class="three column wide field">
+            <select class="dropdown" formControlName="langCode">
+              <option *ngFor="let compiler of compilers" [value]="compiler.code">{{ compiler.language }}</option>
+            </select>
+          </div>          
+          <div class="field">
+            <textarea formControlName="boilerplate" rows="5"></textarea>
+            <div class="error-field" *ngIf="!getBoilerplate(i).valid && getBoilerplate(i).touched">
+                some boilerplate program is required
+            </div>
+          </div>
+        </div>
+        <button (click)="onBtnRemoveBoilerplateClick(i)" class="ui tiny button negative margin-10"><i class="fa fa-trash"></i></button> 
+      </div>
+      <div class="field">
+        <button class="ui tiny primary button" (click)="onBtnAddBoilerplateClick()"><i class="fa fa-plus"></i> Add Boilerplate</button>
+      </div>
       <div class="field">
         <input type="submit" [value]="btnSubmitText" (click)="onSubmitClick()" class="ui button positive" [disabled]="!challengesForm.valid"/>
       </div>

@@ -1,5 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormArray, Validators } from "@angular/forms";
+import { 
+  Component, 
+  OnInit, 
+  AfterViewChecked } from '@angular/core';
+import { 
+  FormGroup, 
+  FormControl, 
+  FormArray, 
+  Validators } from "@angular/forms";
 import { Router, ActivatedRoute } from "@angular/router";
 
 import { AuthService } from "../../../services/auth/auth.service";
@@ -8,25 +15,30 @@ import { ModalService } from "../../../services/modal/modal.service";
 
 import { Challenge } from "../../../models/challenge";
 
+declare var $: any;
+
 @Component({
   selector: 'ic-challenges-form',
   templateUrl: './challenges-form.component.html',
   styles: []
 })
-export class ChallengesFormComponent implements OnInit {
+export class ChallengesFormComponent implements OnInit, AfterViewChecked {
 
   challengesForm: FormGroup;
   btnSubmitText: string = "Submit";
   isFormLoading: boolean = false;
   challenge: Challenge;
+  compilers: any[];
   // Flag to indicate whether form is used for creating challenge or for updating
   isEditForm: boolean = false;
 
   constructor(private authService: AuthService, private flashMessageService: FlashMessageService, private router: Router, private activatedRoute: ActivatedRoute, private modalService: ModalService) { }
 
   ngOnInit() {
+    this.compilers = [];
     this.challenge = new Challenge();
     this.challenge.testCases = [];
+    this.challenge.boilerplates = [];
     this.challengesForm = this.initChallengesForm(this.challenge);
     
     this.activatedRoute.params.subscribe((params) => {
@@ -37,14 +49,32 @@ export class ChallengesFormComponent implements OnInit {
         this.authService.get(`challenges/${challengeSlug}`, (response) => {
           if(!response.error) {
             this.challenge = response.msg;
-            this.challengesForm = this.initChallengesForm(this.challenge);
-            this.isFormLoading = false;
+            // Get the compilers to init the boilerplates form
+            this.authService.get('compilers', (response: any) => {
+              if(!response.error) {
+                this.compilers = response.msg;
+                this.challengesForm = this.initChallengesForm(this.challenge);
+                this.isFormLoading = false;            
+              }        
+            }, false);
           }
+        }, false);
+      }
+      else {
+        this.isFormLoading = true;
+        this.authService.get('compilers', (response: any) => {
+          if(!response.error) {
+            this.compilers = response.msg;
+            this.isFormLoading = false;            
+          }        
         }, false);
       }
     });
   }
-  
+  ngAfterViewChecked() {
+    $('select.dropdown').dropdown();    
+  }
+
   private setFormProcessingStatus(status: boolean) {
     this.isFormLoading = status;
     if(status) {
@@ -64,7 +94,8 @@ export class ChallengesFormComponent implements OnInit {
       'sampleInput': new FormControl(challenge.sampleInput, Validators.required),
       'sampleOutput': new FormControl(challenge.sampleOutput, Validators.required),
       'explanation': new FormControl(challenge.explanation, Validators.required),
-      'testCases': new FormArray(this.initTestCasesForm(this.challenge.testCases))
+      'testCases': new FormArray(this.initTestCasesForm(this.challenge.testCases)),
+      'boilerplates': new FormArray(this.initBoilerplatesForm(this.challenge.boilerplates))
     });
   }
   private initTestCaseForm(testCase): FormGroup {
@@ -86,6 +117,33 @@ export class ChallengesFormComponent implements OnInit {
     });
     return testCasesForm;
   }
+  private initBoilerplateForm(boilerplate = undefined): FormGroup {
+    let defaultLanguage;
+    if(this.compilers.length != 0) {
+      defaultLanguage = this.compilers[0].code;
+    }
+    // Select the first language by default
+    let code = boilerplate ? boilerplate.code: defaultLanguage;
+    let program = boilerplate ? boilerplate.boilerplate: '';
+    console.log(program);
+    let boilerplateForm: FormGroup = new FormGroup({
+      'langCode': new FormControl(code),
+      'boilerplate': new FormControl(program, Validators.required)
+    });
+
+    return boilerplateForm;
+  }
+  private initBoilerplatesForm(boilerplates): FormGroup[] {
+    let newBoilerplatesForm: FormGroup[] = [];
+    if(boilerplates == undefined) {
+      return newBoilerplatesForm;
+    }
+    boilerplates.forEach((boilerplate) => {
+      let boilerplateForm = this.initBoilerplateForm(boilerplate);
+      newBoilerplatesForm.push(boilerplateForm);
+    });
+    return newBoilerplatesForm;
+  }
   onSubmitClick() {
     let challenge: Challenge = new Challenge();
     challenge.title = this.title.value;
@@ -97,12 +155,20 @@ export class ChallengesFormComponent implements OnInit {
     challenge.sampleOutput = this.sampleOutput.value;
     challenge.explanation = this.explanation.value;
     challenge.testCases = [];
+    challenge.boilerplates = [];    
     (<FormArray>this.challengesForm.get('testCases')).controls.forEach((control) => {
       let newTestCase = {
         'input': control.get('input').value,
         'output': control.get('output').value
       }
       challenge.testCases.push(newTestCase);
+    });
+    (<FormArray>this.challengesForm.get('boilerplates')).controls.forEach((control) => {
+      let newBoilerplate = {
+        'code': control.get('langCode').value,
+        'boilerplate': control.get('boilerplate').value
+      }
+      challenge.boilerplates.push(newBoilerplate);
     });
 
     this.setFormProcessingStatus(true);
@@ -141,6 +207,13 @@ export class ChallengesFormComponent implements OnInit {
   onBtnRemoveTestCaseClick(i: number) {
     (<FormArray>this.challengesForm.get('testCases')).removeAt(i);
   }
+  onBtnAddBoilerplateClick() {
+    let newBoilerplateForm = this.initBoilerplateForm();
+    (<FormArray>this.challengesForm.get('boilerplates')).push(newBoilerplateForm);
+  }
+  onBtnRemoveBoilerplateClick(i: number) {
+    (<FormArray>this.challengesForm.get('boilerplates')).removeAt(i);    
+  }
   get title() {
     return this.challengesForm.get('title');
   }
@@ -170,5 +243,8 @@ export class ChallengesFormComponent implements OnInit {
   }
   output(i) {
     return (<FormArray>this.challengesForm.get('testCases')).controls[i].get('output');
+  }
+  getBoilerplate(i) {
+    return (<FormArray>this.challengesForm.get('boilerplates')).controls[i].get('boilerplate');
   }
 }

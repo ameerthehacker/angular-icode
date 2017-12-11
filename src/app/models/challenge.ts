@@ -11,6 +11,7 @@ export class Challenge {
     slug: string;
     userId: string;
     testCases: Array<Object>;
+    boilerplates: Array<Object>;
 
     constructor() {}
 }
