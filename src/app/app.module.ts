@@ -56,6 +56,7 @@ import { LabWorkComponent } from './components/lab-works/lab-work/lab-work.compo
 import { LabWorksFormComponent } from './components/lab-works/lab-works-form/lab-works-form.component';
 import { LabWorkSubmissionComponent } from './components/lab-works/lab-work-submission/lab-work-submission.component';
 import { PaginationComponent } from './components/shared/pagination/pagination.component';
+import { PlaygroundComponent } from './components/playground/playground.component';
 
 @NgModule({
   declarations: [
@@ -99,7 +100,8 @@ import { PaginationComponent } from './components/shared/pagination/pagination.c
     LabWorkComponent,
     LabWorksFormComponent,
     LabWorkSubmissionComponent,
-    PaginationComponent
+    PaginationComponent,
+    PlaygroundComponent
   ],
   imports: [
     BrowserModule,

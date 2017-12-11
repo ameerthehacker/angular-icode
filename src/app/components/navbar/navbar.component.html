@@ -4,7 +4,7 @@
   <div class="right menu">
     <ic-timer *ngIf="authService.isLoggedIn() && timerVisible" class="item"></ic-timer>
     <a *ngIf="!authService.isLoggedIn()" [routerLink]="['/auth/login']" class="item">Login</a>
-    <a *ngIf="authService.isLoggedIn()" [routerLink]="['/challenges']" class="item"><i class="fa fa-thumbs-o-up"></i> &nbsp; Challenges</a>      
+    <a *ngIf="authService.isLoggedIn()" [routerLink]="['/challenges']" class="item"><i class="fa fa-thumbs-o-up"></i> &nbsp; Challenges</a>     <a *ngIf="authService.isLoggedIn()" [routerLink]="['/playground']" class="item"><i class="fa fa-futbol-o"></i> &nbsp; Playground</a>
     <a *ngIf="authService.isLoggedIn()" (click)="onLogoutClick($event)" href="#" class="item">Logout</a>    
   </div>
 </div>

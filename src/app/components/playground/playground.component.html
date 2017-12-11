@@ -1,0 +1,23 @@
+<div class="ui grid">
+    <div class="row">
+        <div class="sixteen column wide">
+            <ic-code-editor [canSubmitCode]="false" (onEditorLoaded)="onEditorLoaded($event)" (onLanguageChanged)="onLanguageChanged($event)" (onCodeCompiled)="onCodeCompiled($event)"></ic-code-editor>        
+        </div>
+    </div>
+    <div class="row" *ngIf="output">
+        <div class="sixteen column wide">
+            <h4>Your output</h4>                
+            <div class="gray-box">
+                <pre>{{ output }}</pre>
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="compileMessage">
+        <div class="sixteen column wide">
+            <h4>Compile Message</h4>                
+            <div class="gray-box">
+                <pre class="red-text">{{ compileMessage }}</pre>
+            </div>
+        </div>
+    </div>
+</div>
