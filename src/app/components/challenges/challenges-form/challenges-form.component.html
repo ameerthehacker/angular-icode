@@ -92,7 +92,7 @@
               <label for="">Boilerplate {{ i + 1 }}</label>          
           </div>
           <div class="ui segments">
-            <div class="ui segment">
+            <div class="ui secondary segment">
               <div class="three column wide field">
                 <select (change)="onLanguageChanged($event, i)" class="dropdown" formControlName="langCode">
                   <option *ngFor="let compiler of compilers" [value]="compiler.code">{{ compiler.language }}</option>
