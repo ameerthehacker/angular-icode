@@ -48,7 +48,7 @@ export class LabWorksFormComponent implements OnInit {
       let challenges;
       this.authService.get('challenges', (response) => {
         if(!response.error) {
-          challenges = response.msg;
+          challenges = response.msg.docs;
           if(labWorkSlug) {
             this.isEditForm = true;
             // Get the labWork to be edited

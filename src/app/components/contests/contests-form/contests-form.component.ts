@@ -48,7 +48,7 @@ export class ContestsFormComponent implements OnInit {
       let challenges;
       this.authService.get('challenges', (response) => {
         if(!response.error) {
-          challenges = response.msg;
+          challenges = response.msg.docs;
           if(contestSlug) {
             this.isEditForm = true;
             // Get the contest to be edited

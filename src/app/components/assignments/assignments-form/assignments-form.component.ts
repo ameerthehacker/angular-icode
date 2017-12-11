@@ -48,7 +48,7 @@ export class AssignmentsFormComponent implements OnInit {
       let challenges;
       this.authService.get('challenges', (response) => {
         if(!response.error) {
-          challenges = response.msg;
+          challenges = response.msg.docs;
           if(assignmentSlug) {
             this.isEditForm = true;
             // Get the assignment to be edited
