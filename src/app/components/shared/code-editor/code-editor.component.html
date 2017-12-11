@@ -21,4 +21,21 @@
       </div>
     </div>
   </div>
+  <div class="row">
+    <div class="sixteen column wide">
+      <div class="ui toggle checkbox">
+          <input id="custom-input" type="checkbox" (change)="onCustomInputSelected($event)">
+          <label for="custom-input">Custom input</label>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="hasCustomInput" class="row">
+    <div class="sixteen column wide">
+      <form class="ui form" [formGroup]="frmCustomInput">
+        <div class="field">
+          <textarea formControlName="customInput" rows="5"></textarea>            
+        </div>
+      </form>
+    </div>
+  </div>
 </div>

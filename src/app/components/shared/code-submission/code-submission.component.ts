@@ -27,6 +27,7 @@ export class CodeSubmissionComponent implements OnInit {
   codeEditorComponent: CodeEditorComponent;
   testCaseResults: Object[] = [];
   sampleTestCasePassed: boolean;
+  customTestCase: any = false;
 
   constructor(private authService: AuthService) { }
 
@@ -45,12 +46,32 @@ export class CodeSubmissionComponent implements OnInit {
       langCode: result.compiler.code,
       typeOfSubmission: this.typeOfSubmission,
       submittedForId: this.submittedForId,
-      uid: uid
+      uid: uid,
+      hasCustomInput: result.hasCustomInput,
+      customInput: result.customInput
     }
     // Listen for events
     const socket = this.authService.getSocketObservable(uid).subscribe((data) => {
-      if(data.type == 'sampleTestCase') {
+      if(data.type == 'customInput') {
         let result = data.result;
+
+        if(result.error) {
+          if(!result.compiled) {
+            this.compileMessage = result.msg;
+          }
+          socket.unsubscribe();
+        }
+        else {
+            this.compileMessage = false;                        
+            this.customTestCase = {
+              input: result.input,
+              output: result.msg
+            }
+        }
+      }
+      else if(data.type == 'sampleTestCase') {
+        let result = data.result;
+
         if(result.error) {
           if(!result.compiled) {
             this.compileMessage = result.msg;
@@ -71,7 +92,7 @@ export class CodeSubmissionComponent implements OnInit {
         this.testCaseResults[data.index] = data.result;
       }
     });
-    this.compileMessage = this.sampleTestCase = false;
+    this.compileMessage = this.sampleTestCase = this.customTestCase = false;
     this.codeEditorComponent.setIsSubmitting(true);
     this.authService.post(`challenges/${this.challenge.slug}/submissions`, body, (response) => {
       this.points = response.points;    

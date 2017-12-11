@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, Input, EventEmitter, AfterViewChecked } from '@angular/core';
+import { FormGroup, FormControl } from "@angular/forms";
 
 import { AuthService } from "../../../services/auth/auth.service";
 
@@ -33,6 +34,8 @@ export class CodeEditorComponent implements OnInit {
   compiler:any;
   languagesLoaded: boolean = false;
   isSubmitting: boolean = false;
+  hasCustomInput: boolean = false;
+  frmCustomInput: FormGroup;
 
   constructor(private authService: AuthService) { }
 
@@ -44,6 +47,9 @@ export class CodeEditorComponent implements OnInit {
         this.onEditorLoaded.emit(this.compilers[0]); 
       }        
     }, false);
+    this.frmCustomInput = new FormGroup({
+      customInput: new FormControl()
+    });
   }
   ngAfterViewChecked() {
     $('select.dropdown').dropdown();
@@ -79,6 +85,8 @@ export class CodeEditorComponent implements OnInit {
   }
   onBtnCompileClick() {
     let result = {
+      hasCustomInput: this.hasCustomInput,
+      customInput: this.frmCustomInput.get('customInput').value,
       compiler: this.compiler,
       code: this.codeEditor.getValue()
     };
@@ -86,10 +94,15 @@ export class CodeEditorComponent implements OnInit {
   }
   onBtnSubmitClick() {
     let result = {
+      hasCustomInput: this.hasCustomInput,
+      customInput: this.frmCustomInput.get('customInput').value,
       compiler: this.compiler,
       code: this.codeEditor.getValue()
     };
     this.onCodeSubmited.emit(result);
+  }
+  onCustomInputSelected(evt) {
+    this.hasCustomInput = evt.target.checked;
   }
 
 }

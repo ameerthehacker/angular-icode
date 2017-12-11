@@ -36,6 +36,16 @@
                 </div>
             </div>
         </div>
+        <div class="row" *ngIf="customTestCase">
+            <div class="column sixteen wide">
+                <div class="gray-box">
+                    <h4>Input:</h4>
+                    <pre>{{ customTestCase.input }}</pre>
+                    <h4>Your output: </h4>
+                    <pre>{{ customTestCase.output }}</pre>
+                </div>
+            </div>
+        </div>
         <div class="row" *ngIf="sampleTestCase">
             <div class="column sixteen wide">
                 <h4><i [class]="sampleTestCase.passed ? 'fa fa-check': 'fa fa-times'"></i> &nbsp; Sample Testcase</h4>
