@@ -89,17 +89,23 @@
       <div class="field" formArrayName="boilerplates" *ngFor="let boilerplate of challengesForm.get('boilerplates').controls; let i = index">
         <div [formGroupName]="i">
           <div class="field">
-            <label for="">Boilerplate {{ i + 1 }}</label>          
+              <label for="">Boilerplate {{ i + 1 }}</label>          
           </div>
-          <div class="three column wide field">
-            <select class="dropdown" formControlName="langCode">
-              <option *ngFor="let compiler of compilers" [value]="compiler.code">{{ compiler.language }}</option>
-            </select>
-          </div>          
-          <div class="field">
-            <textarea formControlName="boilerplate" rows="5"></textarea>
-            <div class="error-field" *ngIf="!getBoilerplate(i).valid && getBoilerplate(i).touched">
-                some boilerplate program is required
+          <div class="ui segments">
+            <div class="ui segment">
+              <div class="three column wide field">
+                <select (change)="onLanguageChanged($event, i)" class="dropdown" formControlName="langCode">
+                  <option *ngFor="let compiler of compilers" [value]="compiler.code">{{ compiler.language }}</option>
+                </select>
+              </div>         
+            </div> 
+            <div class="ui segment no-padding">
+              <div class="field">
+                <textarea class="no-border-radius" id="boilerplate-{{ i + 1 }}" formControlName="boilerplate" rows="10"></textarea>
+                <div class="error-field" *ngIf="!getBoilerplate(i).valid && getBoilerplate(i).touched">
+                    some boilerplate program is required
+                </div>
+              </div>
             </div>
           </div>
         </div>

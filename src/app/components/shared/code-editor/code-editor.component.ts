@@ -1,4 +1,10 @@
-import { Component, OnInit, Output, Input, EventEmitter, AfterViewChecked } from '@angular/core';
+import { 
+  Component, 
+  OnInit, 
+  Output, 
+  Input, 
+  EventEmitter, 
+  AfterViewChecked } from '@angular/core';
 import { FormGroup, FormControl } from "@angular/forms";
 
 import { AuthService } from "../../../services/auth/auth.service";

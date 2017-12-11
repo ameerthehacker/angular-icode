@@ -16,6 +16,7 @@ import { ModalService } from "../../../services/modal/modal.service";
 import { Challenge } from "../../../models/challenge";
 
 declare var $: any;
+declare var CodeMirror: any;
 
 @Component({
   selector: 'ic-challenges-form',
@@ -29,8 +30,10 @@ export class ChallengesFormComponent implements OnInit, AfterViewChecked {
   isFormLoading: boolean = false;
   challenge: Challenge;
   compilers: any[];
+  boilerPlatesLoading: boolean = true;
   // Flag to indicate whether form is used for creating challenge or for updating
   isEditForm: boolean = false;
+  codeEditors: any[] = [];
 
   constructor(private authService: AuthService, private flashMessageService: FlashMessageService, private router: Router, private activatedRoute: ActivatedRoute, private modalService: ModalService) { }
 
@@ -72,9 +75,34 @@ export class ChallengesFormComponent implements OnInit, AfterViewChecked {
     });
   }
   ngAfterViewChecked() {
-    $('select.dropdown').dropdown();    
+    $('select.dropdown').dropdown();
+    // Initialize all the existing code editors once the form is loaded
+    if(!this.isFormLoading && this.boilerPlatesLoading) {
+      this.challenge.boilerplates.forEach((boilerplate:any, index) => {
+        let compiler = this.getCompilerByCode(boilerplate.code);
+        this.initCodeEditor(index, compiler);
+      });
+      this.boilerPlatesLoading = false;
+    }
   }
 
+  private initCodeEditor(i, compiler) {
+    let boilerplate = document.getElementById(`boilerplate-${i + 1}`);    
+    
+    if(!this.codeEditors[i]) {
+      this.codeEditors[i] = CodeMirror.fromTextArea(boilerplate, {
+        mode: compiler.mode,
+        lineNumbers: true
+      });
+    }
+    else {
+      this.codeEditors[i].setOption('mode', compiler.mode);
+    }
+  }
+  private getCompilerByCode(code) {
+    let compiler = this.compilers.find((compiler) => compiler.code == code); 
+    return compiler;
+  }
   private setFormProcessingStatus(status: boolean) {
     this.isFormLoading = status;
     if(status) {
@@ -117,18 +145,10 @@ export class ChallengesFormComponent implements OnInit, AfterViewChecked {
     });
     return testCasesForm;
   }
-  private initBoilerplateForm(boilerplate = undefined): FormGroup {
-    let defaultLanguage;
-    if(this.compilers.length != 0) {
-      defaultLanguage = this.compilers[0].code;
-    }
-    // Select the first language by default
-    let code = boilerplate ? boilerplate.code: defaultLanguage;
-    let program = boilerplate ? boilerplate.boilerplate: '';
-    console.log(program);
+  private initBoilerplateForm(boilerplate = { code: '', boilerplate: '' }): FormGroup {
     let boilerplateForm: FormGroup = new FormGroup({
-      'langCode': new FormControl(code),
-      'boilerplate': new FormControl(program, Validators.required)
+      'langCode': new FormControl(boilerplate.code),
+      'boilerplate': new FormControl(boilerplate.boilerplate)
     });
 
     return boilerplateForm;
@@ -138,11 +158,18 @@ export class ChallengesFormComponent implements OnInit, AfterViewChecked {
     if(boilerplates == undefined) {
       return newBoilerplatesForm;
     }
-    boilerplates.forEach((boilerplate) => {
+    boilerplates.forEach((boilerplate, index) => {
       let boilerplateForm = this.initBoilerplateForm(boilerplate);
       newBoilerplatesForm.push(boilerplateForm);
     });
     return newBoilerplatesForm;
+  }
+  onLanguageChanged(evt, i) {
+    if(evt.target.selectedIndex != -1) {
+      let code = evt.target.options[evt.target.selectedIndex].value;
+      let compiler = this.getCompilerByCode(code);
+      this.initCodeEditor(i, compiler);
+    }
   }
   onSubmitClick() {
     let challenge: Challenge = new Challenge();
@@ -163,10 +190,10 @@ export class ChallengesFormComponent implements OnInit, AfterViewChecked {
       }
       challenge.testCases.push(newTestCase);
     });
-    (<FormArray>this.challengesForm.get('boilerplates')).controls.forEach((control) => {
+    (<FormArray>this.challengesForm.get('boilerplates')).controls.forEach((control, index) => {
       let newBoilerplate = {
         'code': control.get('langCode').value,
-        'boilerplate': control.get('boilerplate').value
+        'boilerplate': this.codeEditors[index].getValue()
       }
       challenge.boilerplates.push(newBoilerplate);
     });
@@ -209,7 +236,7 @@ export class ChallengesFormComponent implements OnInit, AfterViewChecked {
   }
   onBtnAddBoilerplateClick() {
     let newBoilerplateForm = this.initBoilerplateForm();
-    (<FormArray>this.challengesForm.get('boilerplates')).push(newBoilerplateForm);
+    (<FormArray>this.challengesForm.get('boilerplates')).push(newBoilerplateForm);  
   }
   onBtnRemoveBoilerplateClick(i: number) {
     (<FormArray>this.challengesForm.get('boilerplates')).removeAt(i);    
@@ -243,6 +270,9 @@ export class ChallengesFormComponent implements OnInit, AfterViewChecked {
   }
   output(i) {
     return (<FormArray>this.challengesForm.get('testCases')).controls[i].get('output');
+  }
+  get boilerplates() {
+    return (<FormArray>this.challengesForm.get('boilerplates')).controls;
   }
   getBoilerplate(i) {
     return (<FormArray>this.challengesForm.get('boilerplates')).controls[i].get('boilerplate');
