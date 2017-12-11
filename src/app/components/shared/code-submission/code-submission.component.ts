@@ -108,7 +108,13 @@ export class CodeSubmissionComponent implements OnInit {
         this.codeEditorComponent.setCode(response.submission.code);
       }
       else {
-        this.codeEditorComponent.initCodeEditor(compiler, compiler.boilerplate);          
+        let boilerplate: any = this.challenge.boilerplates.find((boilerplate: any) => boilerplate.code == compiler.code);
+        if(boilerplate) {
+          this.codeEditorComponent.setCode(boilerplate.boilerplate);
+        }
+        else {
+          this.codeEditorComponent.initCodeEditor(compiler, compiler.boilerplate);
+        }         
       }
       this.codeEditorComponent.isLoading = false;
     }, false);
