@@ -12,9 +12,9 @@
                 <p>{{ challenge.constraints }}</p>
                 <div class="margin-10" *ngFor="let sampleTestCase of challenge.sampleTestCases; let i = index">
                     <h1>Sample TestCase {{ i + 1 }}</h1>
-                    <h4>Input</h4>
+                    <h4>Input:</h4>
                     <pre class="gray-box">{{ sampleTestCase.input }}</pre>
-                    <h4>Output</h4>
+                    <h4>Output:</h4>
                     <pre class="gray-box">{{ sampleTestCase.output }}</pre>
                     <h4>Explanation</h4>
                     <p>
@@ -43,24 +43,30 @@
         </div>
         <div class="row" *ngIf="customTestCase">
             <div class="column sixteen wide">
+                <h4>Input:</h4>                    
                 <div class="gray-box">
-                    <h4>Input:</h4>
                     <pre>{{ customTestCase.input }}</pre>
-                    <h4>Your output: </h4>
-                    <pre>{{ customTestCase.output }}</pre>
+                </div>
+                <h4>Your output: </h4>
+                <div class="gray-box">
+                    <pre>{{ customTestCase.output }}</pre>                
                 </div>
             </div>
         </div>
         <div class="row" *ngFor="let sampleTestCaseResult of sampleTestCasesResult; let i = index">
             <div class="column sixteen wide">
                 <h4 [ngClass]="{ 'green-text': sampleTestCaseResult.passed, 'red-text': !sampleTestCaseResult.passed }"><i class="fa" [ngClass]="{ 'fa-check': sampleTestCaseResult.passed, 'fa-times': !sampleTestCaseResult.passed }"></i> &nbsp; Sample Testcase {{ i + 1 }}</h4>
+                <h4>Input:</h4>
                 <div class="gray-box">
-                    <h4>Input:</h4>
                     <pre>{{ sampleTestCaseResult.input }}</pre>
-                    <h4>Expected output: </h4>
-                    <pre>{{ sampleTestCaseResult.expectedOutput }}</pre>
-                    <h4>Your output: </h4>
-                    <pre>{{ sampleTestCaseResult.msg }}</pre>
+                </div>
+                <h4>Expected output: </h4>
+                <div class="gray-box">
+                    <pre>{{ sampleTestCaseResult.expectedOutput }}</pre>   
+                </div>
+                <h4>Your output: </h4>
+                <div class="gray-box">
+                    <pre>{{ sampleTestCaseResult.msg }}</pre>                
                 </div>
             </div>
         </div>
