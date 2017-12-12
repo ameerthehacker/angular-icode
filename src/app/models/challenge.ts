@@ -5,9 +5,7 @@ export class Challenge {
     inputFormat: string;
     outputFormat: string;
     constraints: string;
-    sampleInput: string;
-    sampleOutput: string;
-    explanation: string;
+    sampleTestCases: Array<Object>;
     slug: string;
     userId: string;
     testCases: Array<Object>;

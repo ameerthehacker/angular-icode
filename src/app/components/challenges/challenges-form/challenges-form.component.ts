@@ -41,6 +41,7 @@ export class ChallengesFormComponent implements OnInit, AfterViewChecked {
     this.compilers = [];
     this.challenge = new Challenge();
     this.challenge.testCases = [];
+    this.challenge.sampleTestCases = [];    
     this.challenge.boilerplates = [];
     this.challengesForm = this.initChallengesForm(this.challenge);
     
@@ -119,12 +120,31 @@ export class ChallengesFormComponent implements OnInit, AfterViewChecked {
       'inputFormat': new FormControl(challenge.inputFormat, Validators.required),
       'outputFormat': new FormControl(challenge.outputFormat, Validators.required),
       'constraints': new FormControl(challenge.constraints, Validators.required),      
-      'sampleInput': new FormControl(challenge.sampleInput, Validators.required),
-      'sampleOutput': new FormControl(challenge.sampleOutput, Validators.required),
-      'explanation': new FormControl(challenge.explanation, Validators.required),
+      'sampleTestCases': new FormArray(this.initSampleTestCasesForm(this.challenge.sampleTestCases)),
       'testCases': new FormArray(this.initTestCasesForm(this.challenge.testCases)),
       'boilerplates': new FormArray(this.initBoilerplatesForm(this.challenge.boilerplates))
     });
+  }
+  private initSampleTestCaseForm(testCase): FormGroup {
+    return new FormGroup({
+      'input': new FormControl(testCase.input, Validators.required),
+      'output': new FormControl(testCase.output, Validators.required),
+      'explanation': new FormControl(testCase.explanation, Validators.required)
+    });
+  }
+  private initSampleTestCasesForm(testCases): FormGroup [] {
+    let sampleTestCasesForm: FormGroup[] = [];
+    if(testCases.length == 0) {
+      let newTestCase = { input: '', output: '', explanation: '' };
+      let newTestCaseForm = this.initSampleTestCaseForm(newTestCase);
+      sampleTestCasesForm.push(newTestCaseForm);
+      return sampleTestCasesForm;
+    }
+    testCases.forEach((testCase) => {
+      let testCaseForm = this.initSampleTestCaseForm(testCase);
+      sampleTestCasesForm.push(testCaseForm);
+    });
+    return sampleTestCasesForm;
   }
   private initTestCaseForm(testCase): FormGroup {
     return new FormGroup({
@@ -138,11 +158,13 @@ export class ChallengesFormComponent implements OnInit, AfterViewChecked {
       let newTestCase = { input: '', output: '' };
       let newTestCaseForm = this.initTestCaseForm(newTestCase);
       testCasesForm.push(newTestCaseForm);
+      return testCasesForm;
     }
     testCases.forEach((testCase) => {
       let testCaseForm = this.initTestCaseForm(testCase);
       testCasesForm.push(testCaseForm);
     });
+
     return testCasesForm;
   }
   private initBoilerplateForm(boilerplate = { code: '', boilerplate: '' }): FormGroup {
@@ -155,13 +177,11 @@ export class ChallengesFormComponent implements OnInit, AfterViewChecked {
   }
   private initBoilerplatesForm(boilerplates): FormGroup[] {
     let newBoilerplatesForm: FormGroup[] = [];
-    if(boilerplates == undefined) {
-      return newBoilerplatesForm;
-    }
     boilerplates.forEach((boilerplate, index) => {
       let boilerplateForm = this.initBoilerplateForm(boilerplate);
       newBoilerplatesForm.push(boilerplateForm);
     });
+    
     return newBoilerplatesForm;
   }
   onLanguageChanged(evt, i) {
@@ -178,11 +198,17 @@ export class ChallengesFormComponent implements OnInit, AfterViewChecked {
     challenge.inputFormat = this.inputFormat.value;
     challenge.outputFormat = this.outputFormat.value;
     challenge.constraints = this.constraints.value;
-    challenge.sampleInput = this.sampleInput.value;
-    challenge.sampleOutput = this.sampleOutput.value;
-    challenge.explanation = this.explanation.value;
+    challenge.sampleTestCases = [];
     challenge.testCases = [];
     challenge.boilerplates = [];    
+    (<FormArray>this.challengesForm.get('sampleTestCases')).controls.forEach((control) => {
+      let newTestCase = {
+        'input': control.get('input').value,
+        'output': control.get('output').value,
+        'explanation': control.get('explanation').value
+      }
+      challenge.sampleTestCases.push(newTestCase);
+    });
     (<FormArray>this.challengesForm.get('testCases')).controls.forEach((control) => {
       let newTestCase = {
         'input': control.get('input').value,
@@ -234,6 +260,14 @@ export class ChallengesFormComponent implements OnInit, AfterViewChecked {
   onBtnRemoveTestCaseClick(i: number) {
     (<FormArray>this.challengesForm.get('testCases')).removeAt(i);
   }
+  onBtnAddSampleTestCaseClick() {
+    let newTestCase = { input: '', output: '', explanation: '' };
+    let newTestCaseForm = this.initSampleTestCaseForm(newTestCase);
+    (<FormArray>this.challengesForm.get('sampleTestCases')).push(newTestCaseForm);
+  }
+  onBtnRemoveSampleTestCaseClick(i) {
+    (<FormArray>this.challengesForm.get('sampleTestCases')).removeAt(i);    
+  }
   onBtnAddBoilerplateClick() {
     let newBoilerplateForm = this.initBoilerplateForm();
     (<FormArray>this.challengesForm.get('boilerplates')).push(newBoilerplateForm);  
@@ -256,20 +290,20 @@ export class ChallengesFormComponent implements OnInit, AfterViewChecked {
   get constraints() {
     return this.challengesForm.get('constraints');
   }
-  get sampleInput() {
-    return this.challengesForm.get('sampleInput');
-  }
-  get sampleOutput() {
-    return this.challengesForm.get('sampleOutput');
-  }
-  get explanation() {
-    return this.challengesForm.get('explanation');
-  }
   input(i) {
     return (<FormArray>this.challengesForm.get('testCases')).controls[i].get('input');
   }
   output(i) {
     return (<FormArray>this.challengesForm.get('testCases')).controls[i].get('output');
+  }
+  sampleInput(i) {
+    return (<FormArray>this.challengesForm.get('sampleTestCases')).controls[i].get('input');    
+  }
+  sampleOutput(i) {
+    return (<FormArray>this.challengesForm.get('sampleTestCases')).controls[i].get('output');    
+  }
+  explanation(i) {
+    return (<FormArray>this.challengesForm.get('sampleTestCases')).controls[i].get('explanation');    
   }
   get boilerplates() {
     return (<FormArray>this.challengesForm.get('boilerplates')).controls;

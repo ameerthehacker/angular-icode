@@ -22,7 +22,7 @@ export class CodeSubmissionComponent implements OnInit {
   submittedForId: string;
   points: any;
   compileMessage = false;
-  sampleTestCase:any = false;
+  sampleTestCasesResult:any = [];
   @ViewChild(CodeEditorComponent)
   codeEditorComponent: CodeEditorComponent;
   testCaseResults: Object[] = [];
@@ -70,33 +70,24 @@ export class CodeSubmissionComponent implements OnInit {
         }
       }
       else if(data.type == 'sampleTestCase') {
-        let result = data.result;
-
-        if(result.error) {
-          if(!result.compiled) {
-            this.compileMessage = result.msg;
-          }
-          socket.unsubscribe();
-        }
-        else {
-            this.compileMessage = false;                        
-            this.sampleTestCase = {
-              passed: result.sampleTestCasePassed,
-              input: this.challenge.sampleInput,
-              output: result.msg,
-              expectedOutput: this.challenge.sampleOutput
-            }
-        }
+        this.sampleTestCasesResult = data.result.msg;
+        this.sampleTestCasePassed = data.result.passed;
       }
       else if(data.type == 'testCase') {
         this.testCaseResults[data.index] = data.result;
       }
     });
-    this.compileMessage = this.sampleTestCase = this.customTestCase = false;
+    this.compileMessage = this.customTestCase = this.sampleTestCasePassed = false;
+    this.sampleTestCasesResult = [];
     this.codeEditorComponent.setIsSubmitting(true);
     this.authService.post(`challenges/${this.challenge.slug}/submissions`, body, (response) => {
       this.points = response.points;    
-      socket.unsubscribe();
+      if(response.error) {
+        if(!response.compiled) {
+          this.compileMessage = response.msg;
+          socket.unsubscribe();
+        }
+      }
       this.codeEditorComponent.setIsSubmitting(false);      
     }, false);
   }

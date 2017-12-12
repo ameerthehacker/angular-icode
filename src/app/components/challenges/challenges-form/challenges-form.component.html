@@ -43,25 +43,38 @@
         </div>
       </div>
       <div class="field">
-        <label for="sampleInput">Sample Input</label>
-        <textarea id="sampleInput" formControlName="sampleInput" placeholder="Example input" rows="3"></textarea>
-        <div class="error-field" *ngIf="!sampleInput.valid && sampleInput.touched">
-          sample input is required
+        <label for="">Sample Test Cases</label>
+      </div>
+      <div *ngFor="let sampleTestCase of challengesForm.get('sampleTestCases').controls; let i = index" class="field" formArrayName="sampleTestCases">
+        <div [formGroupName]="i">
+          <div class="fields">
+            <div class="eight wide field">
+              <label for="sampleInput">Sample Input {{ i + 1 }}</label>
+              <textarea id="sampleInput" formControlName="input" placeholder="Example input" rows="3"></textarea>
+              <div class="error-field" *ngIf="!sampleInput(i).valid && sampleInput(i).touched">
+                sample input {{ i + 1 }} is required
+              </div>
+            </div>
+            <div class="eight wide field">
+              <label for="sampleOutput">Sample Output {{ i + 1 }}</label>
+              <textarea id="sampleOutput" formControlName="output" placeholder="Example ouput" rows="3"></textarea>
+              <div class="error-field" *ngIf="!sampleOutput(i).valid && sampleOutput(i).touched">
+                sample output {{ i + 1 }} is required
+              </div>
+            </div>
+          </div>
+          <div class="field">
+              <label for="explanation">Explanation</label>
+              <textarea id="explanation" formControlName="explanation" placeholder="Explanation for the example" rows="3"></textarea>
+              <div class="error-field" *ngIf="!explanation(i).valid && explanation(i).touched">
+                explanation is required
+              </div>
+              <button (click)="onBtnRemoveSampleTestCaseClick(i)" [disabled]="challengesForm.get('sampleTestCases').controls.length == 1" class="ui tiny button negative margin-10"><i class="fa fa-trash"></i></button>
+          </div>
         </div>
       </div>
       <div class="field">
-        <label for="sampleOutput">Sample Output</label>
-        <textarea id="sampleOutput" formControlName="sampleOutput" placeholder="Example ouput" rows="3"></textarea>
-        <div class="error-field" *ngIf="!sampleOutput.valid && sampleOutput.touched">
-          sample output is required
-        </div>
-      </div>
-      <div class="field">
-        <label for="explanation">Explanation</label>
-        <textarea id="explanation" formControlName="explanation" placeholder="Explanation for the example" rows="3"></textarea>
-        <div class="error-field" *ngIf="!explanation.valid && explanation.touched">
-          explanation is required
-        </div>
+        <button class="ui tiny primary button" (click)="onBtnAddSampleTestCaseClick()"><i class="fa fa-plus"></i> Add Sample Test Case</button>
       </div>
       <div class="field">
         <label>Test Cases</label>

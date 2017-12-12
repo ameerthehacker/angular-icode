@@ -10,12 +10,17 @@
                 <p>{{ challenge.outputFormat }}</p>
                 <h1>Constraints</h1>
                 <p>{{ challenge.constraints }}</p>
-                <h1>Sample Input</h1>
-                <p class="line-break">{{ challenge.sampleInput }}</p>
-                <h1>Sample Output</h1>
-                <p class="line-break">{{ challenge.sampleOutput }}</p>
-                <h1>Explanation</h1>
-                <p>{{ challenge.explanation }}</p>
+                <div class="margin-10" *ngFor="let sampleTestCase of challenge.sampleTestCases; let i = index">
+                    <h1>Sample TestCase {{ i + 1 }}</h1>
+                    <h4>Input</h4>
+                    <pre class="gray-box">{{ sampleTestCase.input }}</pre>
+                    <h4>Output</h4>
+                    <pre class="gray-box">{{ sampleTestCase.output }}</pre>
+                    <h4>Explanation</h4>
+                    <p>
+                        {{ sampleTestCase.explanation }}
+                    </p>            
+                </div>
             </div>
         </div>
         <div class="row">
@@ -46,20 +51,20 @@
                 </div>
             </div>
         </div>
-        <div class="row" *ngIf="sampleTestCase">
+        <div class="row" *ngFor="let sampleTestCaseResult of sampleTestCasesResult; let i = index">
             <div class="column sixteen wide">
-                <h4><i [class]="sampleTestCase.passed ? 'fa fa-check': 'fa fa-times'"></i> &nbsp; Sample Testcase</h4>
+                <h4 [ngClass]="{ 'green-text': sampleTestCaseResult.passed, 'red-text': !sampleTestCaseResult.passed }"><i class="fa" [ngClass]="{ 'fa-check': sampleTestCaseResult.passed, 'fa-times': !sampleTestCaseResult.passed }"></i> &nbsp; Sample Testcase {{ i + 1 }}</h4>
                 <div class="gray-box">
                     <h4>Input:</h4>
-                    <pre>{{ sampleTestCase.input }}</pre>
+                    <pre>{{ sampleTestCaseResult.input }}</pre>
                     <h4>Expected output: </h4>
-                    <pre>{{ sampleTestCase.expectedOutput }}</pre>
+                    <pre>{{ sampleTestCaseResult.expectedOutput }}</pre>
                     <h4>Your output: </h4>
-                    <pre>{{ sampleTestCase.output }}</pre>
+                    <pre>{{ sampleTestCaseResult.msg }}</pre>
                 </div>
             </div>
         </div>
-        <div class="row" *ngIf="sampleTestCase.passed">
+        <div class="row" *ngIf="sampleTestCasePassed">
             <div class="column sixteen wide">
                 <table class="ui celled table">
                     <thead>
