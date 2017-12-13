@@ -3,13 +3,13 @@
         <div class="row">
             <div class="column sixteen wide">
                 <h1>Problem Statement</h1>
-                <p>{{ challenge.problemStatement }}</p>
+                <p class="line-break">{{ challenge.problemStatement }}</p>
                 <h1>Input Format</h1>
-                <p>{{ challenge.inputFormat }}</p>
+                <p class="line-break">{{ challenge.inputFormat }}</p>
                 <h1>Output Format</h1>
-                <p>{{ challenge.outputFormat }}</p>
+                <p class="line-break">{{ challenge.outputFormat }}</p>
                 <h1>Constraints</h1>
-                <p>{{ challenge.constraints }}</p>
+                <p class="line-break">{{ challenge.constraints }}</p>
                 <div class="margin-10" *ngFor="let sampleTestCase of challenge.sampleTestCases; let i = index">
                     <h1>Sample TestCase {{ i + 1 }}</h1>
                     <h4>Input:</h4>
