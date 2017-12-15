@@ -60,6 +60,7 @@ import { PlaygroundComponent } from './components/playground/playground.componen
 import { UsersComponent } from './components/users/users.component';
 import { UsersFormComponent } from './components/users/users-form/users-form.component';
 import { UsersListComponent } from './components/users/users-list/users-list.component';
+import { LeaderboardComponent } from './components/shared/leaderboard/leaderboard.component';
 
 @NgModule({
   declarations: [
@@ -107,7 +108,8 @@ import { UsersListComponent } from './components/users/users-list/users-list.com
     PlaygroundComponent,
     UsersComponent,
     UsersFormComponent,
-    UsersListComponent
+    UsersListComponent,
+    LeaderboardComponent
   ],
   imports: [
     BrowserModule,

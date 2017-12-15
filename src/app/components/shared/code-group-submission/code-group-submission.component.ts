@@ -21,7 +21,7 @@ export class CodeGroupSubmissionComponent implements OnInit, AfterViewInit {
 
   constructor() { }
 
-  ngOnInit() {  
+  ngOnInit() {
   }
   ngAfterViewInit() {
     // Initialize the semantic ui tab

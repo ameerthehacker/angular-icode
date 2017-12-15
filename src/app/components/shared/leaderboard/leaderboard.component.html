@@ -1,0 +1,19 @@
+<div class="ui grid">
+  <div class="row">
+    <div class="sixteen wide column">
+      <div class="ui segments">
+        <div *ngFor="let leader of leaders" class="ui segment clearfix">
+          <h3 class="pull-left"><i class="fa fa-user"></i> &nbsp; {{ leader.fullName }}</h3>
+          <div class="ui mini horizontal statistic pull-right">
+              <div class="value">
+                {{ leader.points }}
+              </div>
+              <div class="label">
+                Points
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

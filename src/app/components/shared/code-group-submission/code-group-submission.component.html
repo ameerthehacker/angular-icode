@@ -22,6 +22,7 @@
   <ic-code-submission [challenge]="selectedChallenge" [type]  ="typeOfSubmission" [for]="submissionForId"></ic-code-submission>    
 </div>
 <div class="ui bottom attached tab segment" data-tab="leaderboard">
+  <ic-leaderboard *ngIf="submissionForId" [for]="submissionForId"></ic-leaderboard>
 </div>
 
 
