@@ -36,6 +36,7 @@
         "../node_modules/codemirror/mode/php/php.js",  
         "../node_modules/codemirror/mode/shell/shell.js",
         "../node_modules/codemirror/mode/ruby/ruby.js",
+        "../node_modules/codemirror/mode/javascript/javascript.js",        
         "scripts.js"
       ],
       "environmentSource": "environments/environment.ts",
