@@ -1,0 +1,24 @@
+<div class="ui fluid labeled icon top right pointing dropdown large gray button" (change)="onItemSelected($event)">
+  <input name="search" value="0" type="hidden">
+  <i class="code icon"></i>
+  <div class="default text">
+    <span *ngIf="defaultToFirst">{{ items ? items[0][name]: '' }}</span>
+    <span *ngIf="!defaultToFirst">{{ 'Select ' + kind + '...' }}</span>    
+  </div>
+  <div class="menu">
+    <div class="ui icon search input">
+        <i class="search icon"></i>
+        <input placeholder="Search..." type="text">
+    </div>
+    <div class="divider"></div>
+    <div class="header">
+      <i class="code icon"></i>  
+      {{ kind }}
+    </div>
+    <div class="scrolling menu">
+      <div *ngFor="let item of items; let i = index" class="item" [attr.data-value]="i">
+            {{ item[name] }}
+      </div>
+    </div>
+  </div>
+</div>

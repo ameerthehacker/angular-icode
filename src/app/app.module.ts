@@ -61,6 +61,7 @@ import { UsersComponent } from './components/users/users.component';
 import { UsersFormComponent } from './components/users/users-form/users-form.component';
 import { UsersListComponent } from './components/users/users-list/users-list.component';
 import { LeaderboardComponent } from './components/shared/leaderboard/leaderboard.component';
+import { DropdownComponent } from './components/shared/dropdown/dropdown.component';
 
 @NgModule({
   declarations: [
@@ -109,7 +110,8 @@ import { LeaderboardComponent } from './components/shared/leaderboard/leaderboar
     UsersComponent,
     UsersFormComponent,
     UsersListComponent,
-    LeaderboardComponent
+    LeaderboardComponent,
+    DropdownComponent
   ],
   imports: [
     BrowserModule,
