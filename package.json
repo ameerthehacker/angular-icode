@@ -23,6 +23,7 @@
     "@angular/router": "^4.0.0",
     "angular2-jwt": "^0.2.3",
     "codemirror": "^5.29.0",
+    "codemirror-mode-elixir": "^1.1.1",
     "core-js": "^2.4.1",
     "date-and-time": "^0.5.0",
     "font-awesome": "^4.7.0",
