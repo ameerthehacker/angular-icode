@@ -29,7 +29,6 @@ export class CodeGroupSubmissionComponent implements OnInit, AfterViewInit {
   }
 
   onBtnSolveClick(index) {
-    console.log(index);
     this.selectedChallenge = this.challenges[index];
     // Change to submission tab
     $('.menu .item').tab('change tab', 'submissions');     

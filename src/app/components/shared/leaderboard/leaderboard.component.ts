@@ -27,7 +27,6 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
     }
     this.socket = this.authService.getSocketObservable(this.submittedForId).subscribe(() => {
       this.loadLeaders();
-      console.log('yahh');
     });    
   }
   ngOnDestroy() {
