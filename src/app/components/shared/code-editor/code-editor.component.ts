@@ -3,9 +3,9 @@ import {
   OnInit, 
   Output, 
   Input, 
-  EventEmitter, 
-  AfterViewChecked } from '@angular/core';
+  EventEmitter } from '@angular/core';
 import { FormGroup, FormControl } from "@angular/forms";
+import { DropdownComponent } from '../dropdown/dropdown.component';
 
 import { AuthService } from "../../../services/auth/auth.service";
 
@@ -57,9 +57,6 @@ export class CodeEditorComponent implements OnInit {
       customInput: new FormControl()
     });
   }
-  ngAfterViewChecked() {
-    $('select.dropdown').dropdown();
-  }
 
   initCodeEditor(compiler: any, code: string) {
     let codeEditor = document.getElementById('code-editor');
@@ -81,10 +78,8 @@ export class CodeEditorComponent implements OnInit {
   setCode(code: string) {
     this.codeEditor.setOption('value', code);
   }
-  onLanguageChange(evt) {
-    let target = evt.target;
-    this.compiler = this.compilers[target.selectedIndex];
-    this.onLanguageChanged.emit(this.compilers[target.selectedIndex]);
+  onLanguageChange(compiler) {
+    this.onLanguageChanged.emit(compiler);
   }
   setIsSubmitting(status: boolean) {
     this.isSubmitting = status;

@@ -108,8 +108,9 @@
           </div>
           <div class="ui segments">
             <div class="ui secondary segment">
-              <div class="three column wide field">
+              <div class="three column wide field">             
                 <select (change)="onLanguageChanged($event, i)" class="dropdown" formControlName="langCode">
+                  <option value="" disabled selected>Select Language...</option>
                   <option *ngFor="let compiler of compilers" [value]="compiler.code">{{ compiler.language }}</option>
                 </select>
               </div>         
