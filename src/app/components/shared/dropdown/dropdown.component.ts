@@ -22,7 +22,7 @@ export class DropdownComponent implements OnInit {
   items: any[];
   @Input()
   name: string;
-  @Output('select')
+  @Output('onItemChange')
   onItemChange: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() { }

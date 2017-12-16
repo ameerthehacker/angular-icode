@@ -6,7 +6,7 @@
           <div class="pull-left">
             <h1><i class="fa fa-code-fork"></i> &nbsp; Current Buffer &nbsp; <span *ngIf="points">[Points: {{ points }}]</span></h1>
           </div>
-          <ic-dropdown class="pull-right" kind="Languages" [items]="compilers" name="language" (select)="onLanguageChange($event)"></ic-dropdown>
+          <ic-dropdown class="pull-right" kind="Languages" [items]="compilers" name="language" (onItemChange)="onLanguageChange($event)"></ic-dropdown>
         </div>
         <div class="ui segment no-padding">
           <div *ngIf="isLoading" class="ui active text loader">Loading Editor</div>
