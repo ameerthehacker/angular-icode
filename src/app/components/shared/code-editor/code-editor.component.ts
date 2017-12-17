@@ -79,6 +79,7 @@ export class CodeEditorComponent implements OnInit {
     this.codeEditor.setOption('value', code);
   }
   onLanguageChange(compiler) {
+    this.compiler = compiler;
     this.onLanguageChanged.emit(compiler);
   }
   setIsSubmitting(status: boolean) {
