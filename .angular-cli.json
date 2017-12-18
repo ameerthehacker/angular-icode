@@ -43,8 +43,7 @@
         "../node_modules/codemirror/mode/rust/rust.js",        
         "../node_modules/codemirror/mode/haskell/haskell.js",
         "../node_modules/codemirror/mode/perl/perl.js",
-        "../node_modules/codemirror/mode/groovy/groovy.js", 
-        "../node_modules/codemirror-mode-elixir/dist/elixir.min.js",        
+        "../node_modules/codemirror/mode/groovy/groovy.js",        "../node_modules/codemirror-mode-elixir/dist/elixir.min.js",
         "scripts.js"
       ],
       "environmentSource": "environments/environment.ts",
