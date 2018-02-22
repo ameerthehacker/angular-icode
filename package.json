@@ -8,6 +8,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
+    "ngh":
+      "ng build --prod --aot=false --base-href https://ameerthehacker.github.io/icode/ && ngh",
     "e2e": "ng e2e"
   },
   "private": true,
