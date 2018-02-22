@@ -25,7 +25,7 @@ export class UsersFormComponent implements OnInit {
   user: User;
   btnSubmitText = 'Submit';
 
-  constructor(private authService: AuthService, private activatedRoute: ActivatedRoute, private router: Router, private flashMessageService: FlashMessageService, private modalService: ModalService) { }
+  constructor(public authService: AuthService, private activatedRoute: ActivatedRoute, private router: Router, private flashMessageService: FlashMessageService, private modalService: ModalService) { }
 
   ngOnInit() {
     this.user = new User();

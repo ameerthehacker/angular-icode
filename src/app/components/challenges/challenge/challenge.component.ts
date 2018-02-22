@@ -17,7 +17,7 @@ export class ChallengeComponent implements OnInit {
   challengeDeleted: EventEmitter<string> = new EventEmitter<string>();
   userIsOwner: boolean;
 
-  constructor(private authService: AuthService, private router: Router, private modalService: ModalService) { }
+  constructor(public authService: AuthService, private router: Router, private modalService: ModalService) { }
 
   ngOnInit() {
     if(this.challenge.userId == this.authService.getCurrentUserId()) {

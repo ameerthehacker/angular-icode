@@ -24,7 +24,7 @@ export class GroupComponent implements OnInit {
   @Output('delete')
   groupDeleted: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private authService: AuthService, private modalService: ModalService) { }
+  constructor(public authService: AuthService, private modalService: ModalService) { }
 
   ngOnInit() {
     if(this.group.userId == this.authService.getCurrentUserId()) {

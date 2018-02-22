@@ -20,7 +20,7 @@ export class AssignmentSubmissionComponent implements OnInit {
   assignmentSlug: string;
   assignment: Assignment = new Assignment();
 
-  constructor(private authService: AuthService, private activatedRoute: ActivatedRoute, private flashMessageService: FlashMessageService, private router: Router, private timerService: TimerService) { }
+  constructor(public authService: AuthService, private activatedRoute: ActivatedRoute, private flashMessageService: FlashMessageService, private router: Router, private timerService: TimerService) { }
 
   ngOnInit() {
     this.activatedRoute.parent.params.subscribe((params) => {

@@ -20,7 +20,7 @@ export class UsersListComponent implements OnInit {
   @ViewChild(PaginationComponent)
   pagination: PaginationComponent;
 
-  constructor(private authService: AuthService, private activatedRoute: ActivatedRoute) { }
+  constructor(public authService: AuthService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe((params) => {

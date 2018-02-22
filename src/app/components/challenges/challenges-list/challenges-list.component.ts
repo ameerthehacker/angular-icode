@@ -17,7 +17,7 @@ export class ChallengesListComponent implements OnInit {
   @ViewChild(PaginationComponent)
   pagination: PaginationComponent
 
-  constructor(private authService: AuthService, private route: ActivatedRoute) { }
+  constructor(public authService: AuthService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
@@ -26,7 +26,7 @@ export class ChallengesListComponent implements OnInit {
     });
   }
 
-  private loadChallenges(page) {
+  public loadChallenges(page) {
     this.authService.get(`challenges?page=${page}`, (response: any) => {
       if(!response.error) {
         this.pagination.paginate(page, response.msg.limit, response.msg.total);

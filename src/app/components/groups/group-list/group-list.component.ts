@@ -22,7 +22,7 @@ export class GroupListComponent implements OnInit {
   @ViewChild(PaginationComponent)
   pagination: PaginationComponent;  
 
-  constructor(private authService: AuthService, private route: ActivatedRoute) { }
+  constructor(public authService: AuthService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {

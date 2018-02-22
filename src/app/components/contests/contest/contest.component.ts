@@ -28,7 +28,7 @@ export class ContestComponent implements OnInit {
   @Output('delete')
   contestDeleted: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private authService: AuthService, private activatedRoute: ActivatedRoute, private modalService: ModalService) { }
+  constructor(public authService: AuthService, private activatedRoute: ActivatedRoute, private modalService: ModalService) { }
 
   ngOnInit() {
     // Set the ownership flag

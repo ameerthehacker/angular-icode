@@ -16,7 +16,7 @@ export class ChallengeSubmissionComponent implements OnInit {
   typeOfSubmission: string = 'practice';
   points: any;
 
-  constructor(private activatedRoute: ActivatedRoute, private authService: AuthService) { }
+  constructor(private activatedRoute: ActivatedRoute, public authService: AuthService) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params) => {

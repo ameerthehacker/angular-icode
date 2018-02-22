@@ -12,7 +12,7 @@ import { FlashMessageService } from "../../../services/flash-message/flash-messa
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router, private flashMessageService: FlashMessageService) { }
+  constructor(public authService: AuthService, private router: Router, private flashMessageService: FlashMessageService) { }
 
   loginForm: FormGroup;
   error: false;

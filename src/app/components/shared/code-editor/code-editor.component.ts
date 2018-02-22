@@ -43,7 +43,7 @@ export class CodeEditorComponent implements OnInit {
   hasCustomInput: boolean = false;
   frmCustomInput: FormGroup;
 
-  constructor(private authService: AuthService) { }
+  constructor(public authService: AuthService) { }
 
   ngOnInit() {
     this.authService.get('compilers', (response: any) => {

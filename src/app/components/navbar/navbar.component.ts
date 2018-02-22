@@ -16,7 +16,7 @@ export class NavbarComponent implements OnInit {
   sideBarVisible: boolean = false;
   timerVisible: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router, private flashMessageService: FlashMessageService, private timerService: TimerService) { }
+  constructor(public authService: AuthService, private router: Router, private flashMessageService: FlashMessageService, private timerService: TimerService) { }
 
   ngOnInit() {
     this.router.events.filter(event => event instanceof NavigationStart).subscribe(() => {

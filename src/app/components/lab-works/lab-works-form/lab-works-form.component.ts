@@ -32,7 +32,7 @@ export class LabWorksFormComponent implements OnInit {
   isFormLoading: boolean = false;
   isEditForm: boolean = false;
 
-  constructor(private authService: AuthService, private activatedRoute: ActivatedRoute, private flashMessageServie: FlashMessageService, private router: Router, private modalService: ModalService) { }
+  constructor(public authService: AuthService, private activatedRoute: ActivatedRoute, private flashMessageServie: FlashMessageService, private router: Router, private modalService: ModalService) { }
 
   ngOnInit() {
     this.isFormLoading = true;    

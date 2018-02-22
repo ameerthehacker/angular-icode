@@ -23,7 +23,7 @@ export class GroupFormComponent implements OnInit {
   // Flag to check whether the form is for creating new group or updating
   isEditForm: boolean = false;
 
-  constructor(private authService: AuthService, private flashMessageService: FlashMessageService, private router: Router, private activatedRoute: ActivatedRoute, private modalService: ModalService) { }
+  constructor(public authService: AuthService, private flashMessageService: FlashMessageService, private router: Router, private activatedRoute: ActivatedRoute, private modalService: ModalService) { }
 
   ngOnInit() {
     this.group = new Group();    

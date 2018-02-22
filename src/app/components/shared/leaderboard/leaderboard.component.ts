@@ -19,7 +19,7 @@ export class LeaderboardComponent implements OnInit, OnDestroy {
   leaders: any = [];
   socket: Subscription;  
 
-  constructor(private authService: AuthService) { }
+  constructor(public authService: AuthService) { }
 
   ngOnInit() {
     if(this.submittedForId) {

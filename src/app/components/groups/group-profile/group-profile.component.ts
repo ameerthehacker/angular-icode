@@ -14,7 +14,7 @@ export class GroupProfileComponent implements OnInit {
 
   group: Group;
 
-  constructor(private authService: AuthService, private activatedRoute: ActivatedRoute) { }
+  constructor(public authService: AuthService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.activatedRoute.params.subscribe((params) => {

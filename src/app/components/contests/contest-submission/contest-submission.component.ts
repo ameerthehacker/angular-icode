@@ -20,7 +20,7 @@ export class ContestSubmissionComponent implements OnInit {
   contestSlug: string;
   contest: Contest = new Contest();
 
-  constructor(private authService: AuthService, private activatedRoute: ActivatedRoute, private flashMessageService: FlashMessageService, private router: Router, private timerService: TimerService) { }
+  constructor(public authService: AuthService, private activatedRoute: ActivatedRoute, private flashMessageService: FlashMessageService, private router: Router, private timerService: TimerService) { }
 
   ngOnInit() {
     this.activatedRoute.parent.params.subscribe((params) => {

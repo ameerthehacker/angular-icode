@@ -26,7 +26,7 @@ export class AssignmentComponent implements OnInit {
   @Output('delete')
   assignmentDeleted: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private authService: AuthService, private activatedRoute: ActivatedRoute, private modalService: ModalService) { }
+  constructor(public authService: AuthService, private activatedRoute: ActivatedRoute, private modalService: ModalService) { }
 
   ngOnInit() {
     // Set the ownership flag

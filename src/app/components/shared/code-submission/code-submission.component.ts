@@ -29,7 +29,7 @@ export class CodeSubmissionComponent implements OnInit {
   sampleTestCasePassed: boolean;
   customTestCase: any = false;
 
-  constructor(private authService: AuthService) { }
+  constructor(public authService: AuthService) { }
 
   ngOnInit() {
   }

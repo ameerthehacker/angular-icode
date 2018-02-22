@@ -1,7 +1,8 @@
 <div class="ui grid">
   <div class="row">
     <div class="sixteen column wide">
-      <h3 class="text-center"><i class="fa fa-thumbs-o-up"></i> &nbsp; New Challenge</h3>        
+      <h3 class="text-center">
+        <i class="fa fa-thumbs-o-up"></i> &nbsp; New Challenge</h3>
     </div>
   </div>
   <div class="two wide column"></div>
@@ -32,7 +33,7 @@
         <label for="outputFormat">Output Format</label>
         <textarea id="outputFormat" formControlName="outputFormat" placeholder="The format of output" rows="3"></textarea>
         <div class="error-field" *ngIf="!outputFormat.valid && outputFormat.touched">
-           output format is required
+          output format is required
         </div>
       </div>
       <div class="field">
@@ -45,7 +46,7 @@
       <div class="field">
         <label for="">Sample Test Cases</label>
       </div>
-      <div *ngFor="let sampleTestCase of challengesForm.get('sampleTestCases').controls; let i = index" class="field" formArrayName="sampleTestCases">
+      <div *ngFor="let sampleTestCase of sampleTestCases; let i = index" class="field" formArrayName="sampleTestCases">
         <div [formGroupName]="i">
           <div class="fields">
             <div class="eight wide field">
@@ -64,74 +65,84 @@
             </div>
           </div>
           <div class="field">
-              <label for="explanation">Explanation</label>
-              <textarea id="explanation" formControlName="explanation" placeholder="Explanation for the example" rows="3"></textarea>
-              <div class="error-field" *ngIf="!explanation(i).valid && explanation(i).touched">
-                explanation is required
-              </div>
-              <button (click)="onBtnRemoveSampleTestCaseClick(i)" [disabled]="challengesForm.get('sampleTestCases').controls.length == 1" class="ui tiny button negative margin-10"><i class="fa fa-trash"></i></button>
+            <label for="explanation">Explanation</label>
+            <textarea id="explanation" formControlName="explanation" placeholder="Explanation for the example" rows="3"></textarea>
+            <div class="error-field" *ngIf="!explanation(i).valid && explanation(i).touched">
+              explanation is required
+            </div>
+            <button (click)="onBtnRemoveSampleTestCaseClick(i)" [disabled]="sampleTestCases.length == 1" class="ui tiny button negative margin-10">
+              <i class="fa fa-trash"></i>
+            </button>
           </div>
         </div>
       </div>
       <div class="field">
-        <button class="ui tiny primary button" (click)="onBtnAddSampleTestCaseClick()"><i class="fa fa-plus"></i> Add Sample Test Case</button>
+        <button class="ui tiny primary button" (click)="onBtnAddSampleTestCaseClick()">
+          <i class="fa fa-plus"></i> Add Sample Test Case</button>
       </div>
       <div class="field">
         <label>Test Cases</label>
       </div>
-      <div class="field" formArrayName="testCases" *ngFor="let testCase of challengesForm.get('testCases').controls; let i = index">
+      <div class="field" formArrayName="testCases" *ngFor="let testCase of testCases; let i = index">
         <div class="fields" [formGroupName]="i">
-            <div class="eight wide field">
-                <label for="input-{{ i + 1 }}">Input {{ i + 1 }}</label>
-                <textarea id="input-{{ i + 1 }}" rows="3" formControlName="input" placeholder="Input to the program"></textarea>
-                <div class="error-field" *ngIf="!input(i).valid && input(i).touched">
-                  input {{ i + 1 }} is required
-                </div>
-                <button (click)="onBtnRemoveTestCaseClick(i)" [disabled]="challengesForm.get('testCases').controls.length == 1" class="ui tiny button negative margin-10"><i class="fa fa-trash"></i></button>
+          <div class="eight wide field">
+            <label for="input-{{ i + 1 }}">Input {{ i + 1 }}</label>
+            <textarea id="input-{{ i + 1 }}" rows="3" formControlName="input" placeholder="Input to the program"></textarea>
+            <div class="error-field" *ngIf="!input(i).valid && input(i).touched">
+              input {{ i + 1 }} is required
             </div>
-            <div class="eight wide field">
-              <label for="output-{{ i + 1 }}">Output {{ i + 1 }}</label>
-              <textarea id="output-{{ i + 1 }}" rows="3" formControlName="output" placeholder="Output for the program"></textarea>
-              <div class="error-field" *ngIf="!output(i).valid && output(i).touched">
-                output {{ i + 1 }} is required
-              </div>
+            <button (click)="onBtnRemoveTestCaseClick(i)" [disabled]="testCases.length == 1" class="ui tiny button negative margin-10">
+              <i class="fa fa-trash"></i>
+            </button>
+          </div>
+          <div class="eight wide field">
+            <label for="output-{{ i + 1 }}">Output {{ i + 1 }}</label>
+            <textarea id="output-{{ i + 1 }}" rows="3" formControlName="output" placeholder="Output for the program"></textarea>
+            <div class="error-field" *ngIf="!output(i).valid && output(i).touched">
+              output {{ i + 1 }} is required
             </div>
+          </div>
         </div>
       </div>
       <div class="field">
-        <button class="ui tiny primary button" (click)="onBtnAddTestCaseClick()"><i class="fa fa-plus"></i> Add Test Case</button>
+        <button class="ui tiny primary button" (click)="onBtnAddTestCaseClick()">
+          <i class="fa fa-plus"></i> Add Test Case</button>
       </div>
-      <div class="field" formArrayName="boilerplates" *ngFor="let boilerplate of challengesForm.get('boilerplates').controls; let i = index">
+      <div class="field" formArrayName="boilerplates" *ngFor="let boilerplate of boilerplates; let i = index">
         <div [formGroupName]="i">
           <div class="field">
-              <label for="">Boilerplate {{ i + 1 }}</label>          
+            <label for="">Boilerplate {{ i + 1 }}</label>
           </div>
           <div class="ui segments">
             <div class="ui secondary segment">
-              <div class="three column wide field">             
+              <div class="three column wide field">
                 <select (change)="onLanguageChanged($event, i)" class="dropdown" formControlName="langCode">
                   <option value="" disabled selected>Select Language...</option>
                   <option *ngFor="let compiler of compilers" [value]="compiler.code">{{ compiler.language }}</option>
                 </select>
-              </div>         
-            </div> 
+              </div>
+            </div>
             <div class="ui segment no-padding">
               <div class="field">
                 <textarea class="no-border-radius" id="boilerplate-{{ i + 1 }}" formControlName="boilerplate" rows="10"></textarea>
                 <div class="error-field" *ngIf="!getBoilerplate(i).valid && getBoilerplate(i).touched">
-                    some boilerplate program is required
+                  some boilerplate program is required
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <button (click)="onBtnRemoveBoilerplateClick(i)" class="ui tiny button negative margin-10"><i class="fa fa-trash"></i></button> 
+        <button (click)="onBtnRemoveBoilerplateClick(i)" class="ui tiny button negative margin-10">
+          <i class="fa fa-trash"></i>
+        </button>
       </div>
       <div class="field">
-        <button class="ui tiny primary button" (click)="onBtnAddBoilerplateClick()"><i class="fa fa-plus"></i> Add Boilerplate</button>
+        <button class="ui tiny primary button" (click)="onBtnAddBoilerplateClick()">
+          <i class="fa fa-plus"></i> Add Boilerplate</button>
       </div>
       <div class="field">
-        <input type="submit" [value]="btnSubmitText" (click)="onSubmitClick()" class="ui button positive" [disabled]="!challengesForm.valid"/>
+        <input type="submit" [value]="btnSubmitText" (click)="onSubmitClick()" class="ui button positive" [disabled]="!challengesForm.valid"
+        />
       </div>
     </form>
   </div>

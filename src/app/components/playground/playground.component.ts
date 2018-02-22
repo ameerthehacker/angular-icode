@@ -17,7 +17,7 @@ export class PlaygroundComponent implements OnInit {
   output: any = false;
   compileMessage: any = false;
 
-  constructor(private authService: AuthService) { }
+  constructor(public authService: AuthService) { }
 
   ngOnInit() {
   }
